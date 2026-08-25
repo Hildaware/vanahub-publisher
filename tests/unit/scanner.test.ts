@@ -88,10 +88,7 @@ describe('scanner', () => {
   });
 
   it('accepts the existing VanaHub test addon', async () => {
-    const lua = await readFile(
-      '../vanahub-test-addon/addon/vanahub-test-addon/vanahub-test-addon.lua',
-      'utf8',
-    );
+    const lua = await readFile('tests/fixtures/vanahub-test-addon.lua', 'utf8');
     const report = scanEntries(
       [entry('vanahub-test-addon/vanahub-test-addon.lua', lua)],
       'vanahub-test-addon',
