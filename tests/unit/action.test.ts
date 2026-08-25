@@ -74,4 +74,38 @@ describe('bundled publishing action', () => {
       '/releases/download/v1.2.3/sample-1.2.3.zip',
     );
   });
+
+  it('reads hyphenated GitHub Action input names without rewriting them', () => {
+    temporary = mkdtempSync(join(tmpdir(), 'vanahub-action-input-'));
+    const eventPath = join(temporary, 'event.json');
+    writeFileSync(
+      eventPath,
+      JSON.stringify({
+        release: {
+          tag_name: 'v1.2.3',
+          draft: false,
+          prerelease: false,
+        },
+      }),
+    );
+    let stderr = '';
+    try {
+      execFileSync('node', ['dist-action/index.js'], {
+        cwd: process.cwd(),
+        env: {
+          ...process.env,
+          GITHUB_WORKSPACE: temporary,
+          GITHUB_REPOSITORY: 'author/sample',
+          GITHUB_EVENT_PATH: eventPath,
+          'INPUT_RELEASE-TAG': 'v9.9.9',
+        },
+        stdio: 'pipe',
+      });
+    } catch (error) {
+      stderr = String((error as { stderr?: Buffer }).stderr || error);
+    }
+    expect(stderr).toContain(
+      'Release event tag v1.2.3 does not match requested tag v9.9.9.',
+    );
+  });
 });

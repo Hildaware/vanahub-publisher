@@ -26,7 +26,7 @@ const validateManifest = ajv.compile(packageSchema);
 
 function input(name: string, fallback = ''): string {
   return (
-    process.env[`INPUT_${name.replaceAll('-', '_').toUpperCase()}`] || fallback
+    process.env[`INPUT_${name.replaceAll(' ', '_').toUpperCase()}`] || fallback
   );
 }
 
