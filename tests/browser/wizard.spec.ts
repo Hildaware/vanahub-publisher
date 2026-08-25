@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { resolve } from 'node:path';
+import { BlobWriter, TextReader, ZipWriter } from '@zip.js/zip.js';
 
 test('loads beneath the Pages subpath and navigates accessibly', async ({
   page,
@@ -19,9 +19,16 @@ test('imports source, forgets drafts, and announces status', async ({
   page,
 }) => {
   await page.goto('./');
-  await page
-    .getByLabel('Choose addon folder')
-    .setInputFiles(resolve('../vanahub-test-addon/addon/vanahub-test-addon'));
+  const writer = new ZipWriter(new BlobWriter('application/zip'), {
+    useWebWorkers: false,
+  });
+  await writer.add('sample/sample.lua', new TextReader('return true\n'));
+  const archive = await writer.close();
+  await page.getByLabel('Choose existing ZIP').setInputFiles({
+    name: 'sample.zip',
+    mimeType: 'application/zip',
+    buffer: Buffer.from(await archive.arrayBuffer()),
+  });
   await expect(page.getByText(/Loaded 1 files/)).toBeVisible();
   await expect(page.getByText('1 included files')).toBeVisible();
   await page.getByRole('button', { name: 'Forget everything' }).click();
