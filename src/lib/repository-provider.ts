@@ -1,11 +1,14 @@
 import { githubProvider } from './github';
-import type { GitHubRepository } from './types';
+import type { GitHubRepository, SourceEntry } from './types';
 
 export interface RepositoryProvider<TRepository = GitHubRepository> {
   id: string;
   matches(value: string): boolean;
   inspect(value: string): Promise<TRepository>;
-  download(repository: TRepository): Promise<Blob>;
+  load(
+    repository: TRepository,
+    onProgress?: (value: number) => void,
+  ): Promise<SourceEntry[]>;
 }
 
 const providers: RepositoryProvider[] = [githubProvider];

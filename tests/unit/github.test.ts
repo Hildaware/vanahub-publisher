@@ -1,13 +1,16 @@
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import {
   addonCandidates,
   archiveWrapper,
+  loadGitHubRepository,
   parseGitHubRepository,
   selectedArchiveRoot,
 } from '../../src/lib/github';
 import { repositoryProvider } from '../../src/lib/repository-provider';
 
 describe('GitHub repository sources', () => {
+  afterEach(() => vi.unstubAllGlobals());
+
   it('accepts canonical public repository URLs', () => {
     expect(parseGitHubRepository('https://github.com/Owner/addon.git')).toEqual(
       { owner: 'Owner', name: 'addon' },
@@ -34,5 +37,50 @@ describe('GitHub repository sources', () => {
     expect(selectedArchiveRoot(wrapper, 'examples/demo')).toBe(
       'Owner-addon-deadbeef/examples/demo',
     );
+  });
+
+  it('loads an immutable snapshot without GitHub archive redirects', async () => {
+    const fetchMock = vi
+      .fn()
+      .mockResolvedValueOnce(
+        new Response(
+          JSON.stringify({
+            truncated: false,
+            tree: [
+              {
+                path: 'addon/sample.lua',
+                mode: '100644',
+                type: 'blob',
+                size: 12,
+              },
+            ],
+          }),
+          { status: 200 },
+        ),
+      )
+      .mockResolvedValueOnce(new Response('return true\n', { status: 200 }));
+    vi.stubGlobal('fetch', fetchMock);
+
+    const progress: number[] = [];
+    const entries = await loadGitHubRepository(
+      {
+        owner: 'Owner',
+        name: 'addon',
+        url: 'https://github.com/Owner/addon',
+        defaultBranch: 'main',
+        commit: 'deadbeef',
+      },
+      (value) => progress.push(value),
+    );
+
+    expect(fetchMock.mock.calls[0][0]).toContain(
+      '/git/trees/deadbeef?recursive=1',
+    );
+    expect(fetchMock.mock.calls[1][0]).toBe(
+      'https://raw.githubusercontent.com/Owner/addon/deadbeef/addon/sample.lua',
+    );
+    expect(entries[0].path).toBe('addon/sample.lua');
+    expect(new TextDecoder().decode(entries[0].bytes)).toBe('return true\n');
+    expect(progress).toEqual([1]);
   });
 });

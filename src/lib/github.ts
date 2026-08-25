@@ -1,5 +1,6 @@
 import type { GitHubRepository, SourceEntry } from './types';
 import type { RepositoryProvider } from './repository-provider';
+import policy from '../../vendor/vanahub/scanner-policy.json';
 
 const githubRepository =
   /^https:\/\/github\.com\/([A-Za-z0-9_.-]+)\/([A-Za-z0-9_.-]+?)(?:\.git)?\/?$/;
@@ -57,23 +58,82 @@ export async function inspectGitHubRepository(
   };
 }
 
-export async function downloadGitHubArchive(
+interface GitTreeEntry {
+  path: string;
+  mode: string;
+  type: 'blob' | 'tree' | 'commit';
+  size?: number;
+}
+
+interface GitTree {
+  truncated: boolean;
+  tree: GitTreeEntry[];
+}
+
+function rawUrl(repository: GitHubRepository, path: string): string {
+  const encodedPath = path.split('/').map(encodeURIComponent).join('/');
+  return `https://raw.githubusercontent.com/${encodeURIComponent(repository.owner)}/${encodeURIComponent(repository.name)}/${repository.commit}/${encodedPath}`;
+}
+
+export async function loadGitHubRepository(
   repository: GitHubRepository,
-): Promise<Blob> {
-  const response = await fetch(
-    `https://api.github.com/repos/${encodeURIComponent(repository.owner)}/${encodeURIComponent(repository.name)}/zipball/${repository.commit}`,
-    { headers: { Accept: 'application/vnd.github+json' } },
+  onProgress?: (value: number) => void,
+): Promise<SourceEntry[]> {
+  const snapshot = (await githubJson(
+    `https://api.github.com/repos/${encodeURIComponent(repository.owner)}/${encodeURIComponent(repository.name)}/git/trees/${repository.commit}?recursive=1`,
+  )) as GitTree;
+  if (snapshot.truncated)
+    throw new Error(
+      'This repository is too large for browser inspection. Use the local folder/ZIP fallback.',
+    );
+
+  const unsupported = snapshot.tree.find((entry) => entry.type === 'commit');
+  if (unsupported)
+    throw new Error(
+      `Git submodules are not supported (${unsupported.path}). Use a local folder/ZIP with the complete addon source.`,
+    );
+  const files = snapshot.tree.filter((entry) => entry.type === 'blob');
+  if (files.length > policy.limits.entries)
+    throw new Error('Repository entry limit exceeded.');
+  const expanded = files.reduce((total, entry) => total + (entry.size ?? 0), 0);
+  if (expanded > policy.limits.expandedBytes)
+    throw new Error('Repository expanded-size limit exceeded.');
+  const oversized = files.find(
+    (entry) => (entry.size ?? 0) > policy.limits.entryBytes,
   );
-  if (!response.ok)
-    throw new Error(`GitHub archive download failed (${response.status}).`);
-  return response.blob();
+  if (oversized)
+    throw new Error(`Repository file is too large (${oversized.path}).`);
+
+  const entries: SourceEntry[] = [];
+  for (let index = 0; index < files.length; index += 1) {
+    const file = files[index];
+    let response: Response;
+    try {
+      response = await fetch(rawUrl(repository, file.path));
+    } catch {
+      throw new Error(`GitHub file download failed (${file.path}).`);
+    }
+    if (!response.ok)
+      throw new Error(
+        `GitHub file download failed (${response.status}: ${file.path}).`,
+      );
+    const bytes = new Uint8Array(await response.arrayBuffer());
+    entries.push({
+      path: file.path,
+      bytes,
+      uncompressedSize: file.size ?? bytes.byteLength,
+      externalAttributes: file.mode === '120000' ? 0xa000 << 16 : undefined,
+    });
+    onProgress?.((index + 1) / Math.max(files.length, 1));
+  }
+  return entries;
 }
 
 export const githubProvider: RepositoryProvider<GitHubRepository> = {
   id: 'github',
   matches: (value) => parseGitHubRepository(value) !== null,
   inspect: inspectGitHubRepository,
-  download: downloadGitHubArchive,
+  load: loadGitHubRepository,
 };
 
 export function archiveWrapper(entries: SourceEntry[]): string {

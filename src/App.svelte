@@ -103,7 +103,7 @@
         );
       repository = await provider.inspect(repositoryUrl);
       status = `Fetching commit ${repository.commit.slice(0, 12)}…`;
-      await readArchive(await provider.download(repository));
+      entries = await provider.load(repository, (value) => (progress = value));
       wrapper = archiveWrapper(entries);
       sourcePaths = addonCandidates(entries, wrapper);
       if (!sourcePaths.length)
