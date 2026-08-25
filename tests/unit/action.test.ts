@@ -5,6 +5,7 @@ import {
   mkdirSync,
   readFileSync,
   rmSync,
+  symlinkSync,
   writeFileSync,
 } from 'node:fs';
 import { tmpdir } from 'node:os';
@@ -107,5 +108,56 @@ describe('bundled publishing action', () => {
     expect(stderr).toContain(
       'Release event tag v1.2.3 does not match requested tag v9.9.9.',
     );
+  });
+
+  it('rejects a sourcePath symlink that escapes the repository', () => {
+    temporary = mkdtempSync(join(tmpdir(), 'vanahub-action-symlink-'));
+    const outside = mkdtempSync(join(tmpdir(), 'vanahub-action-outside-'));
+    mkdirSync(join(temporary, '.vanahub'));
+    symlinkSync(outside, join(temporary, 'addon'));
+    writeFileSync(join(outside, 'sample.lua'), 'return true\n');
+    writeFileSync(
+      join(temporary, '.vanahub', 'package.json'),
+      JSON.stringify({
+        schemaVersion: 1,
+        id: 'sample',
+        name: 'Sample',
+        description: 'Sample addon',
+        author: 'Author',
+        sourcePath: 'addon',
+        declaredCapabilities: [],
+      }),
+    );
+    writeFileSync(
+      join(temporary, '.vanahub.json'),
+      JSON.stringify({
+        schemaVersion: 1,
+        packages: { sample: { maintainers: ['author'] } },
+      }),
+    );
+    const eventPath = join(temporary, 'event.json');
+    writeFileSync(
+      eventPath,
+      JSON.stringify({
+        release: {
+          tag_name: 'v1.2.3',
+          draft: false,
+          prerelease: false,
+        },
+      }),
+    );
+    expect(() =>
+      execFileSync('node', ['dist-action/index.js'], {
+        cwd: process.cwd(),
+        env: {
+          ...process.env,
+          GITHUB_WORKSPACE: temporary,
+          GITHUB_REPOSITORY: 'author/sample',
+          GITHUB_EVENT_PATH: eventPath,
+        },
+        stdio: 'pipe',
+      }),
+    ).toThrow();
+    rmSync(outside, { recursive: true, force: true });
   });
 });

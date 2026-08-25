@@ -53,7 +53,12 @@ describe('repository automation', () => {
       "if: github.event_name == 'release' || inputs.release-tag != ''",
     );
     expect(workflow).toContain(`uses: Hildaware/vanahub-publisher@${ref}`);
-    expect(workflow).toContain('github-token: ${{ github.token }}');
+    expect(workflow).toContain(
+      'release-metadata-path: ${{ runner.temp }}/vanahub-release.json',
+    );
+    expect(workflow).toContain('persist-credentials: false');
+    expect(workflow).toContain('permissions: {}');
+    expect(workflow).not.toContain('github-token: ${{ github.token }}');
     expect(workflow).not.toContain('Transient');
   });
 

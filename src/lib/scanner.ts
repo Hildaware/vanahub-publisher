@@ -25,6 +25,9 @@ const blockedCapabilities: Record<string, string> = {
   ffi: 'native-interop',
   socket: 'network',
   'ssl.https': 'network',
+  os: 'process-execution',
+  io: 'file-access',
+  package: 'dynamic-code',
   'os.execute': 'process-execution',
   'io.popen': 'process-execution',
   'package.loadlib': 'native-interop',
@@ -97,7 +100,18 @@ export function luaFindings(
   for (const [capability, pattern] of capabilityPatterns)
     if (pattern.test(text)) suggestions.add(capability);
 
-  for (const symbol of policy.blockedSymbols) {
+  const blockedSymbols = new Set([
+    ...policy.blockedSymbols,
+    'os',
+    'io',
+    'package',
+    'loadfile',
+    'getfenv',
+    'setfenv',
+    '_ENV',
+    'string.dump',
+  ]);
+  for (const symbol of blockedSymbols) {
     const pattern = new RegExp(
       `(?<![A-Za-z0-9_])${escapeRegex(symbol)}(?![A-Za-z0-9_])`,
       'gi',
@@ -283,7 +297,9 @@ export function scanEntries(
       entrypointFound = true;
     const suffix = extension(relative);
     const privilegedEngine =
-      policy.privilegedPackageIds.includes(metadata.id) &&
+      metadata.id === 'vanahub' &&
+      metadata.sourceUrl.replace(/\/$/, '').toLowerCase() ===
+        'https://github.com/hildaware/vanahub' &&
       relative.toLowerCase() === 'bin/vanahub_engine.dll';
     if (!policy.allowedExtensions.includes(suffix) && !privilegedEngine)
       findings.push(

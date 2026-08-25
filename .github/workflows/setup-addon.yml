@@ -14,8 +14,17 @@ on:
 
 jobs:
   setup:
+    permissions:
+      contents: write
+      pull-requests: write
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
+      - name: Require immutable publisher revision
+        env:
+          VH_PUBLISHER_REF: ${{ inputs.publisher-ref }}
+        run: |
+          [[ "$VH_PUBLISHER_REF" =~ ^[0-9a-f]{40}$ ]]
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           fetch-depth: 0

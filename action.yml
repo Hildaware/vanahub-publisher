@@ -7,6 +7,9 @@ inputs:
   github-token:
     description: Repository token used to read release metadata when publishing by tag.
     required: false
+  release-metadata-path:
+    description: Path to trusted GitHub Release JSON resolved by the caller.
+    required: false
   config-path:
     description: Repository-relative VanaHub package configuration.
     required: false

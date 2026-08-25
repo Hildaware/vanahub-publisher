@@ -54,29 +54,38 @@ on:
   release:
     types: [published]
 
-permissions:
-  contents: write
-  pull-requests: write
+permissions: {}
 
 jobs:
   setup:
     if: github.event_name == 'workflow_dispatch' && inputs.release-tag == ''
+    permissions:
+      contents: write
+      pull-requests: write
     uses: Hildaware/vanahub-publisher/.github/workflows/setup-addon.yml@${payload.publisherRef}
     with:
       setup: ${encoded}
       publisher-ref: ${payload.publisherRef}
   publish:
     if: github.event_name == 'release' || inputs.release-tag != ''
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
           ref: \${{ inputs.release-tag || github.event.release.tag_name }}
+          persist-credentials: false
+      - name: Resolve published release metadata
+        env:
+          GH_TOKEN: \${{ github.token }}
+          VH_TAG: \${{ inputs.release-tag || github.event.release.tag_name }}
+        run: gh api "repos/\${GITHUB_REPOSITORY}/releases/tags/\${VH_TAG}" > "\${RUNNER_TEMP}/vanahub-release.json"
       - id: package
         uses: Hildaware/vanahub-publisher@${payload.publisherRef}
         with:
           release-tag: \${{ inputs.release-tag || github.event.release.tag_name }}
-          github-token: \${{ github.token }}
+          release-metadata-path: \${{ runner.temp }}/vanahub-release.json
       - name: Attach VanaHub assets
         env:
           GH_TOKEN: \${{ github.token }}

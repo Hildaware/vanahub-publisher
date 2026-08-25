@@ -1,7 +1,9 @@
 import {
   appendFileSync,
+  existsSync,
   lstatSync,
   mkdirSync,
+  realpathSync,
   readFileSync,
   readdirSync,
   writeFileSync,
@@ -19,6 +21,7 @@ import {
 } from './lib/project';
 import type { PublisherConfig, SourceEntry } from './lib/types';
 import { resolveGitHubRelease } from './lib/release';
+import policy from '../vendor/vanahub/scanner-policy.json';
 
 const ajv = new Ajv2020({ allErrors: true, strict: false });
 addFormats(ajv);
@@ -73,11 +76,17 @@ function validateConfig(value: any): asserts value is PublisherConfig {
   }
 }
 
-function sourceEntries(root: string): SourceEntry[] {
+function isWithin(root: string, candidate: string): boolean {
+  return candidate === root || candidate.startsWith(`${root}${sep}`);
+}
+
+function sourceEntries(root: string, excludedRoot: string): SourceEntry[] {
   const entries: SourceEntry[] = [];
+  let totalBytes = 0;
   const walk = (directory: string) => {
     for (const name of readdirSync(directory)) {
       const path = join(directory, name);
+      if (isWithin(excludedRoot, path)) continue;
       const stat = lstatSync(path);
       const normalized = relative(root, path).split(sep).join('/');
       if (
@@ -93,11 +102,19 @@ function sourceEntries(root: string): SourceEntry[] {
       if (stat.isSymbolicLink())
         throw new Error(`Symbolic link is not publishable: ${normalized}`);
       if (stat.isDirectory()) walk(path);
-      else if (stat.isFile())
+      else if (stat.isFile()) {
+        if (stat.size > policy.limits.entryBytes)
+          throw new Error(`Source file is too large: ${normalized}`);
+        totalBytes += stat.size;
+        if (totalBytes > policy.limits.expandedBytes)
+          throw new Error('Source expanded-size limit exceeded.');
+        if (entries.length >= policy.limits.entries)
+          throw new Error('Source entry limit exceeded.');
         entries.push({
           path: normalized,
           bytes: new Uint8Array(readFileSync(path)),
         });
+      }
     }
   };
   walk(root);
@@ -105,7 +122,7 @@ function sourceEntries(root: string): SourceEntry[] {
 }
 
 async function main() {
-  const workspace = resolve(process.env.GITHUB_WORKSPACE || '.');
+  const workspace = realpathSync(resolve(process.env.GITHUB_WORKSPACE || '.'));
   const repository = process.env.GITHUB_REPOSITORY || '';
   const [owner, repositoryName] = repository.split('/');
   if (!owner || !repositoryName)
@@ -113,6 +130,9 @@ async function main() {
   const event = JSON.parse(
     readFileSync(process.env.GITHUB_EVENT_PATH || '', 'utf8'),
   );
+  const releaseMetadataPath = input('release-metadata-path');
+  if (releaseMetadataPath)
+    event.release = JSON.parse(readFileSync(releaseMetadataPath, 'utf8'));
   const release = await resolveGitHubRelease(
     event,
     repository,
@@ -123,11 +143,17 @@ async function main() {
     workspace,
     input('config-path', '.vanahub/package.json'),
   );
+  if (
+    !isWithin(workspace, configPath) ||
+    !isWithin(workspace, realpathSync(configPath))
+  )
+    throw new Error('config-path escapes the repository.');
   const config = JSON.parse(readFileSync(configPath, 'utf8'));
   validateConfig(config);
-  const authorization = JSON.parse(
-    readFileSync(resolve(workspace, '.vanahub.json'), 'utf8'),
-  );
+  const authorizationPath = resolve(workspace, '.vanahub.json');
+  if (!isWithin(workspace, realpathSync(authorizationPath)))
+    throw new Error('.vanahub.json must not resolve outside the repository.');
+  const authorization = JSON.parse(readFileSync(authorizationPath, 'utf8'));
   const maintainers = authorization?.packages?.[config.id]?.maintainers;
   if (!Array.isArray(maintainers) || !maintainers.length)
     throw new Error(`.vanahub.json does not authorize ${config.id}.`);
@@ -149,9 +175,25 @@ async function main() {
   const metadataProblems = validateMetadata(metadata);
   if (metadataProblems.length) throw new Error(metadataProblems.join('\n'));
   const sourceRoot = resolve(workspace, config.sourcePath);
-  if (sourceRoot !== workspace && !sourceRoot.startsWith(`${workspace}${sep}`))
+  if (
+    !isWithin(workspace, sourceRoot) ||
+    !isWithin(workspace, realpathSync(sourceRoot))
+  )
     throw new Error('sourcePath escapes the repository.');
-  const entries = sourceEntries(sourceRoot);
+  if (!lstatSync(sourceRoot).isDirectory())
+    throw new Error('sourcePath must be a directory.');
+  const outputDirectory = resolve(
+    workspace,
+    input('output-directory', '.vanahub-output'),
+  );
+  if (
+    outputDirectory === workspace ||
+    !isWithin(workspace, outputDirectory) ||
+    (existsSync(outputDirectory) &&
+      !isWithin(workspace, realpathSync(outputDirectory)))
+  )
+    throw new Error('output-directory escapes the repository.');
+  const entries = sourceEntries(sourceRoot, outputDirectory);
   const report = scanEntries(entries, '', metadata);
   if (!report.eligibleForScreenedCatalog)
     throw new Error(
@@ -178,15 +220,6 @@ async function main() {
         .map((error) => `${error.instancePath || 'manifest'} ${error.message}`)
         .join('\n'),
     );
-  const outputDirectory = resolve(
-    workspace,
-    input('output-directory', '.vanahub-output'),
-  );
-  if (
-    outputDirectory !== workspace &&
-    !outputDirectory.startsWith(`${workspace}${sep}`)
-  )
-    throw new Error('output-directory escapes the repository.');
   mkdirSync(outputDirectory, { recursive: true });
   writeFileSync(
     join(outputDirectory, artifactName),

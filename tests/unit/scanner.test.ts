@@ -87,6 +87,18 @@ describe('scanner', () => {
     expect(custom.structurallyValid).toBe(true);
   });
 
+  it('blocks aliases of dangerous standard libraries', () => {
+    const report = scanEntries(
+      [entry('sample/sample.lua', "local runner = os\nrunner.execute('calc')")],
+      'sample',
+      metadata(),
+    );
+    expect(report.findings.map((finding) => finding.ruleId)).toContain(
+      'lua.blocked-symbol',
+    );
+    expect(report.eligibleForScreenedCatalog).toBe(false);
+  });
+
   it('accepts the existing VanaHub test addon', async () => {
     const lua = await readFile('tests/fixtures/vanahub-test-addon.lua', 'utf8');
     const report = scanEntries(
@@ -100,5 +112,22 @@ describe('scanner', () => {
       }),
     );
     expect(report.eligibleForScreenedCatalog).toBe(true);
+  });
+
+  it('does not grant the engine DLL exception to an unofficial source', () => {
+    const report = scanEntries(
+      [
+        entry('vanahub/vanahub.lua', 'return true'),
+        entry('vanahub/bin/vanahub_engine.dll', 'PE'),
+      ],
+      'vanahub',
+      metadata({
+        id: 'vanahub',
+        sourceUrl: 'https://github.com/attacker/vanahub',
+      }),
+    );
+    expect(report.findings.map((finding) => finding.ruleId)).toContain(
+      'zip.file-type',
+    );
   });
 });

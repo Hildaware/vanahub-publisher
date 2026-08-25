@@ -4,3 +4,9 @@ test-results/
 playwright-report/
 coverage/
 .DS_Store
+.env
+.env.*
+*.key
+*.pem
+*.p12
+*.pfx
