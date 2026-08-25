@@ -43,3 +43,50 @@ test('imports source, forgets drafts, and announces status', async ({
     ),
   ).not.toContain('vanahub-test-addon.lua');
 });
+
+test('shows repository files immediately after inspection', async ({
+  page,
+}) => {
+  await page.route('https://api.github.com/**', async (route) => {
+    const url = route.request().url();
+    if (url.endsWith('/repos/Owner/sample'))
+      return route.fulfill({
+        json: {
+          private: false,
+          owner: { login: 'Owner' },
+          name: 'sample',
+          html_url: 'https://github.com/Owner/sample',
+          default_branch: 'main',
+        },
+      });
+    if (url.endsWith('/commits/main'))
+      return route.fulfill({ json: { sha: 'deadbeef1234567890' } });
+    if (url.includes('/git/trees/deadbeef1234567890?recursive=1'))
+      return route.fulfill({
+        json: {
+          truncated: false,
+          tree: [
+            {
+              path: 'addon/sample/sample.lua',
+              mode: '100644',
+              type: 'blob',
+              size: 12,
+            },
+          ],
+        },
+      });
+    return route.abort();
+  });
+  await page.route('https://raw.githubusercontent.com/**', (route) =>
+    route.fulfill({ body: 'return true\n', contentType: 'text/plain' }),
+  );
+
+  await page.goto('./');
+  await page
+    .getByLabel('GitHub repository URL')
+    .fill('https://github.com/Owner/sample');
+  await page.getByRole('button', { name: 'Inspect repository' }).click();
+
+  await expect(page.getByText('1 included files')).toBeVisible();
+  await expect(page.getByText('sample.lua', { exact: true })).toBeVisible();
+});

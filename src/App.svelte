@@ -48,6 +48,7 @@
   let wrapper = '';
   let sourcePaths: string[] = [];
   let sourcePath = '.';
+  let includedFiles: SourceEntry[] = [];
   let report: ValidationReport | null = null;
   let busy = false;
   let progress = 0;
@@ -71,6 +72,10 @@
   $: newFileUrl = repository
     ? githubNewFileUrl(repository.url, repository.defaultBranch)
     : '';
+  $: includedFiles = entries.filter((entry) => {
+    const prefix = selectedRoot ? `${selectedRoot.replace(/\/$/, '')}/` : '';
+    return !entry.directory && (!prefix || entry.path.startsWith(prefix));
+  });
 
   onDestroy(() => worker.close());
 
@@ -165,13 +170,6 @@
     }
   }
 
-  function selectedFiles(): SourceEntry[] {
-    const prefix = selectedRoot ? `${selectedRoot.replace(/\/$/, '')}/` : '';
-    return entries.filter(
-      (entry) => !entry.directory && (!prefix || entry.path.startsWith(prefix)),
-    );
-  }
-
   function syncLists() {
     $draft.metadata.maintainers = maintainersText
       .split(',')
@@ -248,7 +246,7 @@
   async function createArtifact() {
     const prefix = selectedRoot ? `${selectedRoot.replace(/\/$/, '')}/` : '';
     const blob = await deterministicZip(
-      selectedFiles().map((entry) => ({
+      includedFiles.map((entry) => ({
         path: `${$draft.metadata.id}/${entry.path.slice(prefix.length)}`,
         bytes: entry.bytes,
       })),
@@ -411,12 +409,12 @@
           >
           <div class="file-list">
             <div>
-              <strong>{selectedFiles().length} included files</strong><span
+              <strong>{includedFiles.length} included files</strong><span
                 >{sourcePath}</span
               >
             </div>
             <ul>
-              {#each selectedFiles() as entry (entry.path)}<li>
+              {#each includedFiles as entry (entry.path)}<li>
                   <code>{entry.path.slice(selectedRoot.length + 1)}</code><span
                     >{entry.bytes.byteLength.toLocaleString()} B</span
                   >
