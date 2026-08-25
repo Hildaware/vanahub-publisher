@@ -1,6 +1,10 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { bootstrapWorkflow, publisherConfig } from '../../src/lib/automation';
+import {
+  bootstrapWorkflow,
+  publisherConfig,
+  releaseWorkflowIntegration,
+} from '../../src/lib/automation';
 import { emptyMetadata } from '../../src/lib/types';
 
 describe('repository automation', () => {
@@ -43,9 +47,24 @@ describe('repository automation', () => {
     });
     expect(workflow).toContain(`setup-addon.yml@${ref}`);
     expect(workflow).toContain(`publisher-ref: ${ref}`);
-    expect(workflow).toContain("if: github.event_name == 'release'");
+    expect(workflow).toContain('workflow_call:');
+    expect(workflow).toContain('release-tag:');
+    expect(workflow).toContain(
+      "if: github.event_name == 'release' || inputs.release-tag != ''",
+    );
     expect(workflow).toContain(`uses: Hildaware/vanahub-publisher@${ref}`);
+    expect(workflow).toContain('github-token: ${{ github.token }}');
     expect(workflow).not.toContain('Transient');
+  });
+
+  it('provides a direct handoff from an existing release workflow', () => {
+    const integration = releaseWorkflowIntegration();
+    expect(integration).toContain('needs: release');
+    expect(integration).toContain(
+      'uses: ./.github/workflows/vanahub-setup.yml',
+    );
+    expect(integration).toContain('release-tag: v${{ inputs.version }}');
+    expect(integration).toContain('contents: write');
   });
 
   it('keeps workflow files outside the setup job commit', () => {

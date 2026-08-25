@@ -16,6 +16,13 @@ The normal setup has no local CLI requirement:
 
 The release workflow attaches a normalized addon ZIP, `vanahub-manifest.json`, `validation-report.json`, and `SHA256SUMS.txt`. The first catalog release is requested through the linked catalog issue form; later releases are discovered automatically by the catalog.
 
+Releases published by another GitHub Actions workflow using `GITHUB_TOKEN` do
+not emit a follow-on `release` workflow run. When existing release automation
+is detected, the wizard provides a reusable-workflow job that calls VanaHub
+directly with the published tag. The VanaHub workflow also accepts a
+`release-tag` manual-dispatch input for packaging an existing stable release
+without another release or additional credentials.
+
 ## Publishing modes
 
 - **Built-in:** GitHub-only. Structural, prohibited-Lua, module, capability, metadata, and current catalog-schema checks must pass. The result is described as “eligible for the screened catalog,” never “safe.”

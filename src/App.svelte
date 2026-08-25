@@ -27,6 +27,7 @@
   import {
     addonCandidates,
     archiveWrapper,
+    releaseAutomation,
     selectedArchiveRoot,
   } from './lib/github';
   import { repositoryProvider } from './lib/repository-provider';
@@ -34,6 +35,7 @@
     bootstrapWorkflow,
     githubNewFileUrl,
     publisherConfig,
+    releaseWorkflowIntegration,
   } from './lib/automation';
 
   const steps = ['Repository', 'Addon details', 'Review', 'Automate'];
@@ -49,6 +51,8 @@
   let sourcePaths: string[] = [];
   let sourcePath = '.';
   let includedFiles: SourceEntry[] = [];
+  let releaseWorkflows: string[] = [];
+  const integrationText = releaseWorkflowIntegration();
   let report: ValidationReport | null = null;
   let busy = false;
   let progress = 0;
@@ -109,6 +113,7 @@
       repository = await provider.inspect(repositoryUrl);
       status = `Fetching commit ${repository.commit.slice(0, 12)}…`;
       entries = await provider.load(repository, (value) => (progress = value));
+      releaseWorkflows = releaseAutomation(entries);
       wrapper = archiveWrapper(entries);
       sourcePaths = addonCandidates(entries, wrapper);
       if (!sourcePaths.length)
@@ -124,6 +129,7 @@
     } catch (error) {
       repository = null;
       entries = [];
+      releaseWorkflows = [];
       errors = [(error as Error).message];
     } finally {
       busy = false;
@@ -145,6 +151,7 @@
     errors = [];
     report = null;
     repository = null;
+    releaseWorkflows = [];
     status = 'Reading source locally…';
     try {
       activeTask = worker.run<SourceEntry[]>(
@@ -293,7 +300,12 @@
 
   async function copySetup() {
     await navigator.clipboard.writeText(setupText);
-    status = 'Bootstrap workflow copied.';
+    status = 'Publishing workflow copied.';
+  }
+
+  async function copyIntegration() {
+    await navigator.clipboard.writeText(integrationText);
+    status = 'Existing release workflow integration copied.';
   }
 
   function cancel() {
@@ -307,6 +319,7 @@
     repository = null;
     repositoryUrl = '';
     roots = [];
+    releaseWorkflows = [];
     selectedRoot = '';
     report = null;
     maintainersText = '';
@@ -633,6 +646,33 @@
             value={setupText}
           ></textarea></label
         >
+        <p class="hint">
+          To package an existing release manually, run this workflow with its
+          <code>release-tag</code> input. Leave it blank only for repository setup.
+        </p>
+        {#if releaseWorkflows.length}<div class="suggestions">
+            <strong>Existing release automation detected</strong>
+            <p>
+              {releaseWorkflows.join(', ')} creates a release with GitHub Actions.
+              Add this job to that workflow so VanaHub runs directly after its
+              <code>release</code> job.
+            </p>
+            <label class="wide"
+              >Reusable workflow job<textarea
+                readonly
+                rows="8"
+                value={integrationText}
+              ></textarea></label
+            >
+            <button class="secondary" onclick={copyIntegration}
+              >Copy integration job</button
+            >
+            <small
+              >The example assumes a job named <code>release</code> and a
+              workflow input named <code>version</code>; adjust those two names
+              to match the existing workflow.</small
+            >
+          </div>{/if}
         {#if !canPublish()}<p class="blocking">
             Complete Review and resolve all blocking checks first.
           </p>{/if}

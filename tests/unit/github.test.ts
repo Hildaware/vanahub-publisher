@@ -4,6 +4,7 @@ import {
   archiveWrapper,
   loadGitHubRepository,
   parseGitHubRepository,
+  releaseAutomation,
   selectedArchiveRoot,
 } from '../../src/lib/github';
 import { repositoryProvider } from '../../src/lib/repository-provider';
@@ -82,5 +83,28 @@ describe('GitHub repository sources', () => {
     expect(entries[0].path).toBe('addon/sample.lua');
     expect(new TextDecoder().decode(entries[0].bytes)).toBe('return true\n');
     expect(progress).toEqual([1]);
+  });
+
+  it('detects workflows that create GitHub releases', () => {
+    const encode = (text: string) => new TextEncoder().encode(text);
+    expect(
+      releaseAutomation([
+        {
+          path: '.github/workflows/release.yml',
+          bytes: encode('run: gh release create "$TAG"'),
+        },
+        {
+          path: '.github/workflows/build.yaml',
+          bytes: encode('uses: softprops/action-gh-release@v2'),
+        },
+        {
+          path: '.github/workflows/test.yml',
+          bytes: encode('run: npm test'),
+        },
+      ]),
+    ).toEqual([
+      '.github/workflows/build.yaml',
+      '.github/workflows/release.yml',
+    ]);
   });
 });

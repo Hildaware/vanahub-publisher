@@ -171,3 +171,21 @@ export function selectedArchiveRoot(
   if (sourcePath === '.') return wrapper;
   return [wrapper, sourcePath].filter(Boolean).join('/');
 }
+
+export function releaseAutomation(entries: SourceEntry[]): string[] {
+  const decoder = new TextDecoder();
+  return entries
+    .filter(
+      (entry) =>
+        !entry.directory &&
+        /^\.github\/workflows\/[^/]+\.ya?ml$/i.test(entry.path),
+    )
+    .filter((entry) => {
+      const text = decoder.decode(entry.bytes);
+      return /\bgh\s+release\s+create\b|action-gh-release|softprops\/action-gh-release/i.test(
+        text,
+      );
+    })
+    .map((entry) => entry.path)
+    .sort();
+}

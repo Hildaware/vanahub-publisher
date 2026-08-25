@@ -18,6 +18,7 @@ import {
   validateMetadata,
 } from './lib/project';
 import type { PublisherConfig, SourceEntry } from './lib/types';
+import { resolveGitHubRelease } from './lib/release';
 
 const ajv = new Ajv2020({ allErrors: true, strict: false });
 addFormats(ajv);
@@ -112,11 +113,12 @@ async function main() {
   const event = JSON.parse(
     readFileSync(process.env.GITHUB_EVENT_PATH || '', 'utf8'),
   );
-  const release = event.release;
-  if (!release || release.draft)
-    throw new Error('The action must run for a published GitHub Release.');
-  if (release.prerelease)
-    throw new Error('Prerelease catalog publishing is not supported.');
+  const release = await resolveGitHubRelease(
+    event,
+    repository,
+    input('release-tag'),
+    input('github-token'),
+  );
   const configPath = resolve(
     workspace,
     input('config-path', '.vanahub/package.json'),

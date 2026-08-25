@@ -40,6 +40,17 @@ export function bootstrapWorkflow(payload: SetupPayload): string {
 
 on:
   workflow_dispatch:
+    inputs:
+      release-tag:
+        description: Published release tag to package. Leave blank to run repository setup.
+        required: false
+        type: string
+  workflow_call:
+    inputs:
+      release-tag:
+        description: Published release tag to package.
+        required: true
+        type: string
   release:
     types: [published]
 
@@ -49,24 +60,27 @@ permissions:
 
 jobs:
   setup:
-    if: github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'workflow_dispatch' && inputs.release-tag == ''
     uses: Hildaware/vanahub-publisher/.github/workflows/setup-addon.yml@${payload.publisherRef}
     with:
       setup: ${encoded}
       publisher-ref: ${payload.publisherRef}
   publish:
-    if: github.event_name == 'release'
+    if: github.event_name == 'release' || inputs.release-tag != ''
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
         with:
-          ref: \${{ github.event.release.tag_name }}
+          ref: \${{ inputs.release-tag || github.event.release.tag_name }}
       - id: package
         uses: Hildaware/vanahub-publisher@${payload.publisherRef}
+        with:
+          release-tag: \${{ inputs.release-tag || github.event.release.tag_name }}
+          github-token: \${{ github.token }}
       - name: Attach VanaHub assets
         env:
           GH_TOKEN: \${{ github.token }}
-          VH_TAG: \${{ github.event.release.tag_name }}
+          VH_TAG: \${{ inputs.release-tag || github.event.release.tag_name }}
           VH_OUTPUT: \${{ steps.package.outputs.output-directory }}
         run: gh release upload "$VH_TAG" "$VH_OUTPUT"/* --clobber
       - name: Catalog submission
@@ -77,6 +91,17 @@ jobs:
           url="https://github.com/Hildaware/vanahub-catalog/issues/new?template=vanahub-submission.yml&repository=https%3A%2F%2Fgithub.com%2F\${VH_REPOSITORY}&package_id=\${VH_ID}"
           echo "### Catalog" >> "$GITHUB_STEP_SUMMARY"
           echo "For first admission, [submit this release to VanaHub](\${url}). Later releases are discovered automatically." >> "$GITHUB_STEP_SUMMARY"
+`;
+}
+
+export function releaseWorkflowIntegration(): string {
+  return `  vanahub:
+    needs: release
+    uses: ./.github/workflows/vanahub-setup.yml
+    with:
+      release-tag: v\${{ inputs.version }}
+    permissions:
+      contents: write
 `;
 }
 

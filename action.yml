@@ -1,6 +1,12 @@
 name: VanaHub Publish
-description: Validate and package an addon for a published GitHub Release.
+description: Validate and package an addon from a published GitHub Release event or tag.
 inputs:
+  release-tag:
+    description: Published SemVer release tag. Required outside a release event.
+    required: false
+  github-token:
+    description: Repository token used to read release metadata when publishing by tag.
+    required: false
   config-path:
     description: Repository-relative VanaHub package configuration.
     required: false
