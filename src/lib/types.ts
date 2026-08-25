@@ -87,6 +87,26 @@ export interface PublisherProject {
   savedAt: string;
 }
 
+export interface PublisherConfig {
+  schemaVersion: 1;
+  id: string;
+  name: string;
+  description: string;
+  author: string;
+  sourcePath: string;
+  declaredCapabilities: Capability[];
+  iconUrl?: string;
+  screenshots?: string[];
+}
+
+export interface GitHubRepository {
+  owner: string;
+  name: string;
+  url: string;
+  defaultBranch: string;
+  commit: string;
+}
+
 export const emptyMetadata = (): PackageMetadata => ({
   id: '',
   name: '',

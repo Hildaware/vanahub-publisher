@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hildaware.github.io/vanahub-publisher/schemas/publisher-package.schema.json",
+  "title": "VanaHub repository publishing configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "id",
+    "name",
+    "description",
+    "author",
+    "sourcePath",
+    "declaredCapabilities"
+  ],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9._-]{1,63}$" },
+    "name": { "type": "string", "minLength": 1, "maxLength": 80 },
+    "description": { "type": "string", "minLength": 1, "maxLength": 2000 },
+    "author": { "type": "string", "minLength": 1, "maxLength": 80 },
+    "sourcePath": {
+      "type": "string",
+      "pattern": "^(?:\\.|[A-Za-z0-9_.-]+(?:/[A-Za-z0-9_.-]+)*)$"
+    },
+    "iconUrl": { "type": "string", "format": "uri", "pattern": "^https://" },
+    "screenshots": {
+      "type": "array",
+      "maxItems": 10,
+      "uniqueItems": true,
+      "items": { "type": "string", "format": "uri", "pattern": "^https://" }
+    },
+    "declaredCapabilities": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "ui",
+          "game-state-read",
+          "packet-read",
+          "chat-output",
+          "command-handler",
+          "settings-write",
+          "bundled-file-read"
+        ]
+      }
+    }
+  }
+}

@@ -7,18 +7,21 @@ test('loads beneath the Pages subpath and navigates accessibly', async ({
   await page.goto('./');
   await expect(page).toHaveTitle('VanaHub Publisher');
   await expect(
-    page.getByRole('heading', { name: /Package with confidence/ }),
+    page.getByRole('heading', { name: /Connect once/ }),
   ).toBeVisible();
-  await page.getByRole('button', { name: /Metadata/ }).click();
-  await expect(page.getByRole('heading', { name: 'Metadata' })).toBeFocused();
+  await page.getByRole('button', { name: /Addon details/ }).click();
+  await expect(
+    page.getByRole('heading', { name: 'Addon details' }),
+  ).toBeFocused();
   await page.keyboard.press('Shift+Tab');
-  await expect(page.getByRole('button', { name: /Source/ })).toBeVisible();
+  await expect(page.getByRole('button', { name: /Repository/ })).toBeVisible();
 });
 
 test('imports source, forgets drafts, and announces status', async ({
   page,
 }) => {
   await page.goto('./');
+  await page.getByText('Use a local folder or ZIP instead').click();
   const writer = new ZipWriter(new BlobWriter('application/zip'), {
     useWebWorkers: false,
   });
@@ -29,8 +32,7 @@ test('imports source, forgets drafts, and announces status', async ({
     mimeType: 'application/zip',
     buffer: Buffer.from(await archive.arrayBuffer()),
   });
-  await expect(page.getByText(/Loaded 1 files/)).toBeVisible();
-  await expect(page.getByText('1 included files')).toBeVisible();
+  await expect(page.getByText(/Loaded 1 local files/)).toBeVisible();
   await page.getByRole('button', { name: 'Forget everything' }).click();
   await expect(
     page.getByText('Draft and in-memory source forgotten.'),

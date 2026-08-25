@@ -1,15 +1,27 @@
 # VanaHub Publisher
 
-A browser-only release workbench for Ashita v4 addons, deployed at [hildaware.github.io/vanahub-publisher](https://hildaware.github.io/vanahub-publisher/).
+A repository-first release workbench for Ashita v4 addons, deployed at [hildaware.github.io/vanahub-publisher](https://hildaware.github.io/vanahub-publisher/).
 
-VanaHub Publisher reads a local addon folder or ZIP, normalizes it, runs structural and advisory Lua checks in a Web Worker, creates deterministic ZIPs, calculates SHA-256 with Web Crypto, and emits the files needed for publishing. Source bytes stay in volatile browser memory. There are no accounts, analytics, uploads, remote artifact requests, or automatic catalog pull requests.
+VanaHub Publisher reads an immutable snapshot of a public GitHub repository, finds an addon directory, normalizes it, and runs structural and Lua checks in a Web Worker. Source bytes stay in volatile browser memory. A local folder or ZIP remains available for uncommitted and non-GitHub source.
+
+## GitHub publishing flow
+
+The normal setup has no local CLI requirement:
+
+1. Paste a public GitHub repository URL and select the addon directory.
+2. Complete metadata and pass local validation.
+3. Copy the generated `.github/workflows/vanahub-setup.yml` into the repository and run it once.
+4. Review and merge the setup PR that installs `.vanahub/package.json`, `.vanahub.json`, and the permanent release workflow.
+5. Publish a stable GitHub Release. Its SemVer tag supplies the package version and its body supplies the changelog.
+
+The release workflow attaches a normalized addon ZIP, `vanahub-manifest.json`, `validation-report.json`, and `SHA256SUMS.txt`. The first catalog release is requested through the linked catalog issue form; later releases are discovered automatically by the catalog.
 
 ## Publishing modes
 
 - **Built-in:** GitHub-only. Structural, prohibited-Lua, module, capability, metadata, and current catalog-schema checks must pass. The result is described as “eligible for the screened catalog,” never “safe.”
 - **Custom repository:** Structural archive checks still block. Elevated Lua findings are warnings and are included prominently in `validation-report.json` and `custom-package.json`.
 
-The app can export without a final artifact URL. In that case it emits `catalog-manifest.draft.json`, which is intentionally non-submittable.
+Local-source mode can still export a normalized ZIP or a manual publishing kit, but it does not install repository automation.
 
 ## Local development
 

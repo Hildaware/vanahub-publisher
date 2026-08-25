@@ -548,6 +548,22 @@ button:disabled {
   display: flex;
   gap: 12px;
 }
+.export-actions a {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+details {
+  margin-top: 24px;
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+}
+summary {
+  color: #aebed0;
+  cursor: pointer;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
 .blocking {
   color: var(--amber);
   font-size: 13px;

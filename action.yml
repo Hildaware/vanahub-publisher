@@ -1,0 +1,23 @@
+name: VanaHub Publish
+description: Validate and package an addon for a published GitHub Release.
+inputs:
+  config-path:
+    description: Repository-relative VanaHub package configuration.
+    required: false
+    default: .vanahub/package.json
+  output-directory:
+    description: Repository-relative output directory.
+    required: false
+    default: .vanahub-output
+outputs:
+  artifact-name:
+    description: Normalized addon ZIP filename.
+  output-directory:
+    description: Absolute output directory.
+  package-id:
+    description: VanaHub package ID.
+  version:
+    description: SemVer parsed from the release tag.
+runs:
+  using: node20
+  main: dist-action/index.js

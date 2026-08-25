@@ -23,6 +23,8 @@ jobs:
       - run: npm test
       - run: npm run contracts:check
       - run: npm run build
+      - run: npm run action:build
+      - run: git diff --exit-code -- dist-action
 
   browser:
     runs-on: ubuntu-latest
