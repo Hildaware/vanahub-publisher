@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { bootstrapWorkflow, publisherConfig } from '../../src/lib/automation';
 import { emptyMetadata } from '../../src/lib/types';
@@ -24,7 +25,7 @@ describe('repository automation', () => {
     });
   });
 
-  it('pins the one-file bootstrap to an immutable publisher revision', () => {
+  it('pins the permanent setup and release workflow to one revision', () => {
     const ref = 'a'.repeat(40);
     const workflow = bootstrapWorkflow({
       repository: 'owner/sample',
@@ -42,6 +43,16 @@ describe('repository automation', () => {
     });
     expect(workflow).toContain(`setup-addon.yml@${ref}`);
     expect(workflow).toContain(`publisher-ref: ${ref}`);
+    expect(workflow).toContain("if: github.event_name == 'release'");
+    expect(workflow).toContain(`uses: Hildaware/vanahub-publisher@${ref}`);
     expect(workflow).not.toContain('Transient');
+  });
+
+  it('keeps workflow files outside the setup job commit', () => {
+    const setupScript = readFileSync(
+      new URL('../../scripts/setup-repository.ts', import.meta.url),
+      'utf8',
+    );
+    expect(setupScript).not.toContain('.github/workflows');
   });
 });

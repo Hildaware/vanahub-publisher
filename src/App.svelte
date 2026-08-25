@@ -602,16 +602,19 @@
         {/if}
       {:else if repository}
         <p class="lede">
-          Add one temporary workflow, run it once, and merge the setup PR.
-          Future published GitHub Releases are packaged automatically.
+          Add one workflow, run its setup job once, and merge the setup PR. The
+          same workflow packages future published GitHub Releases.
         </p>
         <ol>
           <li>Copy the generated workflow.</li>
           <li>
             Commit it as <code>.github/workflows/vanahub-setup.yml</code>.
           </li>
-          <li>Run <strong>Set up VanaHub publishing</strong> from Actions.</li>
-          <li>Review and merge the generated setup PR.</li>
+          <li>Run <strong>VanaHub publishing</strong> from Actions.</li>
+          <li>
+            Review and merge the setup PR. If bot-created PRs are disabled, use
+            the run summary's link.
+          </li>
         </ol>
         <div class="export-actions">
           <button class="primary" onclick={copySetup} disabled={!canPublish()}
@@ -624,7 +627,7 @@
           >
         </div>
         <label class="wide"
-          >Generated bootstrap workflow<textarea
+          >Generated publishing workflow<textarea
             readonly
             rows="14"
             value={setupText}

@@ -11,7 +11,7 @@ The normal setup has no local CLI requirement:
 1. Paste a public GitHub repository URL and select the addon directory.
 2. Complete metadata and pass local validation.
 3. Copy the generated `.github/workflows/vanahub-setup.yml` into the repository and run it once.
-4. Review and merge the setup PR that installs `.vanahub/package.json`, `.vanahub.json`, and the permanent release workflow.
+4. Review and merge the setup PR that installs `.vanahub/package.json` and `.vanahub.json`. The workflow you committed in step 3 is already the permanent release workflow.
 5. Publish a stable GitHub Release. Its SemVer tag supplies the package version and its body supplies the changelog.
 
 The release workflow attaches a normalized addon ZIP, `vanahub-manifest.json`, `validation-report.json`, and `SHA256SUMS.txt`. The first catalog release is requested through the linked catalog issue form; later releases are discovered automatically by the catalog.
