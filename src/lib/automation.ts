@@ -98,8 +98,10 @@ jobs:
           VH_REPOSITORY: \${{ github.repository }}
         run: |
           url="https://github.com/Hildaware/vanahub-catalog/issues/new?template=vanahub-submission.yml&repository=https%3A%2F%2Fgithub.com%2F\${VH_REPOSITORY}&package_id=\${VH_ID}"
+          update_url="https://github.com/Hildaware/vanahub-catalog/issues/new?template=vanahub-update.yml&repository=https%3A%2F%2Fgithub.com%2F\${VH_REPOSITORY}&package_id=\${VH_ID}"
           echo "### Catalog" >> "$GITHUB_STEP_SUMMARY"
           echo "For first admission, [submit this release to VanaHub](\${url}). Later releases are discovered automatically." >> "$GITHUB_STEP_SUMMARY"
+          echo "Already registered and don't want to wait for polling? [Request an immediate update check](\${update_url})." >> "$GITHUB_STEP_SUMMARY"
 `;
 }
 

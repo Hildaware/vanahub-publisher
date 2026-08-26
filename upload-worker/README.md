@@ -60,15 +60,20 @@ npx wrangler secret put TURNSTILE_SECRET --config upload-worker/wrangler.toml
 # Generate a long, random string (e.g. 32+ characters) and enter it when prompted.
 # This is used to securely sign upload permissions.
 npx wrangler secret put UPLOAD_SIGNING_SECRET --config upload-worker/wrangler.toml
+
+# Generate a separate 32+ character value. Store the same value as the
+# VANAHUB_MEDIA_CLEANUP_SECRET secret in the catalog repository.
+npx wrangler secret put CLEANUP_SECRET --config upload-worker/wrangler.toml
 ```
 
 ### 6. Set an Auto-Deletion Rule (Lifecycle Rule)
 
-Screenshots are meant to be temporary. Set a rule to automatically delete any images left in the staging bucket after 90 days.
+Screenshots are temporary. Catalog automation deletes successfully ingested objects; this lifecycle rule removes abandoned uploads after 30 days.
 
 ```sh
-npx wrangler r2 bucket lifecycle add vanahub-screenshot-staging \
-  --prefix pending/ --expire-days 90
+npx wrangler r2 bucket lifecycle add \
+  vanahub-screenshot-staging expire-pending-uploads pending/ \
+  --expire-days 30 --config upload-worker/wrangler.toml
 ```
 
 ### 7. Final Deployment
@@ -93,4 +98,4 @@ The GitHub Pages workflow will map these repository variables into Vite build va
 
 ## Technical Details
 
-The endpoint accepts at most ten PNG, JPEG, or WebP files per verified session, 10 MB per file and 30 MB total. Upload grants expire after ten minutes and each random object key is write-once. The Worker safely serves these files from the private bucket via `GET /pending/<random-id>` to allow anonymous access (e.g. from GitHub rendering the issue).
+The endpoint accepts at most ten PNG, JPEG, or WebP files per verified session, 10 MB per file and 30 MB total. The browser declares each SHA-256 and the Worker verifies it before storing a digest-bound object. Upload grants expire after ten minutes. Anonymous staged responses are non-cacheable downloads; GitHub issue previews use only catalog-normalized bytes pinned to an automation commit. Catalog cleanup can delete only constrained `pending/` keys and lifecycle expiry remains the fallback.

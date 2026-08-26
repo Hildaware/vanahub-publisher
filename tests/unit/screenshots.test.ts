@@ -61,6 +61,10 @@ describe('screenshot uploads', () => {
     expect(urls).toEqual(['https://uploads.example/pending/id.png']);
     expect(requests).toHaveLength(2);
     expect(requests[0].headers.get('X-Turnstile-Token')).toBe('turnstile');
+    const declaration = (await requests[0].json()) as {
+      files: { sha256: string }[];
+    };
+    expect(declaration.files[0].sha256).toMatch(/^[a-f0-9]{64}$/);
     expect(requests[1].headers.get('Authorization')).toBe('Bearer grant');
   });
 });

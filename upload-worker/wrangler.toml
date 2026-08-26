@@ -10,5 +10,14 @@ bucket_name = "vanahub-screenshot-staging"
 PUBLISHER_ORIGIN = "https://hildaware.github.io"
 PUBLIC_BASE_URL = "https://vanahub-screenshot-upload.hildaware.workers.dev"
 
+[[ratelimits]]
+name = "UPLOAD_RATE_LIMITER"
+namespace_id = "1001"
+
+  [ratelimits.simple]
+  limit = 20
+  period = 60
+
 # Add TURNSTILE_SECRET and UPLOAD_SIGNING_SECRET with `wrangler secret put`.
-# Configure the pending/ prefix to expire through an R2 lifecycle rule.
+# Add CLEANUP_SECRET with `wrangler secret put`; use the same value in catalog CI.
+# Configure the pending/ prefix to expire after 30 days through an R2 lifecycle rule.

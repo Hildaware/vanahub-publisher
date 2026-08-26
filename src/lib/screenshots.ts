@@ -56,11 +56,20 @@ export async function uploadScreenshots(
         'X-Turnstile-Token': turnstileToken,
       },
       body: JSON.stringify({
-        files: files.map((file) => ({
-          name: file.name,
-          size: file.size,
-          type: file.type,
-        })),
+        files: await Promise.all(
+          files.map(async (file) => ({
+            name: file.name,
+            size: file.size,
+            type: file.type,
+            sha256: [
+              ...new Uint8Array(
+                await crypto.subtle.digest('SHA-256', await file.arrayBuffer()),
+              ),
+            ]
+              .map((value) => value.toString(16).padStart(2, '0'))
+              .join(''),
+          })),
+        ),
       }),
     },
   );

@@ -121,6 +121,21 @@
   $: newFileUrl = repository
     ? githubNewFileUrl(repository.url, repository.defaultBranch)
     : '';
+  $: setupInstalled = entries.some(
+    (entry) =>
+      !entry.directory &&
+      entry.path.toLowerCase().endsWith('.github/workflows/vanahub-setup.yml'),
+  );
+  $: authorizationInstalled = entries.some(
+    (entry) => !entry.directory && entry.path.endsWith('.vanahub.json'),
+  );
+  $: actionsUrl = repository
+    ? `${repository.url}/actions/workflows/vanahub-setup.yml`
+    : '';
+  $: releaseUrl = repository ? `${repository.url}/releases/new` : '';
+  $: catalogIssueUrl = repository
+    ? `https://github.com/Hildaware/vanahub-catalog/issues/new?template=vanahub-submission.yml&repository=${encodeURIComponent(repository.url)}&package_id=${encodeURIComponent($draft.metadata.id)}`
+    : '';
   $: includedFiles = entries.filter((entry) => {
     const prefix = selectedRoot ? `${selectedRoot.replace(/\/$/, '')}/` : '';
     return !entry.directory && (!prefix || entry.path.startsWith(prefix));
@@ -299,24 +314,13 @@
     report = null;
   }
 
-  function addScreenshot() {
-    if ($draft.metadata.screenshots.length >= 10) return;
-    $draft.metadata.screenshots = [...$draft.metadata.screenshots, ''];
-    report = null;
-  }
-
-  function removeScreenshot(index: number) {
-    $draft.metadata.screenshots = $draft.metadata.screenshots.filter(
-      (_, screenshotIndex) => screenshotIndex !== index,
-    );
+  function clearScreenshots() {
+    $draft.metadata.screenshots = [];
     report = null;
   }
 
   async function selectScreenshots(files: File[]) {
-    const problems = validateScreenshotFiles(
-      files,
-      10 - $draft.metadata.screenshots.length,
-    );
+    const problems = validateScreenshotFiles(files, 10);
     if (!screenshotUploadUrl || !turnstileSiteKey)
       problems.unshift('Direct screenshot uploads are not configured yet.');
     else if (!turnstileToken)
@@ -334,7 +338,7 @@
         turnstileToken,
         files,
       );
-      $draft.metadata.screenshots = [...$draft.metadata.screenshots, ...urls];
+      $draft.metadata.screenshots = urls;
       report = null;
       showStatus(
         `${urls.length} screenshot${urls.length === 1 ? '' : 's'} staged for catalog admission.`,
@@ -377,6 +381,11 @@
       iconUploading = false;
       resetTurnstile();
     }
+  }
+
+  function clearIcon() {
+    $draft.metadata.iconUrl = '';
+    report = null;
   }
 
   function toggleCategory(category: AddonCategory) {
@@ -697,12 +706,15 @@
               /></label
             >{/if}
           <div class="icon-section">
-            <label
-              >Icon URL <span class="optional">optional</span><input
-                type="url"
-                bind:value={$draft.metadata.iconUrl}
-              /></label
-            >
+            <div class="field-heading">
+              <span>Icon</span><span class="optional">optional</span>
+            </div>
+            {#if $draft.metadata.iconUrl}<p class="hint">
+                Icon staged. It will be normalized by catalog admission.
+                <button type="button" class="remove-url" onclick={clearIcon}
+                  >Remove</button
+                >
+              </p>{/if}
             {#if screenshotUploadUrl && turnstileSiteKey}
               <label
                 class:disabled={!turnstileToken || iconUploading}
@@ -728,30 +740,17 @@
               <span id="screenshots-label">Screenshots</span>
               <span class="optional">optional</span>
             </div>
-            {#if $draft.metadata.screenshots.length}<div class="url-list">
-                {#each $draft.metadata.screenshots as _, index (index)}<div
-                    class="url-row"
-                  >
-                    <input
-                      type="url"
-                      aria-label={`Screenshot URL ${index + 1}`}
-                      bind:value={$draft.metadata.screenshots[index]}
-                      placeholder="https://example.com/screenshot.png"
-                    />
-                    <button
-                      type="button"
-                      class="remove-url"
-                      aria-label={`Remove screenshot ${index + 1}`}
-                      onclick={() => removeScreenshot(index)}>Remove</button
-                    >
-                  </div>{/each}
-              </div>{/if}
-            <button
-              type="button"
-              class="secondary add-url"
-              disabled={$draft.metadata.screenshots.length >= 10}
-              onclick={addScreenshot}>+ Add URL</button
-            >
+            {#if $draft.metadata.screenshots.length}<p class="hint">
+                {$draft.metadata.screenshots.length} screenshot{$draft.metadata
+                  .screenshots.length === 1
+                  ? ''
+                  : 's'} staged. Re-upload the complete desired set to replace them.
+                <button
+                  type="button"
+                  class="remove-url"
+                  onclick={clearScreenshots}>Remove all</button
+                >
+              </p>{/if}
             {#if screenshotUploadUrl && turnstileSiteKey}<div
                 class="screenshot-upload"
               >
@@ -764,9 +763,7 @@
                     type="file"
                     accept=".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp"
                     multiple
-                    disabled={!turnstileToken ||
-                      screenshotUploading ||
-                      $draft.metadata.screenshots.length >= 10}
+                    disabled={!turnstileToken || screenshotUploading}
                     onchange={(event) => {
                       void selectScreenshots([
                         ...(event.currentTarget.files ?? []),
@@ -782,11 +779,12 @@
                   ></label
                 >
               </div>{:else}<small
-                >Direct file uploads are not configured. HTTPS image URLs still
-                work.</small
+                >Media uploads are temporarily unavailable. You can continue
+                without optional media.</small
               >{/if}
             <small
-              >Up to 10 HTTPS URLs or uploaded PNG, JPEG, and WebP images.</small
+              >Upload the complete desired set of up to 10 PNG, JPEG, or WebP
+              images.</small
             >
           </section>
         </div>
@@ -880,15 +878,19 @@
         {/if}
       {:else if repository}
         <p class="lede">
-          Add one workflow, run its setup job once, and merge the setup PR. The
-          same workflow packages future published GitHub Releases.
+          Complete the one-time connection, then future publishing is just a
+          stable release.
         </p>
+        <h3>One-time setup</h3>
         <ol>
-          <li>Copy the generated workflow.</li>
+          <li>{setupInstalled ? '✓ ' : ''}Copy the generated workflow.</li>
           <li>
             Commit it as <code>.github/workflows/vanahub-setup.yml</code>.
           </li>
-          <li>Run <strong>VanaHub publishing</strong> from Actions.</li>
+          <li>
+            {authorizationInstalled ? '✓ ' : ''}Run
+            <strong>VanaHub publishing</strong> from Actions.
+          </li>
           <li>
             Review and merge the setup PR. If bot-created PRs are disabled, use
             the run summary's link.
@@ -902,6 +904,11 @@
             href={newFileUrl}
             target="_blank"
             rel="noreferrer">Open GitHub file editor</a
+          ><a
+            class="secondary"
+            href={actionsUrl}
+            target="_blank"
+            rel="noreferrer">Open setup workflow</a
           >
         </div>
         <label class="wide"
@@ -914,6 +921,31 @@
         <p class="hint">
           To package an existing release manually, run this workflow with its
           <code>release-tag</code> input. Leave it blank only for repository setup.
+        </p>
+        <h3>First catalog admission</h3>
+        <p class="hint">
+          After publishing the first stable release, submit the prefilled issue
+          once. The issue and catalog PR report validation progress.
+        </p>
+        <div class="export-actions">
+          <a
+            class="secondary"
+            href={releaseUrl}
+            target="_blank"
+            rel="noreferrer">Create stable release</a
+          >
+          <a
+            class="secondary"
+            href={catalogIssueUrl}
+            target="_blank"
+            rel="noreferrer">Submit first catalog issue</a
+          >
+        </div>
+        <h3>Every later release</h3>
+        <p class="hint">
+          Publish a stable SemVer release. Catalog polling discovers it within
+          30 minutes; the release workflow summary also links to an optional
+          immediate update request.
         </p>
         {#if releaseWorkflows.length}<div class="suggestions">
             <strong>Existing release automation detected</strong>

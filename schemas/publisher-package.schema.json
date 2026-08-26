@@ -22,12 +22,20 @@
       "type": "string",
       "pattern": "^(?:\\.|[A-Za-z0-9_.-]+(?:/[A-Za-z0-9_.-]+)*)$"
     },
-    "iconUrl": { "type": "string", "format": "uri", "pattern": "^https://" },
+    "iconUrl": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://(?:vanahub-screenshot-upload\\.hildaware\\.workers\\.dev/pending/[0-9a-f-]{36}/[a-f0-9]{64}\\.(?:jpg|png|webp)|hildaware\\.github\\.io/vanahub-catalog/media/[a-z0-9][a-z0-9._-]{1,63}/[a-f0-9]{64}\\.jpg)$"
+    },
     "screenshots": {
       "type": "array",
       "maxItems": 10,
       "uniqueItems": true,
-      "items": { "type": "string", "format": "uri", "pattern": "^https://" }
+      "items": {
+        "type": "string",
+        "format": "uri",
+        "pattern": "^https://(?:vanahub-screenshot-upload\\.hildaware\\.workers\\.dev/pending/[0-9a-f-]{36}/[a-f0-9]{64}\\.(?:jpg|png|webp)|hildaware\\.github\\.io/vanahub-catalog/media/[a-z0-9][a-z0-9._-]{1,63}/[a-f0-9]{64}\\.jpg)$"
+      }
     },
     "categories": {
       "type": "array",

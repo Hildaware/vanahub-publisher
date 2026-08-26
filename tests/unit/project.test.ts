@@ -36,4 +36,17 @@ describe('publishing contracts', () => {
 
   it('rejects incomplete metadata', () =>
     expect(validateMetadata(emptyMetadata()).length).toBeGreaterThan(0));
+
+  it('accepts staged media and rejects arbitrary external media', () => {
+    const value = metadata();
+    value.iconUrl =
+      'https://vanahub-screenshot-upload.hildaware.workers.dev/pending/12345678-1234-1234-1234-123456789abc/' +
+      'a'.repeat(64) +
+      '.png';
+    expect(validateMetadata(value)).toEqual([]);
+    value.iconUrl = 'https://images.example/icon.png';
+    expect(validateMetadata(value)).toContain(
+      'Icon must be uploaded through VanaHub Publisher.',
+    );
+  });
 });

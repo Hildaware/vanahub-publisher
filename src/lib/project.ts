@@ -50,10 +50,13 @@ export function buildCatalogManifest(
     archiveRoot: metadata.id,
     entrypoint: `${metadata.id}.lua`,
   };
-  if (metadata.categories.length) manifest.categories = [...metadata.categories];
-  if (metadata.declaredCapabilities.length) manifest.declaredCapabilities = [...metadata.declaredCapabilities];
+  if (metadata.categories.length)
+    manifest.categories = [...metadata.categories];
+  if (metadata.declaredCapabilities.length)
+    manifest.declaredCapabilities = [...metadata.declaredCapabilities];
   if (metadata.iconUrl) manifest.iconUrl = metadata.iconUrl;
-  if (metadata.screenshots.length) manifest.screenshots = [...metadata.screenshots];
+  if (metadata.screenshots.length)
+    manifest.screenshots = [...metadata.screenshots];
   return manifest;
 }
 
@@ -105,6 +108,13 @@ export function validateMetadata(metadata: PackageMetadata): string[] {
       return false;
     }
   };
+  const media = (value: string) =>
+    /^https:\/\/vanahub-screenshot-upload\.hildaware\.workers\.dev\/pending\/[0-9a-f-]{36}\/[a-f0-9]{64}\.(?:jpg|png|webp)$/.test(
+      value,
+    ) ||
+    /^https:\/\/hildaware\.github\.io\/vanahub-catalog\/media\/[a-z0-9][a-z0-9._-]{1,63}\/[a-f0-9]{64}\.jpg$/.test(
+      value,
+    );
   if (
     metadata.mode === 'built-in' &&
     !/^https:\/\/github\.com\/[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+\/?$/.test(
@@ -114,13 +124,15 @@ export function validateMetadata(metadata: PackageMetadata): string[] {
     errors.push('Built-in mode requires a public GitHub repository URL.');
   if (metadata.mode === 'custom' && !https(metadata.sourceUrl))
     errors.push('Custom mode requires an HTTPS source URL.');
-  if (metadata.iconUrl && !https(metadata.iconUrl))
-    errors.push('Icon URL must use HTTPS.');
+  if (metadata.iconUrl && !media(metadata.iconUrl))
+    errors.push('Icon must be uploaded through VanaHub Publisher.');
   if (
     metadata.screenshots.length > 10 ||
-    metadata.screenshots.some((url) => !https(url))
+    metadata.screenshots.some((url) => !media(url))
   )
-    errors.push('Use at most 10 unique HTTPS screenshot URLs.');
+    errors.push(
+      'Use at most 10 screenshots uploaded through VanaHub Publisher.',
+    );
   if (new Set(metadata.screenshots).size !== metadata.screenshots.length)
     errors.push('Screenshot URLs must be unique.');
   if (
