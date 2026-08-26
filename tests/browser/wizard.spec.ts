@@ -102,6 +102,12 @@ test('unlocks steps as source, details, and review are completed', async ({
     page.getByRole('heading', { name: 'Addon details' }),
   ).toBeFocused();
 
+  const media = page.getByRole('group', { name: 'Media' });
+  await expect(media).toBeVisible();
+  expect(
+    await media.locator('.field-heading > span:first-child').allTextContents(),
+  ).toEqual(['Icon', 'Screenshots']);
+
   await page.getByLabel('Package ID').fill('sample');
   await page.getByLabel('Name', { exact: true }).fill('Sample');
   await page.getByLabel('Description', { exact: true }).fill('Sample addon');

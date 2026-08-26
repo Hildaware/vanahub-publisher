@@ -6,8 +6,15 @@ interface UploadFileRequest {
 }
 
 interface UploadGrant {
+  kind: 'upload';
   exp: number;
   files: Record<string, { size: number; type: string; sha256: string }>;
+}
+
+interface VerificationGrant {
+  kind: 'verification';
+  exp: number;
+  client: string;
 }
 
 interface R2Object {
@@ -47,6 +54,7 @@ const MAX_FILES = 10;
 const MAX_FILE_BYTES = 10 * 1024 * 1024;
 const MAX_BATCH_BYTES = 30 * 1024 * 1024;
 const GRANT_SECONDS = 10 * 60;
+const VERIFICATION_SECONDS = 10 * 60;
 const SHA256 = /^[a-f0-9]{64}$/;
 const allowedTypes = new Map([
   ['image/jpeg', 'jpg'],
@@ -134,12 +142,18 @@ async function validHmac(
   );
 }
 
-async function grantToken(env: Env, grant: UploadGrant): Promise<string> {
+async function grantToken(
+  env: Env,
+  grant: UploadGrant | VerificationGrant,
+): Promise<string> {
   const payload = base64url(new TextEncoder().encode(JSON.stringify(grant)));
   return `${payload}.${base64url(await hmac(env.UPLOAD_SIGNING_SECRET, payload))}`;
 }
 
-async function readGrant(env: Env, token: string): Promise<UploadGrant | null> {
+async function readGrant(
+  env: Env,
+  token: string,
+): Promise<UploadGrant | VerificationGrant | null> {
   try {
     const [payload, signature, extra] = token.split('.');
     if (!payload || !signature || extra) return null;
@@ -148,18 +162,28 @@ async function readGrant(env: Env, token: string): Promise<UploadGrant | null> {
       return null;
     const grant = JSON.parse(
       new TextDecoder().decode(decodeBase64url(payload)),
-    ) as UploadGrant;
+    ) as UploadGrant | VerificationGrant;
     if (
       !Number.isInteger(grant.exp) ||
       grant.exp < Math.floor(Date.now() / 1000) ||
-      !grant.files ||
-      typeof grant.files !== 'object'
+      (grant.kind !== 'upload' && grant.kind !== 'verification')
     )
+      return null;
+    if (
+      grant.kind === 'upload' &&
+      (!grant.files || typeof grant.files !== 'object')
+    )
+      return null;
+    if (grant.kind === 'verification' && typeof grant.client !== 'string')
       return null;
     return grant;
   } catch {
     return null;
   }
+}
+
+async function clientBinding(env: Env, client: string): Promise<string> {
+  return base64url(await hmac(env.UPLOAD_SIGNING_SECRET, `client:${client}`));
 }
 
 async function verifyTurnstile(env: Env, token: string, ip: string) {
@@ -222,14 +246,6 @@ async function createSession(request: Request, env: Env): Promise<Response> {
     return json(env, 400, {
       error: 'Choose 1–10 PNG, JPEG, or WebP files (10 MB each, 30 MB total).',
     });
-  if (
-    !(await verifyTurnstile(
-      env,
-      request.headers.get('X-Turnstile-Token') ?? '',
-      request.headers.get('CF-Connecting-IP') ?? '',
-    ))
-  )
-    return json(env, 403, { error: 'Upload verification failed.' });
   const client = request.headers.get('CF-Connecting-IP') ?? 'unknown';
   if (
     !(await env.UPLOAD_RATE_LIMITER.limit({ key: `session:${client}` })).success
@@ -240,7 +256,32 @@ async function createSession(request: Request, env: Env): Promise<Response> {
     });
   }
 
+  const authorization = request.headers.get('Authorization') ?? '';
+  const suppliedVerificationToken = authorization.replace(/^Bearer\s+/i, '');
+  const suppliedGrant = await readGrant(env, suppliedVerificationToken);
+  const binding = await clientBinding(env, client);
+  const hasReusableVerification =
+    suppliedGrant?.kind === 'verification' &&
+    constantTimeEqual(suppliedGrant.client, binding);
+  if (
+    !hasReusableVerification &&
+    !(await verifyTurnstile(
+      env,
+      request.headers.get('X-Turnstile-Token') ?? '',
+      client === 'unknown' ? '' : client,
+    ))
+  )
+    return json(env, 403, { error: 'Upload verification failed.' });
+  const verificationToken = hasReusableVerification
+    ? suppliedVerificationToken
+    : await grantToken(env, {
+        kind: 'verification',
+        exp: Math.floor(Date.now() / 1000) + VERIFICATION_SECONDS,
+        client: binding,
+      });
+
   const grant: UploadGrant = {
+    kind: 'upload',
     exp: Math.floor(Date.now() / 1000) + GRANT_SECONDS,
     files: {},
   };
@@ -263,7 +304,11 @@ async function createSession(request: Request, env: Env): Promise<Response> {
     files: files.length,
     bytes: files.reduce((total, file) => total + file.size, 0),
   });
-  return json(env, 200, { token: await grantToken(env, grant), uploads });
+  return json(env, 200, {
+    token: await grantToken(env, grant),
+    verificationToken,
+    uploads,
+  });
 }
 
 async function readBounded(
@@ -318,7 +363,7 @@ async function upload(
 ): Promise<Response> {
   const authorization = request.headers.get('Authorization') ?? '';
   const grant = await readGrant(env, authorization.replace(/^Bearer\s+/i, ''));
-  const expected = grant?.files[key];
+  const expected = grant?.kind === 'upload' ? grant.files[key] : undefined;
   if (!expected) return json(env, 403, { error: 'Upload grant is invalid.' });
   if (
     !(await env.UPLOAD_RATE_LIMITER.limit({ key: `upload:${key}` })).success

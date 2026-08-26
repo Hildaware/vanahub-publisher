@@ -89,8 +89,10 @@ describe('screenshot upload worker', () => {
     expect(session.status).toBe(200);
     const body = (await session.json()) as {
       token: string;
+      verificationToken: string;
       uploads: { key: string; uploadUrl: string; publicUrl: string }[];
     };
+    expect(body.verificationToken).toBeTruthy();
     expect(body.uploads[0].key).toMatch(
       /^pending\/[0-9a-f-]+\/[a-f0-9]{64}\.png$/,
     );
@@ -113,6 +115,42 @@ describe('screenshot upload worker', () => {
     expect(env.SCREENSHOTS.objects.get(body.uploads[0].key)).toEqual(
       new Uint8Array([1, 2, 3, 4]),
     );
+  });
+
+  it('reuses a short-lived verification grant for another upload session', async () => {
+    const verifier = vi.fn(async () =>
+      Response.json({
+        success: true,
+        hostname: 'publisher.example.test',
+      }),
+    );
+    vi.stubGlobal('fetch', verifier);
+    const env = environment();
+    const file = {
+      name: 'screen.png',
+      size: 4,
+      type: 'image/png',
+      sha256:
+        '9f64a747e1b97f131fabb6b447296c9b6f0201e79fb3c5356e6c77e89b6a806a',
+    };
+    const first = await uploadWorker.fetch(sessionRequest([file]), env);
+    const firstBody = (await first.json()) as { verificationToken: string };
+    const second = await uploadWorker.fetch(
+      new Request('https://worker.example.test/upload-session', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${firstBody.verificationToken}`,
+          'Content-Type': 'application/json',
+          Origin: env.PUBLISHER_ORIGIN,
+        },
+        body: JSON.stringify({ files: [file] }),
+      }),
+      env,
+    );
+
+    expect(first.status).toBe(200);
+    expect(second.status).toBe(200);
+    expect(verifier).toHaveBeenCalledTimes(1);
   });
 
   it('rejects untrusted origins before consuming Turnstile', async () => {

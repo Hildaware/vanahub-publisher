@@ -39,6 +39,7 @@
   } from './lib/automation';
   import {
     uploadScreenshots,
+    validateIconDimensions,
     validateScreenshotFiles,
   } from './lib/screenshots';
 
@@ -86,9 +87,11 @@
   let turnstileContainer: HTMLElement | null = null;
   let turnstileWidgetId: string | null = null;
   let turnstileToken = '';
+  let uploadVerificationToken = '';
   let turnstileLoading: Promise<void> | null = null;
 
   $: metadataErrors = validateMetadata($draft.metadata);
+  $: uploadAuthorized = !!turnstileToken || !!uploadVerificationToken;
   $: sourceComplete =
     entries.some((entry) => !entry.directory) &&
     (roots.length <= 1 || !!selectedRoot);
@@ -323,7 +326,7 @@
     const problems = validateScreenshotFiles(files, 10);
     if (!screenshotUploadUrl || !turnstileSiteKey)
       problems.unshift('Direct screenshot uploads are not configured yet.');
-    else if (!turnstileToken)
+    else if (!uploadAuthorized)
       problems.unshift('Complete the upload verification first.');
     if (problems.length) {
       errors = problems;
@@ -333,30 +336,36 @@
     errors = [];
     showStatus('Uploading screenshots to temporary storage…', true);
     try {
-      const urls = await uploadScreenshots(
+      const result = await uploadScreenshots(
         screenshotUploadUrl,
         turnstileToken,
         files,
+        uploadVerificationToken,
       );
-      $draft.metadata.screenshots = urls;
+      uploadVerificationToken = result.verificationToken;
+      $draft.metadata.screenshots = result.urls;
       report = null;
       showStatus(
-        `${urls.length} screenshot${urls.length === 1 ? '' : 's'} staged for catalog admission.`,
+        `${result.urls.length} screenshot${result.urls.length === 1 ? '' : 's'} staged for catalog admission.`,
       );
     } catch (error) {
+      uploadVerificationToken = '';
+      resetTurnstile();
       errors = [(error as Error).message];
       showStatus('Screenshot upload failed.');
     } finally {
       screenshotUploading = false;
-      resetTurnstile();
+      if (!uploadVerificationToken) resetTurnstile();
     }
   }
 
   async function selectIcon(files: File[]) {
     const problems = validateScreenshotFiles(files, 1);
+    if (!problems.length && files[0])
+      problems.push(...(await validateIconDimensions(files[0])));
     if (!screenshotUploadUrl || !turnstileSiteKey)
       problems.unshift('Direct file uploads are not configured yet.');
-    else if (!turnstileToken)
+    else if (!uploadAuthorized)
       problems.unshift('Complete the upload verification below first.');
     if (problems.length) {
       errors = problems;
@@ -366,20 +375,24 @@
     errors = [];
     showStatus('Uploading icon to temporary storage…', true);
     try {
-      const urls = await uploadScreenshots(
+      const result = await uploadScreenshots(
         screenshotUploadUrl,
         turnstileToken,
         files,
+        uploadVerificationToken,
       );
-      if (urls.length) $draft.metadata.iconUrl = urls[0];
+      uploadVerificationToken = result.verificationToken;
+      if (result.urls.length) $draft.metadata.iconUrl = result.urls[0];
       report = null;
       showStatus('Icon staged for catalog admission.');
     } catch (error) {
+      uploadVerificationToken = '';
+      resetTurnstile();
       errors = [(error as Error).message];
       showStatus('Icon upload failed.');
     } finally {
       iconUploading = false;
-      resetTurnstile();
+      if (!uploadVerificationToken) resetTurnstile();
     }
   }
 
@@ -705,65 +718,84 @@
                 bind:value={$draft.metadata.sourceUrl}
               /></label
             >{/if}
-          <div class="icon-section">
-            <div class="field-heading">
-              <span>Icon</span><span class="optional">optional</span>
-            </div>
-            {#if $draft.metadata.iconUrl}<p class="hint">
-                Icon staged. It will be normalized by catalog admission.
-                <button type="button" class="remove-url" onclick={clearIcon}
-                  >Remove</button
-                >
-              </p>{/if}
-            {#if screenshotUploadUrl && turnstileSiteKey}
-              <label
-                class:disabled={!turnstileToken || iconUploading}
-                class="drop icon-drop"
-                style="margin-top: 0.5rem;"
-                ><input
-                  aria-label="Upload icon image"
-                  type="file"
-                  accept=".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp"
-                  disabled={!turnstileToken || iconUploading}
-                  onchange={(event) => {
-                    void selectIcon([...(event.currentTarget.files ?? [])]);
-                    event.currentTarget.value = '';
-                  }}
-                /><strong
-                  >{iconUploading ? 'Uploading icon…' : 'Upload Icon'}</strong
-                ></label
+          <fieldset class="media wide">
+            <legend>Media</legend>
+            {#if screenshotUploadUrl && turnstileSiteKey}<section
+                class="media-verification"
+                aria-labelledby="verification-label"
               >
-            {/if}
-          </div>
-          <section class="screenshots wide" aria-labelledby="screenshots-label">
-            <div class="field-heading">
-              <span id="screenshots-label">Screenshots</span>
-              <span class="optional">optional</span>
-            </div>
-            {#if $draft.metadata.screenshots.length}<p class="hint">
-                {$draft.metadata.screenshots.length} screenshot{$draft.metadata
-                  .screenshots.length === 1
-                  ? ''
-                  : 's'} staged. Re-upload the complete desired set to replace them.
-                <button
-                  type="button"
-                  class="remove-url"
-                  onclick={clearScreenshots}>Remove all</button
-                >
-              </p>{/if}
-            {#if screenshotUploadUrl && turnstileSiteKey}<div
-                class="screenshot-upload"
+                <div class="field-heading">
+                  <span id="verification-label">Upload verification</span>
+                </div>
+                <div
+                  class="turnstile"
+                  class:verified={!!uploadVerificationToken}
+                  bind:this={turnstileContainer}
+                ></div>
+                {#if uploadVerificationToken}<small class="upload-verified"
+                    >Upload verification complete for this page.</small
+                  >{/if}
+              </section>{:else}<small
+                >Media uploads are temporarily unavailable. You can continue
+                without optional media.</small
+              >{/if}
+            <section class="icon-section" aria-labelledby="icon-label">
+              <div class="field-heading">
+                <span id="icon-label">Icon</span>
+                <span class="optional">optional</span>
+              </div>
+              {#if $draft.metadata.iconUrl}<p class="hint">
+                  Icon staged. It will be normalized by catalog admission.
+                  <button type="button" class="remove-url" onclick={clearIcon}
+                    >Remove</button
+                  >
+                </p>{/if}
+              {#if screenshotUploadUrl && turnstileSiteKey}<label
+                  class:disabled={!uploadAuthorized || iconUploading}
+                  class="drop icon-drop"
+                  ><input
+                    aria-label="Upload icon image"
+                    type="file"
+                    accept=".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp"
+                    disabled={!uploadAuthorized || iconUploading}
+                    onchange={(event) => {
+                      void selectIcon([...(event.currentTarget.files ?? [])]);
+                      event.currentTarget.value = '';
+                    }}
+                  /><strong
+                    >{iconUploading ? 'Uploading icon…' : 'Upload Icon'}</strong
+                  ></label
+                >{/if}
+              <small
+                >Choose a PNG, JPEG, or WebP image no larger than 512×512
+                pixels.</small
               >
-                <div class="turnstile" bind:this={turnstileContainer}></div>
-                <label
-                  class:disabled={!turnstileToken || screenshotUploading}
+            </section>
+            <section class="screenshots" aria-labelledby="screenshots-label">
+              <div class="field-heading">
+                <span id="screenshots-label">Screenshots</span>
+                <span class="optional">optional</span>
+              </div>
+              {#if $draft.metadata.screenshots.length}<p class="hint">
+                  {$draft.metadata.screenshots.length} screenshot{$draft
+                    .metadata.screenshots.length === 1
+                    ? ''
+                    : 's'} staged. Re-upload the complete desired set to replace them.
+                  <button
+                    type="button"
+                    class="remove-url"
+                    onclick={clearScreenshots}>Remove all</button
+                  >
+                </p>{/if}
+              {#if screenshotUploadUrl && turnstileSiteKey}<label
+                  class:disabled={!uploadAuthorized || screenshotUploading}
                   class="drop screenshot-drop"
                   ><input
                     aria-label="Choose screenshot images"
                     type="file"
                     accept=".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp"
                     multiple
-                    disabled={!turnstileToken || screenshotUploading}
+                    disabled={!uploadAuthorized || screenshotUploading}
                     onchange={(event) => {
                       void selectScreenshots([
                         ...(event.currentTarget.files ?? []),
@@ -777,16 +809,13 @@
                   ><small
                     >Temporary upload; accepted images move to the catalog.</small
                   ></label
-                >
-              </div>{:else}<small
-                >Media uploads are temporarily unavailable. You can continue
-                without optional media.</small
-              >{/if}
-            <small
-              >Upload the complete desired set of up to 10 PNG, JPEG, or WebP
-              images.</small
-            >
-          </section>
+                >{/if}
+              <small
+                >Upload the complete desired set of up to 10 PNG, JPEG, or WebP
+                images.</small
+              >
+            </section>
+          </fieldset>
         </div>
         {#if !repository}
           <fieldset>

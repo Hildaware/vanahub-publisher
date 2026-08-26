@@ -11,7 +11,13 @@ interface UploadSlot {
 
 interface UploadSession {
   token: string;
+  verificationToken?: string;
   uploads: UploadSlot[];
+}
+
+export interface UploadResult {
+  urls: string[];
+  verificationToken: string;
 }
 
 async function responseError(response: Response): Promise<string> {
@@ -42,19 +48,35 @@ export function validateScreenshotFiles(files: File[], remaining: number) {
   return errors;
 }
 
+export async function validateIconDimensions(file: File) {
+  try {
+    const bitmap = await createImageBitmap(file);
+    const valid = bitmap.width <= 512 && bitmap.height <= 512;
+    bitmap.close();
+    return valid
+      ? []
+      : [`${file.name}: icon dimensions must not exceed 512×512 pixels.`];
+  } catch {
+    return [`${file.name}: could not read image dimensions.`];
+  }
+}
+
 export async function uploadScreenshots(
   endpoint: string,
   turnstileToken: string,
   files: File[],
-): Promise<string[]> {
+  verificationToken = '',
+): Promise<UploadResult> {
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+  };
+  if (verificationToken) headers.Authorization = `Bearer ${verificationToken}`;
+  else headers['X-Turnstile-Token'] = turnstileToken;
   const sessionResponse = await fetch(
     `${endpoint.replace(/\/$/, '')}/upload-session`,
     {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Turnstile-Token': turnstileToken,
-      },
+      headers,
       body: JSON.stringify({
         files: await Promise.all(
           files.map(async (file) => ({
@@ -97,5 +119,8 @@ export async function uploadScreenshots(
       if (!response.ok) throw new Error(await responseError(response));
     }),
   );
-  return session.uploads.map((slot) => slot.publicUrl);
+  return {
+    urls: session.uploads.map((slot) => slot.publicUrl),
+    verificationToken: session.verificationToken || '',
+  };
 }

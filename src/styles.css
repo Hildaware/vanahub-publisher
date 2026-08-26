@@ -337,7 +337,9 @@ code {
 .wide {
   grid-column: 1 / -1;
 }
-.screenshots {
+.icon-section,
+.screenshots,
+.media-verification {
   display: grid;
   gap: 8px;
 }
@@ -366,24 +368,27 @@ code {
 .add-url {
   justify-self: start;
 }
-.screenshots small {
+.media small {
   color: var(--muted);
   font-size: 11px;
-}
-.screenshot-upload {
-  display: grid;
-  grid-template-columns: auto minmax(240px, 1fr);
-  gap: 12px;
-  align-items: stretch;
-  margin-top: 5px;
 }
 .turnstile {
   min-height: 65px;
 }
+
+.turnstile.verified {
+  display: none;
+}
+.icon-drop,
 .screenshot-drop {
+  margin-top: 5px;
   min-height: 65px;
   padding: 10px 14px;
 }
+.icon-drop {
+  min-height: 100px;
+}
+.icon-drop.disabled,
 .screenshot-drop.disabled {
   opacity: 0.5;
   cursor: not-allowed;
@@ -398,6 +403,11 @@ legend {
   color: #d9e7f5;
   font-weight: 700;
   font-size: 13px;
+}
+fieldset.media {
+  display: grid;
+  gap: 18px;
+  margin: 0;
 }
 .radio {
   flex-direction: row;
