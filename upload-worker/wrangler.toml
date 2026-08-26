@@ -1,0 +1,14 @@
+name = "vanahub-screenshot-upload"
+main = "src/index.ts"
+compatibility_date = "2026-08-01"
+
+[[r2_buckets]]
+binding = "SCREENSHOTS"
+bucket_name = "vanahub-screenshot-staging"
+
+[vars]
+PUBLISHER_ORIGIN = "https://hildaware.github.io"
+PUBLIC_BASE_URL = "https://vanahub-screenshot-upload.hildaware.workers.dev"
+
+# Add TURNSTILE_SECRET and UPLOAD_SIGNING_SECRET with `wrangler secret put`.
+# Configure the pending/ prefix to expire through an R2 lifecycle rule.

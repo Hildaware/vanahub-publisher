@@ -3,6 +3,8 @@ dist/
 test-results/
 playwright-report/
 coverage/
+.wrangler/
+upload-worker/.wrangler/
 .DS_Store
 .env
 .env.*

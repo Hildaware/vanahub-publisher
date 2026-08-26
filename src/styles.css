@@ -370,6 +370,24 @@ code {
   color: var(--muted);
   font-size: 11px;
 }
+.screenshot-upload {
+  display: grid;
+  grid-template-columns: auto minmax(240px, 1fr);
+  gap: 12px;
+  align-items: stretch;
+  margin-top: 5px;
+}
+.turnstile {
+  min-height: 65px;
+}
+.screenshot-drop {
+  min-height: 65px;
+  padding: 10px 14px;
+}
+.screenshot-drop.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
 fieldset {
   border: 1px solid var(--line);
   margin: 22px 0 0;
@@ -718,6 +736,9 @@ footer {
   }
 }
 @media (max-width: 580px) {
+  .screenshot-upload {
+    grid-template-columns: 1fr;
+  }
   main {
     padding-inline: 14px;
   }

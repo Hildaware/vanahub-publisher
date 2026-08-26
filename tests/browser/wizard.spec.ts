@@ -109,11 +109,11 @@ test('unlocks steps as source, details, and review are completed', async ({
   await page.getByPlaceholder('github-user, second-user').fill('Owner');
 
   await expect(page.getByLabel('Screenshot URL 1')).toHaveCount(0);
-  await page.getByRole('button', { name: 'Add screenshot' }).click();
+  await page.getByRole('button', { name: 'Add URL' }).click();
   await page
     .getByLabel('Screenshot URL 1')
     .fill('https://example.com/first.png');
-  await page.getByRole('button', { name: 'Add screenshot' }).click();
+  await page.getByRole('button', { name: 'Add URL' }).click();
   await expect(page.getByLabel('Screenshot URL 2')).toBeVisible();
   await page.getByRole('button', { name: 'Remove screenshot 2' }).click();
   await expect(page.getByLabel(/Screenshot URL/)).toHaveCount(1);

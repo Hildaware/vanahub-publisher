@@ -37,6 +37,10 @@
     publisherConfig,
     releaseWorkflowIntegration,
   } from './lib/automation';
+  import {
+    uploadScreenshots,
+    validateScreenshotFiles,
+  } from './lib/screenshots';
 
   const steps = ['Repository', 'Addon details', 'Review', 'Connect'];
   const categoryLabels: Record<AddonCategory, string> = {
@@ -53,6 +57,8 @@
     'development-tools': 'Development Tools',
   };
   const publisherRef = import.meta.env.VITE_PUBLISHER_REF || 'main';
+  const screenshotUploadUrl = import.meta.env.VITE_SCREENSHOT_UPLOAD_URL || '';
+  const turnstileSiteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY || '';
   const worker = new PublisherWorker();
   let step = 0;
   let entries: SourceEntry[] = [];
@@ -75,6 +81,12 @@
   let activeTask: WorkerTask<any> | null = null;
   let heading: HTMLElement;
   let maintainersText = '';
+  let screenshotUploading = false;
+  let iconUploading = false;
+  let turnstileContainer: HTMLElement | null = null;
+  let turnstileWidgetId: string | null = null;
+  let turnstileToken = '';
+  let turnstileLoading: Promise<void> | null = null;
 
   $: metadataErrors = validateMetadata($draft.metadata);
   $: sourceComplete =
@@ -113,11 +125,51 @@
     const prefix = selectedRoot ? `${selectedRoot.replace(/\/$/, '')}/` : '';
     return !entry.directory && (!prefix || entry.path.startsWith(prefix));
   });
-
   onDestroy(() => {
     worker.close();
     if (statusTimer) clearTimeout(statusTimer);
+    if (turnstileWidgetId) window.turnstile?.remove(turnstileWidgetId);
   });
+
+  function loadTurnstile() {
+    if (window.turnstile) return Promise.resolve();
+    if (turnstileLoading) return turnstileLoading;
+    turnstileLoading = new Promise<void>((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src =
+        'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+      script.async = true;
+      script.defer = true;
+      script.onload = () => resolve();
+      script.onerror = () =>
+        reject(new Error('Could not load upload verification.'));
+      document.head.append(script);
+    });
+    return turnstileLoading;
+  }
+
+  async function renderTurnstile() {
+    if (turnstileWidgetId || !turnstileContainer) return;
+    await tick();
+    try {
+      await loadTurnstile();
+      if (!turnstileContainer || !window.turnstile) return;
+      turnstileWidgetId = window.turnstile.render(turnstileContainer, {
+        sitekey: turnstileSiteKey,
+        callback: (token) => (turnstileToken = token),
+        'expired-callback': () => (turnstileToken = ''),
+        'error-callback': () => (turnstileToken = ''),
+        theme: 'dark',
+      });
+    } catch (error) {
+      errors = [(error as Error).message];
+    }
+  }
+
+  function resetTurnstile() {
+    turnstileToken = '';
+    if (turnstileWidgetId) window.turnstile?.reset(turnstileWidgetId);
+  }
 
   function showStatus(message: string, persistent = false) {
     if (statusTimer) clearTimeout(statusTimer);
@@ -136,6 +188,8 @@
     step = target;
     errors = [];
     await tick();
+    if (target === 1 && screenshotUploadUrl && turnstileSiteKey)
+      await renderTurnstile();
     heading?.focus();
   }
 
@@ -256,6 +310,73 @@
       (_, screenshotIndex) => screenshotIndex !== index,
     );
     report = null;
+  }
+
+  async function selectScreenshots(files: File[]) {
+    const problems = validateScreenshotFiles(
+      files,
+      10 - $draft.metadata.screenshots.length,
+    );
+    if (!screenshotUploadUrl || !turnstileSiteKey)
+      problems.unshift('Direct screenshot uploads are not configured yet.');
+    else if (!turnstileToken)
+      problems.unshift('Complete the upload verification first.');
+    if (problems.length) {
+      errors = problems;
+      return;
+    }
+    screenshotUploading = true;
+    errors = [];
+    showStatus('Uploading screenshots to temporary storage…', true);
+    try {
+      const urls = await uploadScreenshots(
+        screenshotUploadUrl,
+        turnstileToken,
+        files,
+      );
+      $draft.metadata.screenshots = [...$draft.metadata.screenshots, ...urls];
+      report = null;
+      showStatus(
+        `${urls.length} screenshot${urls.length === 1 ? '' : 's'} staged for catalog admission.`,
+      );
+    } catch (error) {
+      errors = [(error as Error).message];
+      showStatus('Screenshot upload failed.');
+    } finally {
+      screenshotUploading = false;
+      resetTurnstile();
+    }
+  }
+
+  async function selectIcon(files: File[]) {
+    const problems = validateScreenshotFiles(files, 1);
+    if (!screenshotUploadUrl || !turnstileSiteKey)
+      problems.unshift('Direct file uploads are not configured yet.');
+    else if (!turnstileToken)
+      problems.unshift('Complete the upload verification below first.');
+    if (problems.length) {
+      errors = problems;
+      return;
+    }
+    iconUploading = true;
+    errors = [];
+    showStatus('Uploading icon to temporary storage…', true);
+    try {
+      const urls = await uploadScreenshots(
+        screenshotUploadUrl,
+        turnstileToken,
+        files,
+      );
+      if (urls.length) $draft.metadata.iconUrl = urls[0];
+      report = null;
+      showStatus('Icon staged for catalog admission.');
+    } catch (error) {
+      errors = [(error as Error).message];
+      showStatus('Icon upload failed.');
+    } finally {
+      iconUploading = false;
+      resetTurnstile();
+    }
   }
 
   function toggleCategory(category: AddonCategory) {
@@ -575,12 +696,33 @@
                 bind:value={$draft.metadata.sourceUrl}
               /></label
             >{/if}
-          <label
-            >Icon URL <span class="optional">optional</span><input
-              type="url"
-              bind:value={$draft.metadata.iconUrl}
-            /></label
-          >
+          <div class="icon-section">
+            <label
+              >Icon URL <span class="optional">optional</span><input
+                type="url"
+                bind:value={$draft.metadata.iconUrl}
+              /></label
+            >
+            {#if screenshotUploadUrl && turnstileSiteKey}
+              <label
+                class:disabled={!turnstileToken || iconUploading}
+                class="drop icon-drop"
+                style="margin-top: 0.5rem;"
+                ><input
+                  aria-label="Upload icon image"
+                  type="file"
+                  accept=".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp"
+                  disabled={!turnstileToken || iconUploading}
+                  onchange={(event) => {
+                    void selectIcon([...(event.currentTarget.files ?? [])]);
+                    event.currentTarget.value = '';
+                  }}
+                /><strong
+                  >{iconUploading ? 'Uploading icon…' : 'Upload Icon'}</strong
+                ></label
+              >
+            {/if}
+          </div>
           <section class="screenshots wide" aria-labelledby="screenshots-label">
             <div class="field-heading">
               <span id="screenshots-label">Screenshots</span>
@@ -608,9 +750,44 @@
               type="button"
               class="secondary add-url"
               disabled={$draft.metadata.screenshots.length >= 10}
-              onclick={addScreenshot}>+ Add screenshot</button
+              onclick={addScreenshot}>+ Add URL</button
             >
-            <small>Up to 10 HTTPS image URLs.</small>
+            {#if screenshotUploadUrl && turnstileSiteKey}<div
+                class="screenshot-upload"
+              >
+                <div class="turnstile" bind:this={turnstileContainer}></div>
+                <label
+                  class:disabled={!turnstileToken || screenshotUploading}
+                  class="drop screenshot-drop"
+                  ><input
+                    aria-label="Choose screenshot images"
+                    type="file"
+                    accept=".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp"
+                    multiple
+                    disabled={!turnstileToken ||
+                      screenshotUploading ||
+                      $draft.metadata.screenshots.length >= 10}
+                    onchange={(event) => {
+                      void selectScreenshots([
+                        ...(event.currentTarget.files ?? []),
+                      ]);
+                      event.currentTarget.value = '';
+                    }}
+                  /><strong
+                    >{screenshotUploading
+                      ? 'Uploading screenshots…'
+                      : 'Choose or drop image files'}</strong
+                  ><small
+                    >Temporary upload; accepted images move to the catalog.</small
+                  ></label
+                >
+              </div>{:else}<small
+                >Direct file uploads are not configured. HTTPS image URLs still
+                work.</small
+              >{/if}
+            <small
+              >Up to 10 HTTPS URLs or uploaded PNG, JPEG, and WebP images.</small
+            >
           </section>
         </div>
         {#if !repository}
