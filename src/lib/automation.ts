@@ -111,6 +111,7 @@ export function releaseWorkflowIntegration(): string {
       release-tag: v\${{ inputs.version }}
     permissions:
       contents: write
+      pull-requests: write
 `;
 }
 
