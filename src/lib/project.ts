@@ -49,11 +49,11 @@ export function buildCatalogManifest(
     compressedSize: size,
     archiveRoot: metadata.id,
     entrypoint: `${metadata.id}.lua`,
-    declaredCapabilities: metadata.declaredCapabilities,
   };
-  if (metadata.categories.length) manifest.categories = metadata.categories;
+  if (metadata.categories.length) manifest.categories = [...metadata.categories];
+  if (metadata.declaredCapabilities.length) manifest.declaredCapabilities = [...metadata.declaredCapabilities];
   if (metadata.iconUrl) manifest.iconUrl = metadata.iconUrl;
-  if (metadata.screenshots.length) manifest.screenshots = metadata.screenshots;
+  if (metadata.screenshots.length) manifest.screenshots = [...metadata.screenshots];
   return manifest;
 }
 
