@@ -77,8 +77,9 @@ Browser storage contains metadata and source fingerprints only—not addon conte
 The optional `upload-worker/` Cloudflare Worker lets the static Publisher stage
 local PNG, JPEG, and WebP screenshots without exposing storage credentials. Set
 the GitHub Pages repository variables `VANAHUB_SCREENSHOT_UPLOAD_URL` and
-`VANAHUB_TURNSTILE_SITE_KEY` after deploying it. URL-only screenshot publishing
-continues to work when those variables are absent.
+`VANAHUB_TURNSTILE_SITE_KEY` after deploying it. Media is optional, but new
+catalog media must use this upload service; arbitrary external image URLs are
+not accepted.
 
 Static analysis cannot prove Lua is harmless. A passing report only says that the package complied with the pinned automated policy at the time it was generated.
 
