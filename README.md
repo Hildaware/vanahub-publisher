@@ -70,7 +70,7 @@ To use a local checkout, run `npm run contracts:sync -- --source /path/to/vanahu
 
 ## Privacy and security boundary
 
-Browser storage contains metadata and source fingerprints only—not addon content or local filesystem paths. **Forget everything** removes the persisted draft and in-memory source. Project JSON exports follow the same metadata-only rule. Icon and screenshot URLs are stored as text and never loaded by the app. When direct screenshot uploads are configured, image bytes leave the browser only after the user explicitly chooses files; R2 holds them temporarily for catalog admission.
+Browser storage contains metadata and source fingerprints only—not addon content or local filesystem paths. **Forget everything** removes the persisted draft and in-memory source. Project JSON exports follow the same metadata-only rule. Staged icon and screenshot URLs are loaded only to show media previews. When direct screenshot uploads are configured, image bytes leave the browser only after the user explicitly chooses files; R2 holds them temporarily for catalog admission.
 
 ## Screenshot upload service
 

@@ -91,14 +91,17 @@
   let turnstileLoading: Promise<void> | null = null;
 
   $: metadataErrors = validateMetadata($draft.metadata);
+  $: detailsErrors = [
+    ...metadataErrors,
+    ...($draft.metadata.categories.length
+      ? []
+      : ['Choose at least one category.']),
+  ];
   $: uploadAuthorized = !!turnstileToken || !!uploadVerificationToken;
   $: sourceComplete =
     entries.some((entry) => !entry.directory) &&
     (roots.length <= 1 || !!selectedRoot);
-  $: detailsComplete =
-    sourceComplete &&
-    metadataErrors.length === 0 &&
-    $draft.metadata.categories.length > 0;
+  $: detailsComplete = sourceComplete && detailsErrors.length === 0;
   $: reviewComplete =
     detailsComplete &&
     !!report &&
@@ -213,6 +216,18 @@
 
   function canEnterStep(target: number) {
     return target <= step || target <= unlockedStep;
+  }
+
+  async function continueToNextStep() {
+    if (step === 1 && !detailsComplete) {
+      errors = [...detailsErrors];
+      if (!sourceComplete)
+        errors.unshift('Choose a repository or local source first.');
+      showStatus('Complete the remaining addon details.');
+      heading?.focus();
+      return;
+    }
+    await go(step + 1);
   }
 
   async function readArchive(blob: Blob) {
@@ -749,7 +764,12 @@
                   <button type="button" class="remove-url" onclick={clearIcon}
                     >Remove</button
                   >
-                </p>{/if}
+                </p>
+                <img
+                  class="icon-preview"
+                  src={$draft.metadata.iconUrl}
+                  alt="Icon preview"
+                />{/if}
               {#if screenshotUploadUrl && turnstileSiteKey}<label
                   class:disabled={!uploadAuthorized || iconUploading}
                   class="drop icon-drop"
@@ -786,7 +806,19 @@
                     class="remove-url"
                     onclick={clearScreenshots}>Remove all</button
                   >
-                </p>{/if}
+                </p>
+                <div class="screenshot-previews">
+                  {#each $draft.metadata.screenshots as screenshot, index (screenshot)}<figure
+                      class="screenshot-preview"
+                    >
+                      <img
+                        src={screenshot}
+                        alt={`Screenshot ${index + 1} preview`}
+                        loading="lazy"
+                      />
+                      <figcaption>Screenshot {index + 1}</figcaption>
+                    </figure>{/each}
+                </div>{/if}
               {#if screenshotUploadUrl && turnstileSiteKey}<label
                   class:disabled={!uploadAuthorized || screenshotUploading}
                   class="drop screenshot-drop"
@@ -1036,8 +1068,8 @@
           >Back</button
         >{#if step < 3}<button
             class="primary"
-            disabled={busy || step + 1 > unlockedStep}
-            onclick={() => go(step + 1)}>Continue</button
+            disabled={busy || (step !== 1 && step + 1 > unlockedStep)}
+            onclick={continueToNextStep}>Continue</button
           >{/if}
       </div>
     </section>

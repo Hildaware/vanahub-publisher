@@ -108,6 +108,14 @@ test('unlocks steps as source, details, and review are completed', async ({
     await media.locator('.field-heading > span:first-child').allTextContents(),
   ).toEqual(['Icon', 'Screenshots']);
 
+  const continueButton = page.getByRole('button', { name: 'Continue' });
+  await expect(continueButton).toBeEnabled();
+  await continueButton.click();
+  await expect(page.getByRole('alert')).toContainText('Name is required');
+  await expect(page.getByRole('alert')).toContainText(
+    'Choose at least one category.',
+  );
+
   await page.getByLabel('Package ID').fill('sample');
   await page.getByLabel('Name', { exact: true }).fill('Sample');
   await page.getByLabel('Description', { exact: true }).fill('Sample addon');
@@ -123,7 +131,8 @@ test('unlocks steps as source, details, and review are completed', async ({
   const reviewStep = page.getByRole('button', { name: /Review/ });
   await expect(reviewStep).toBeEnabled();
   await expect(page.getByRole('button', { name: /Connect/ })).toBeDisabled();
-  await reviewStep.click();
+  await continueButton.click();
+  await expect(page.getByRole('heading', { name: 'Review' })).toBeFocused();
   await page.getByRole('button', { name: /Repository/ }).click();
   await expect(page.getByRole('heading', { name: 'Repository' })).toBeFocused();
   await reviewStep.click();

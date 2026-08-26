@@ -388,6 +388,36 @@ code {
 .icon-drop {
   min-height: 100px;
 }
+.icon-preview {
+  display: block;
+  width: min(100%, 256px);
+  max-height: 256px;
+  object-fit: contain;
+  border: 1px solid var(--line);
+  background: #07111e;
+}
+.screenshot-previews {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 10px;
+}
+.screenshot-preview {
+  min-width: 0;
+  margin: 0;
+  border: 1px solid var(--line);
+  background: #07111e;
+}
+.screenshot-preview img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+}
+.screenshot-preview figcaption {
+  padding: 7px 9px;
+  color: var(--muted);
+  font-size: 11px;
+}
 .icon-drop.disabled,
 .screenshot-drop.disabled {
   opacity: 0.5;
