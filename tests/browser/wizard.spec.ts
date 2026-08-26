@@ -1,25 +1,27 @@
 import { expect, test } from '@playwright/test';
 import { BlobWriter, TextReader, ZipWriter } from '@zip.js/zip.js';
 
-test('loads beneath the Pages subpath and navigates accessibly', async ({
+test('loads beneath the Pages subpath with future steps locked', async ({
   page,
 }) => {
   await page.goto('./');
   await expect(page).toHaveTitle('VanaHub Publisher');
   await expect(
-    page.getByRole('heading', { name: /Connect once/ }),
+    page.getByRole('heading', { name: 'Publish an addon' }),
   ).toBeVisible();
-  await page.getByRole('button', { name: /Addon details/ }).click();
+  await expect(page.getByRole('button', { name: /Repository/ })).toBeEnabled();
   await expect(
-    page.getByRole('heading', { name: 'Addon details' }),
-  ).toBeFocused();
-  await page.keyboard.press('Shift+Tab');
-  await expect(page.getByRole('button', { name: /Repository/ })).toBeVisible();
+    page.getByRole('button', { name: /Addon details/ }),
+  ).toBeDisabled();
+  await expect(page.getByRole('button', { name: /Review/ })).toBeDisabled();
+  await expect(page.getByRole('button', { name: /Connect/ })).toBeDisabled();
+  await expect(page.getByRole('button', { name: 'Continue' })).toBeDisabled();
 });
 
 test('imports source, forgets drafts, and announces status', async ({
   page,
 }) => {
+  await page.clock.install();
   await page.goto('./');
   await page.getByText('Use a local folder or ZIP instead').click();
   const writer = new ZipWriter(new BlobWriter('application/zip'), {
@@ -37,6 +39,8 @@ test('imports source, forgets drafts, and announces status', async ({
   await expect(
     page.getByText('Draft and in-memory source forgotten.'),
   ).toBeVisible();
+  await page.clock.fastForward(5000);
+  await expect(page.getByRole('status')).toHaveCount(0);
   expect(
     await page.evaluate(() =>
       localStorage.getItem('vanahub-publisher-draft-v1'),
@@ -44,7 +48,7 @@ test('imports source, forgets drafts, and announces status', async ({
   ).not.toContain('vanahub-test-addon.lua');
 });
 
-test('shows repository files immediately after inspection', async ({
+test('unlocks steps as source, details, and review are completed', async ({
   page,
 }) => {
   await page.route('https://api.github.com/**', async (route) => {
@@ -89,4 +93,43 @@ test('shows repository files immediately after inspection', async ({
 
   await expect(page.getByText('1 included files')).toBeVisible();
   await expect(page.getByText('sample.lua', { exact: true })).toBeVisible();
+
+  const detailsStep = page.getByRole('button', { name: /Addon details/ });
+  await expect(detailsStep).toBeEnabled();
+  await expect(page.getByRole('button', { name: /Review/ })).toBeDisabled();
+  await detailsStep.click();
+  await expect(
+    page.getByRole('heading', { name: 'Addon details' }),
+  ).toBeFocused();
+
+  await page.getByLabel('Package ID').fill('sample');
+  await page.getByLabel('Name', { exact: true }).fill('Sample');
+  await page.getByLabel('Description', { exact: true }).fill('Sample addon');
+  await page.getByLabel('Author', { exact: true }).fill('Owner');
+  await page.getByPlaceholder('github-user, second-user').fill('Owner');
+
+  await expect(page.getByLabel('Screenshot URL 1')).toHaveCount(0);
+  await page.getByRole('button', { name: 'Add screenshot' }).click();
+  await page
+    .getByLabel('Screenshot URL 1')
+    .fill('https://example.com/first.png');
+  await page.getByRole('button', { name: 'Add screenshot' }).click();
+  await expect(page.getByLabel('Screenshot URL 2')).toBeVisible();
+  await page.getByRole('button', { name: 'Remove screenshot 2' }).click();
+  await expect(page.getByLabel(/Screenshot URL/)).toHaveCount(1);
+  await page.getByLabel('Quality of Life', { exact: true }).check();
+
+  const reviewStep = page.getByRole('button', { name: /Review/ });
+  await expect(reviewStep).toBeEnabled();
+  await expect(page.getByRole('button', { name: /Connect/ })).toBeDisabled();
+  await reviewStep.click();
+  await page.getByRole('button', { name: /Repository/ }).click();
+  await expect(page.getByRole('heading', { name: 'Repository' })).toBeFocused();
+  await reviewStep.click();
+
+  await page.getByRole('button', { name: 'Run validation' }).click();
+  await expect(
+    page.getByText('All current catalog checks pass.'),
+  ).toBeVisible();
+  await expect(page.getByRole('button', { name: /Connect/ })).toBeEnabled();
 });

@@ -17,6 +17,7 @@ const metadata = (): PackageMetadata => ({
   maintainers: ['author'],
   version: '1.2.3',
   sourceUrl: 'https://github.com/author/sample',
+  categories: ['quality-of-life'],
   declaredCapabilities: ['ui'],
 });
 
@@ -29,6 +30,7 @@ describe('publishing contracts', () => {
     );
     const manifest = buildCatalogManifest(value, url, 'a'.repeat(64), 123);
     expect(manifestErrors(manifest)).toEqual([]);
+    expect(manifest.categories).toEqual(['quality-of-life']);
     expect(artifactFilename(value)).toBe('sample-1.2.3.zip');
   });
 

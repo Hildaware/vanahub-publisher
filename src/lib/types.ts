@@ -8,7 +8,22 @@ export const capabilities = [
   'bundled-file-read',
 ] as const;
 
+export const addonCategories = [
+  'combat',
+  'jobs',
+  'inventory',
+  'crafting',
+  'economy',
+  'maps-travel',
+  'user-interface',
+  'chat-communication',
+  'data-tracking',
+  'quality-of-life',
+  'development-tools',
+] as const;
+
 export type Capability = (typeof capabilities)[number];
+export type AddonCategory = (typeof addonCategories)[number];
 export type PublishingMode = 'built-in' | 'custom';
 export type Severity = 'error' | 'warning' | 'info';
 
@@ -50,6 +65,7 @@ export interface PackageMetadata {
   sourceUrl: string;
   iconUrl: string;
   screenshots: string[];
+  categories: AddonCategory[];
   declaredCapabilities: Capability[];
   mode: PublishingMode;
 }
@@ -94,9 +110,9 @@ export interface PublisherConfig {
   description: string;
   author: string;
   sourcePath: string;
-  declaredCapabilities: Capability[];
   iconUrl?: string;
   screenshots?: string[];
+  categories?: AddonCategory[];
 }
 
 export interface GitHubRepository {
@@ -118,6 +134,7 @@ export const emptyMetadata = (): PackageMetadata => ({
   sourceUrl: '',
   iconUrl: '',
   screenshots: [],
+  categories: [],
   declaredCapabilities: [],
   mode: 'built-in',
 });

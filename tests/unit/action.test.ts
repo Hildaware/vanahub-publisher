@@ -22,7 +22,7 @@ describe('bundled publishing action', () => {
   it('packages a published stable release and emits catalog assets', () => {
     temporary = mkdtempSync(join(tmpdir(), 'vanahub-action-'));
     mkdirSync(join(temporary, '.vanahub'));
-    writeFileSync(join(temporary, 'sample.lua'), 'return true\n');
+    writeFileSync(join(temporary, 'sample.lua'), "print('hello')\n");
     writeFileSync(
       join(temporary, '.vanahub', 'package.json'),
       JSON.stringify({
@@ -32,7 +32,7 @@ describe('bundled publishing action', () => {
         description: 'Sample addon',
         author: 'Author',
         sourcePath: '.',
-        declaredCapabilities: [],
+        categories: ['quality-of-life'],
       }),
     );
     writeFileSync(
@@ -74,6 +74,8 @@ describe('bundled publishing action', () => {
     expect(manifest.downloadUrl).toContain(
       '/releases/download/v1.2.3/sample-1.2.3.zip',
     );
+    expect(manifest.categories).toEqual(['quality-of-life']);
+    expect(manifest.declaredCapabilities).toEqual(['chat-output']);
   });
 
   it('reads hyphenated GitHub Action input names without rewriting them', () => {

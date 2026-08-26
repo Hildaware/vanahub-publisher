@@ -3,6 +3,7 @@ import type {
   Capability,
   Finding,
   PackageMetadata,
+  Severity,
   SourceEntry,
   ValidationReport,
 } from './types';
@@ -53,10 +54,11 @@ function finding(
   path = '',
   line = 0,
   capability = '',
+  severity: Severity = 'error',
 ): Finding {
   return {
     ruleId,
-    severity: 'error',
+    severity,
     message,
     structural,
     path,
@@ -142,6 +144,8 @@ export function luaFindings(
         'All require targets must be unique string literals',
         false,
         path,
+        0,
+        'dynamic-code',
       ),
     );
   for (const module of new Set(requires)) {
@@ -152,6 +156,8 @@ export function luaFindings(
           `Invalid or dynamic-looking module name: ${module}`,
           false,
           path,
+          0,
+          'dynamic-code',
         ),
       );
     } else if (!policy.allowedModules.includes(module) && !local.has(module)) {
@@ -161,6 +167,8 @@ export function luaFindings(
           `Module is neither policy-approved nor bundled locally: ${module}`,
           false,
           path,
+          0,
+          'unapproved-module',
         ),
       );
     }
@@ -344,15 +352,19 @@ export function scanEntries(
       ),
     );
   for (const capability of suggested) {
-    if (!metadata.declaredCapabilities.includes(capability))
+    const message = (policy.capabilityWarnings as Record<string, string>)[
+      capability
+    ];
+    if (message)
       findings.push(
         finding(
-          'lua.undeclared-capability',
-          `Source suggests undeclared capability: ${capability}`,
+          'lua.capability-warning',
+          message,
           false,
           '',
           0,
           capability,
+          'warning',
         ),
       );
   }

@@ -1,8 +1,8 @@
 <script lang="ts">
   import { onDestroy, tick } from 'svelte';
   import {
-    capabilities,
-    type Capability,
+    addonCategories,
+    type AddonCategory,
     type GitHubRepository,
     type SourceEntry,
     type ValidationReport,
@@ -38,7 +38,20 @@
     releaseWorkflowIntegration,
   } from './lib/automation';
 
-  const steps = ['Repository', 'Addon details', 'Review', 'Automate'];
+  const steps = ['Repository', 'Addon details', 'Review', 'Connect'];
+  const categoryLabels: Record<AddonCategory, string> = {
+    combat: 'Combat',
+    jobs: 'Jobs',
+    inventory: 'Inventory',
+    crafting: 'Crafting',
+    economy: 'Economy',
+    'maps-travel': 'Maps & Travel',
+    'user-interface': 'User Interface',
+    'chat-communication': 'Chat & Communication',
+    'data-tracking': 'Data & Tracking',
+    'quality-of-life': 'Quality of Life',
+    'development-tools': 'Development Tools',
+  };
   const publisherRef = import.meta.env.VITE_PUBLISHER_REF || 'main';
   const worker = new PublisherWorker();
   let step = 0;
@@ -56,14 +69,34 @@
   let report: ValidationReport | null = null;
   let busy = false;
   let progress = 0;
-  let status = 'Paste a public GitHub repository URL to begin.';
+  let status = '';
+  let statusTimer: ReturnType<typeof setTimeout> | null = null;
   let errors: string[] = [];
   let activeTask: WorkerTask<any> | null = null;
   let heading: HTMLElement;
   let maintainersText = '';
-  let screenshotsText = '';
 
   $: metadataErrors = validateMetadata($draft.metadata);
+  $: sourceComplete =
+    entries.some((entry) => !entry.directory) &&
+    (roots.length <= 1 || !!selectedRoot);
+  $: detailsComplete =
+    sourceComplete &&
+    metadataErrors.length === 0 &&
+    $draft.metadata.categories.length > 0;
+  $: reviewComplete =
+    detailsComplete &&
+    !!report &&
+    report.structurallyValid &&
+    ($draft.metadata.mode === 'custom' || report.eligibleForScreenedCatalog);
+  $: unlockedStep = !sourceComplete
+    ? 0
+    : !detailsComplete
+      ? 1
+      : !reviewComplete
+        ? 2
+        : 3;
+  $: completedSteps = [sourceComplete, detailsComplete, reviewComplete, false];
   $: config = publisherConfig($draft.metadata, repository ? sourcePath : '.');
   $: setupText = repository
     ? bootstrapWorkflow({
@@ -81,13 +114,33 @@
     return !entry.directory && (!prefix || entry.path.startsWith(prefix));
   });
 
-  onDestroy(() => worker.close());
+  onDestroy(() => {
+    worker.close();
+    if (statusTimer) clearTimeout(statusTimer);
+  });
+
+  function showStatus(message: string, persistent = false) {
+    if (statusTimer) clearTimeout(statusTimer);
+    status = message;
+    statusTimer = persistent
+      ? null
+      : setTimeout(() => {
+          status = '';
+          statusTimer = null;
+        }, 5000);
+  }
 
   async function go(next: number) {
-    step = Math.max(0, Math.min(steps.length - 1, next));
+    const target = Math.max(0, Math.min(steps.length - 1, next));
+    if (!canEnterStep(target)) return;
+    step = target;
     errors = [];
     await tick();
     heading?.focus();
+  }
+
+  function canEnterStep(target: number) {
+    return target <= step || target <= unlockedStep;
   }
 
   async function readArchive(blob: Blob) {
@@ -103,7 +156,7 @@
     progress = 0;
     errors = [];
     report = null;
-    status = 'Inspecting the GitHub repository…';
+    showStatus('Inspecting the GitHub repository…', true);
     try {
       const provider = repositoryProvider(repositoryUrl);
       if (!provider)
@@ -111,7 +164,7 @@
           'This host is not automated yet. Use the local folder/ZIP fallback.',
         );
       repository = await provider.inspect(repositoryUrl);
-      status = `Fetching commit ${repository.commit.slice(0, 12)}…`;
+      showStatus(`Fetching commit ${repository.commit.slice(0, 12)}…`, true);
       entries = await provider.load(repository, (value) => (progress = value));
       releaseWorkflows = releaseAutomation(entries);
       wrapper = archiveWrapper(entries);
@@ -125,12 +178,15 @@
       roots = [];
       $draft.metadata.sourceUrl = repository.url;
       $draft.metadata.mode = 'built-in';
-      status = `Loaded ${repository.owner}/${repository.name} at ${repository.commit.slice(0, 12)}.`;
+      showStatus(
+        `Loaded ${repository.owner}/${repository.name} at ${repository.commit.slice(0, 12)}.`,
+      );
     } catch (error) {
       repository = null;
       entries = [];
       releaseWorkflows = [];
       errors = [(error as Error).message];
+      showStatus('Repository inspection failed.');
     } finally {
       busy = false;
       activeTask = null;
@@ -152,7 +208,7 @@
     report = null;
     repository = null;
     releaseWorkflows = [];
-    status = 'Reading source locally…';
+    showStatus('Reading source locally…', true);
     try {
       activeTask = worker.run<SourceEntry[]>(
         type === 'read-zip' ? { type, file: files[0] } : { type, files },
@@ -167,33 +223,47 @@
           ? []
           : topLevelRoots(paths);
       selectedRoot = roots.length === 1 ? roots[0] : '';
-      status = `Loaded ${entries.filter((entry) => !entry.directory).length} local files.`;
+      showStatus(
+        `Loaded ${entries.filter((entry) => !entry.directory).length} local files.`,
+      );
     } catch (error) {
-      if ((error as DOMException).name !== 'AbortError')
+      if ((error as DOMException).name !== 'AbortError') {
         errors = [(error as Error).message];
+        showStatus('Could not read the local source.');
+      }
     } finally {
       busy = false;
       activeTask = null;
     }
   }
 
-  function syncLists() {
+  function syncMaintainers() {
     $draft.metadata.maintainers = maintainersText
       .split(',')
-      .map((value) => value.trim())
-      .filter(Boolean);
-    $draft.metadata.screenshots = screenshotsText
-      .split('\n')
       .map((value) => value.trim())
       .filter(Boolean);
     report = null;
   }
 
-  function toggleCapability(capability: Capability) {
-    const selected = $draft.metadata.declaredCapabilities;
-    $draft.metadata.declaredCapabilities = selected.includes(capability)
-      ? selected.filter((item) => item !== capability)
-      : [...selected, capability];
+  function addScreenshot() {
+    if ($draft.metadata.screenshots.length >= 10) return;
+    $draft.metadata.screenshots = [...$draft.metadata.screenshots, ''];
+    report = null;
+  }
+
+  function removeScreenshot(index: number) {
+    $draft.metadata.screenshots = $draft.metadata.screenshots.filter(
+      (_, screenshotIndex) => screenshotIndex !== index,
+    );
+    report = null;
+  }
+
+  function toggleCategory(category: AddonCategory) {
+    const selected = $draft.metadata.categories;
+    if (!selected.includes(category) && selected.length >= 3) return;
+    $draft.metadata.categories = selected.includes(category)
+      ? selected.filter((item) => item !== category)
+      : [...selected, category];
     report = null;
   }
 
@@ -206,7 +276,7 @@
     if (errors.length) return;
     busy = true;
     progress = 0;
-    status = 'Validating archive structure and Lua…';
+    showStatus('Validating archive structure and Lua…', true);
     try {
       activeTask = worker.run<ValidationReport>(
         {
@@ -218,6 +288,7 @@
         (value) => (progress = value),
       );
       const nextReport = await activeTask.promise;
+      $draft.metadata.declaredCapabilities = nextReport.suggestedCapabilities;
       report = nextReport;
       const files = await fingerprints(entries, selectedRoot);
       draft.update((value) => ({
@@ -228,13 +299,18 @@
           entrypoint: `${$draft.metadata.id}.lua`,
         },
       }));
-      status = nextReport.eligibleForScreenedCatalog
-        ? 'All current catalog checks pass.'
-        : nextReport.structurallyValid
-          ? 'Structurally valid for custom publishing.'
-          : 'Validation found blocking problems.';
+      showStatus(
+        nextReport.eligibleForScreenedCatalog
+          ? nextReport.findings.length
+            ? 'Validation passed with warnings.'
+            : 'All current catalog checks pass.'
+          : nextReport.structurallyValid
+            ? 'Structurally valid for custom publishing.'
+            : 'Validation found blocking problems.',
+      );
     } catch (error) {
       errors = [(error as Error).message];
+      showStatus('Validation failed.');
     } finally {
       busy = false;
       activeTask = null;
@@ -242,12 +318,7 @@
   }
 
   function canPublish() {
-    return (
-      !!report &&
-      !metadataErrors.length &&
-      report.structurallyValid &&
-      ($draft.metadata.mode === 'custom' || report.eligibleForScreenedCatalog)
-    );
+    return reviewComplete;
   }
 
   async function createArtifact() {
@@ -265,7 +336,7 @@
     if (!canPublish()) return;
     const artifact = await createArtifact();
     downloadBlob(artifact.blob, artifactFilename($draft.metadata));
-    status = `Addon ZIP ready: ${artifact.digest}`;
+    showStatus(`Addon ZIP ready: ${artifact.digest}`);
   }
 
   async function exportBundle() {
@@ -295,23 +366,23 @@
       { path: 'SHA256SUMS.txt', bytes: `${artifact.digest}  ${filename}\n` },
     ]);
     downloadBlob(bundle, bundleFilename($draft.metadata));
-    status = 'Manual publishing kit ready.';
+    showStatus('Manual publishing kit ready.');
   }
 
   async function copySetup() {
     await navigator.clipboard.writeText(setupText);
-    status = 'Publishing workflow copied.';
+    showStatus('Publishing workflow copied.');
   }
 
   async function copyIntegration() {
     await navigator.clipboard.writeText(integrationText);
-    status = 'Existing release workflow integration copied.';
+    showStatus('Existing release workflow integration copied.');
   }
 
   function cancel() {
     activeTask?.cancel();
     busy = false;
-    status = 'Operation cancelled.';
+    showStatus('Operation cancelled.');
   }
   function forget() {
     forgetDraft();
@@ -323,15 +394,14 @@
     selectedRoot = '';
     report = null;
     maintainersText = '';
-    screenshotsText = '';
-    status = 'Draft and in-memory source forgotten.';
+    showStatus('Draft and in-memory source forgotten.');
   }
 </script>
 
 <svelte:head
   ><meta
     name="description"
-    content="Connect, validate, and automate VanaHub addon publishing."
+    content="Prepare and publish VanaHub addons."
   /></svelte:head
 >
 
@@ -342,25 +412,21 @@
     aria-label="VanaHub Publisher home"
     ><span>V</span> VanaHub <b>Publisher</b></a
   >
-  <div class="privacy"><i></i> Repository-first · local validation</div>
 </header>
 
 <main>
   <section class="hero">
-    <p class="eyebrow">Release automation</p>
-    <h1>Connect once.<br /><em>Publish every release.</em></h1>
-    <p>
-      Point VanaHub at your addon repository and install a release-to-catalog
-      publishing flow.
-    </p>
+    <h1>Publish an addon</h1>
+    <p>Prepare and validate an addon for VanaHub.</p>
   </section>
   <nav class="steps" aria-label="Publishing steps">
     {#each steps as label, index (label)}<button
         class:active={step === index}
-        class:complete={index < step}
+        class:complete={completedSteps[index]}
+        disabled={index > step && index > unlockedStep}
         aria-current={step === index ? 'step' : undefined}
         onclick={() => go(index)}
-        ><span>{index < step ? '✓' : index + 1}</span>{label}</button
+        ><span>{completedSteps[index] ? '✓' : index + 1}</span>{label}</button
       >{/each}
   </nav>
 
@@ -465,7 +531,9 @@
             >
           </div>
           {#if roots.length > 1}<label
-              >Payload root<select bind:value={selectedRoot}
+              >Payload root<select
+                bind:value={selectedRoot}
+                onchange={() => (report = null)}
                 ><option value="">Select the addon root…</option
                 >{#each roots as root (root)}<option value={root}>{root}</option
                   >{/each}</select
@@ -473,7 +541,7 @@
             >{/if}
         </details>
       {:else if step === 1}
-        <div class="form-grid">
+        <div class="form-grid" oninput={() => (report = null)}>
           <label
             >Package ID<input
               bind:value={$draft.metadata.id}
@@ -495,7 +563,7 @@
           <label
             >Maintainers<input
               bind:value={maintainersText}
-              oninput={syncLists}
+              oninput={syncMaintainers}
               placeholder="github-user, second-user"
             /><small>Authorized GitHub usernames.</small></label
           >
@@ -513,14 +581,37 @@
               bind:value={$draft.metadata.iconUrl}
             /></label
           >
-          <label
-            >Screenshots <span class="optional">optional</span><textarea
-              bind:value={screenshotsText}
-              oninput={syncLists}
-              rows="3"
-              placeholder="One HTTPS URL per line"
-            ></textarea></label
-          >
+          <section class="screenshots wide" aria-labelledby="screenshots-label">
+            <div class="field-heading">
+              <span id="screenshots-label">Screenshots</span>
+              <span class="optional">optional</span>
+            </div>
+            {#if $draft.metadata.screenshots.length}<div class="url-list">
+                {#each $draft.metadata.screenshots as _, index (index)}<div
+                    class="url-row"
+                  >
+                    <input
+                      type="url"
+                      aria-label={`Screenshot URL ${index + 1}`}
+                      bind:value={$draft.metadata.screenshots[index]}
+                      placeholder="https://example.com/screenshot.png"
+                    />
+                    <button
+                      type="button"
+                      class="remove-url"
+                      aria-label={`Remove screenshot ${index + 1}`}
+                      onclick={() => removeScreenshot(index)}>Remove</button
+                    >
+                  </div>{/each}
+              </div>{/if}
+            <button
+              type="button"
+              class="secondary add-url"
+              disabled={$draft.metadata.screenshots.length >= 10}
+              onclick={addScreenshot}>+ Add screenshot</button
+            >
+            <small>Up to 10 HTTPS image URLs.</small>
+          </section>
         </div>
         {#if !repository}
           <fieldset>
@@ -553,19 +644,20 @@
           </fieldset>
         {/if}
         <fieldset>
-          <legend>Declared capabilities</legend>
+          <legend>Categories</legend>
           <p class="hint">
-            Choose explicitly; scanner suggestions are evidence only.
+            Choose 1–3 categories that help players find your addon. Technical
+            access is detected automatically during Review.
           </p>
-          <div class="checks">
-            {#each capabilities as capability (capability)}<label
+          <div class="checks category-checks">
+            {#each addonCategories as category (category)}<label
                 ><input
                   type="checkbox"
-                  checked={$draft.metadata.declaredCapabilities.includes(
-                    capability,
-                  )}
-                  onchange={() => toggleCapability(capability)}
-                />{capability}</label
+                  checked={$draft.metadata.categories.includes(category)}
+                  disabled={$draft.metadata.categories.length >= 3 &&
+                    !$draft.metadata.categories.includes(category)}
+                  onchange={() => toggleCategory(category)}
+                />{categoryLabels[category]}</label
               >{/each}
           </div>
         </fieldset>
@@ -592,10 +684,6 @@
               >{report.findings.length} findings · policy v{report.policyVersion}</span
             >
           </div>
-          {#if report.suggestedCapabilities.length}<div class="suggestions">
-              <strong>Suggested from source</strong>
-              <p>{report.suggestedCapabilities.join(', ')}</p>
-            </div>{/if}
           <ul class="findings">
             {#each report.findings as item, index (`${index}-${item.ruleId}-${item.path ?? ''}`)}<li
                 class={item.severity}
@@ -654,9 +742,20 @@
             <strong>Existing release automation detected</strong>
             <p>
               {releaseWorkflows.join(', ')} creates a release with GitHub Actions.
-              Add this job to that workflow so VanaHub runs directly after its
-              <code>release</code> job.
+              Finish the VanaHub setup above first, then connect the existing release
+              workflow.
             </p>
+            <ol class="integration-steps">
+              <li>
+                Create and commit
+                <code>.github/workflows/vanahub-setup.yml</code>.
+              </li>
+              <li>Run its setup job and merge the generated setup PR.</li>
+              <li>
+                Add the job below to the existing release workflow so it calls
+                VanaHub after the <code>release</code> job.
+              </li>
+            </ol>
             <label class="wide"
               >Reusable workflow job<textarea
                 readonly
@@ -697,8 +796,10 @@
       <div class="panel-actions">
         <button class="ghost" disabled={step === 0} onclick={() => go(step - 1)}
           >Back</button
-        >{#if step < 3}<button class="primary" onclick={() => go(step + 1)}
-            >Continue</button
+        >{#if step < 3}<button
+            class="primary"
+            disabled={busy || step + 1 > unlockedStep}
+            onclick={() => go(step + 1)}>Continue</button
           >{/if}
       </div>
     </section>
@@ -723,13 +824,11 @@
       </section>
     </aside>
   </div>
-  <div class="status" aria-live="polite" aria-atomic="true">
-    <span>{status}</span>{#if busy}<progress max="1" value={progress}
-      ></progress><button onclick={cancel}>Cancel</button>{/if}
-  </div>
+  {#if status}<div class="status" role="status" aria-atomic="true">
+      <span>{status}</span>{#if busy}<progress max="1" value={progress}
+        ></progress><button onclick={cancel}>Cancel</button>{/if}
+    </div>{/if}
 </main>
 <footer>
-  <span>VanaHub Publisher · GitHub-first automation</span><span
-    >No accounts · No analytics · No source storage</span
-  >
+  <span>VanaHub Publisher</span>
 </footer>

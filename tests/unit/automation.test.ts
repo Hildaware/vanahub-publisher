@@ -25,7 +25,6 @@ describe('repository automation', () => {
       description: 'Test',
       author: 'Author',
       sourcePath: 'addon',
-      declaredCapabilities: [],
     });
   });
 
@@ -40,7 +39,6 @@ describe('repository automation', () => {
         description: 'Test',
         author: 'Author',
         sourcePath: '.',
-        declaredCapabilities: [],
       },
       maintainers: ['owner'],
       publisherRef: ref,

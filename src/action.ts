@@ -19,7 +19,12 @@ import {
   stableJson,
   validateMetadata,
 } from './lib/project';
-import type { PublisherConfig, SourceEntry } from './lib/types';
+import {
+  addonCategories,
+  type PackageMetadata,
+  type PublisherConfig,
+  type SourceEntry,
+} from './lib/types';
 import { resolveGitHubRelease } from './lib/release';
 import policy from '../vendor/vanahub/scanner-policy.json';
 
@@ -60,8 +65,17 @@ function validateConfig(value: any): asserts value is PublisherConfig {
     typeof value.author !== 'string'
   )
     throw new Error('Package name, description, and author are required.');
-  if (!Array.isArray(value.declaredCapabilities))
-    throw new Error('declaredCapabilities must be an array.');
+  if (
+    value.categories != null &&
+    (!Array.isArray(value.categories) ||
+      value.categories.length < 1 ||
+      value.categories.length > 3 ||
+      new Set(value.categories).size !== value.categories.length ||
+      value.categories.some(
+        (category: unknown) => !addonCategories.includes(category as never),
+      ))
+  )
+    throw new Error('categories contains an unsupported addon category.');
   if (
     typeof value.sourcePath !== 'string' ||
     value.sourcePath.startsWith('/') ||
@@ -158,7 +172,7 @@ async function main() {
   if (!Array.isArray(maintainers) || !maintainers.length)
     throw new Error(`.vanahub.json does not authorize ${config.id}.`);
   const version = semverFromTag(release.tag_name);
-  const metadata = {
+  const metadata: PackageMetadata = {
     id: config.id,
     name: config.name,
     description: config.description,
@@ -169,7 +183,8 @@ async function main() {
     sourceUrl: `https://github.com/${repository}`,
     iconUrl: config.iconUrl || '',
     screenshots: config.screenshots || [],
-    declaredCapabilities: config.declaredCapabilities || [],
+    categories: config.categories || [],
+    declaredCapabilities: [],
     mode: 'built-in' as const,
   };
   const metadataProblems = validateMetadata(metadata);
@@ -195,6 +210,7 @@ async function main() {
     throw new Error('output-directory escapes the repository.');
   const entries = sourceEntries(sourceRoot, outputDirectory);
   const report = scanEntries(entries, '', metadata);
+  metadata.declaredCapabilities = report.suggestedCapabilities;
   if (!report.eligibleForScreenedCatalog)
     throw new Error(
       `Catalog validation failed:\n${report.findings.map((item) => `${item.ruleId}: ${item.message}`).join('\n')}`,

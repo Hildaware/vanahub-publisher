@@ -10,8 +10,7 @@
     "name",
     "description",
     "author",
-    "sourcePath",
-    "declaredCapabilities"
+    "sourcePath"
   ],
   "properties": {
     "schemaVersion": { "const": 1 },
@@ -30,18 +29,23 @@
       "uniqueItems": true,
       "items": { "type": "string", "format": "uri", "pattern": "^https://" }
     },
-    "declaredCapabilities": {
+    "categories": {
       "type": "array",
+      "maxItems": 3,
       "uniqueItems": true,
       "items": {
         "enum": [
-          "ui",
-          "game-state-read",
-          "packet-read",
-          "chat-output",
-          "command-handler",
-          "settings-write",
-          "bundled-file-read"
+          "combat",
+          "jobs",
+          "inventory",
+          "crafting",
+          "economy",
+          "maps-travel",
+          "user-interface",
+          "chat-communication",
+          "data-tracking",
+          "quality-of-life",
+          "development-tools"
         ]
       }
     }

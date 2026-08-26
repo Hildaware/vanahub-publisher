@@ -30,7 +30,7 @@ const entry = (
 ): SourceEntry => ({ path, bytes: bytes(text), ...overrides });
 
 describe('scanner', () => {
-  it('accepts a restricted addon with declared capabilities', () => {
+  it('detects technical capabilities without author declarations', () => {
     const report = scanEntries(
       [
         entry(
@@ -39,10 +39,11 @@ describe('scanner', () => {
         ),
       ],
       'sample',
-      metadata(),
+      metadata({ declaredCapabilities: [] }),
     );
     expect(report.eligibleForScreenedCatalog).toBe(true);
     expect(report.findings).toEqual([]);
+    expect(report.suggestedCapabilities).toEqual(['ui']);
   });
 
   it('blocks traversal, collisions, unsafe types, symlinks, and compression bombs', () => {
@@ -96,7 +97,33 @@ describe('scanner', () => {
     expect(report.findings.map((finding) => finding.ruleId)).toContain(
       'lua.blocked-symbol',
     );
+    expect(
+      report.findings.find((finding) => finding.ruleId === 'lua.blocked-symbol')
+        ?.capability,
+    ).toBe('process-execution');
     expect(report.eligibleForScreenedCatalog).toBe(false);
+    expect(
+      report.findings
+        .filter((finding) => !finding.structural)
+        .every((finding) => finding.capability),
+    ).toBe(true);
+  });
+
+  it('warns without blocking for sensitive allowed capabilities', () => {
+    const report = scanEntries(
+      [entry('sample/sample.lua', "register_event('packet_in', handler)")],
+      'sample',
+      metadata({ declaredCapabilities: [] }),
+    );
+    expect(report.eligibleForScreenedCatalog).toBe(true);
+    expect(report.suggestedCapabilities).toEqual(['packet-read']);
+    expect(report.findings).toContainEqual(
+      expect.objectContaining({
+        ruleId: 'lua.capability-warning',
+        severity: 'warning',
+        capability: 'packet-read',
+      }),
+    );
   });
 
   it('accepts the existing VanaHub test addon', async () => {

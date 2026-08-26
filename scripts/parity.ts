@@ -32,6 +32,13 @@ const fixtures = [
     rule: 'lua.blocked-symbol',
   },
   {
+    name: 'capability-warning',
+    files: [['sample/sample.lua', "register_event('packet_in', handler)\n"]],
+    accepted: true,
+    rule: 'lua.capability-warning',
+    declaredCapabilities: ['packet-read'],
+  },
+  {
     name: 'traversal',
     files: [
       ['sample/sample.lua', 'return true\n'],
@@ -84,7 +91,10 @@ try {
       compressedSize: archiveBytes.byteLength,
       archiveRoot: 'sample',
       entrypoint: 'sample.lua',
-      declaredCapabilities: ['ui'],
+      declaredCapabilities:
+        'declaredCapabilities' in fixture
+          ? [...fixture.declaredCapabilities]
+          : ['ui'],
     };
     const manifestPath = join(directory, 'manifest.json');
     const reportPath = join(directory, 'report.json');

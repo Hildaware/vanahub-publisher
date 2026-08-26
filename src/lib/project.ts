@@ -1,5 +1,6 @@
 import contractLock from '../../vendor/vanahub/contracts.lock.json';
 import validatePackage from '../generated/package-validator.js';
+import { addonCategories } from './types';
 import type {
   HostingData,
   PackageMetadata,
@@ -50,6 +51,7 @@ export function buildCatalogManifest(
     entrypoint: `${metadata.id}.lua`,
     declaredCapabilities: metadata.declaredCapabilities,
   };
+  if (metadata.categories.length) manifest.categories = metadata.categories;
   if (metadata.iconUrl) manifest.iconUrl = metadata.iconUrl;
   if (metadata.screenshots.length) manifest.screenshots = metadata.screenshots;
   return manifest;
@@ -121,6 +123,12 @@ export function validateMetadata(metadata: PackageMetadata): string[] {
     errors.push('Use at most 10 unique HTTPS screenshot URLs.');
   if (new Set(metadata.screenshots).size !== metadata.screenshots.length)
     errors.push('Screenshot URLs must be unique.');
+  if (
+    metadata.categories.length > 3 ||
+    new Set(metadata.categories).size !== metadata.categories.length ||
+    metadata.categories.some((category) => !addonCategories.includes(category))
+  )
+    errors.push('Choose no more than 3 supported, unique addon categories.');
   return errors;
 }
 

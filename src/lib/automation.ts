@@ -19,8 +19,8 @@ export function publisherConfig(
     description: metadata.description,
     author: metadata.author,
     sourcePath: sourcePath || '.',
-    declaredCapabilities: [...metadata.declaredCapabilities],
   };
+  if (metadata.categories.length) config.categories = [...metadata.categories];
   if (metadata.iconUrl) config.iconUrl = metadata.iconUrl;
   if (metadata.screenshots.length)
     config.screenshots = [...metadata.screenshots];
