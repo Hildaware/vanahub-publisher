@@ -51,6 +51,28 @@ test('imports source, forgets drafts, and announces status', async ({
 test('unlocks steps as source, details, and review are completed', async ({
   page,
 }) => {
+  const pixel =
+    'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=';
+  await page.addInitScript((previewUrl) => {
+    localStorage.setItem(
+      'vanahub-publisher-draft-v1',
+      JSON.stringify({
+        metadata: { iconUrl: previewUrl, screenshots: [previewUrl] },
+        hosting: {},
+        source: null,
+      }),
+    );
+  }, pixel);
+  await page.route('https://challenges.cloudflare.com/**', (route) =>
+    route.fulfill({
+      contentType: 'application/javascript',
+      body: `window.turnstile = {
+        render: (_element, options) => { options.callback('test-token'); return 'test-widget'; },
+        reset: () => {},
+        remove: () => {}
+      };`,
+    }),
+  );
   await page.route('https://api.github.com/**', async (route) => {
     const url = route.request().url();
     if (url.endsWith('/repos/Owner/sample'))
@@ -106,7 +128,23 @@ test('unlocks steps as source, details, and review are completed', async ({
   await expect(media).toBeVisible();
   expect(
     await media.locator('.field-heading > span:first-child').allTextContents(),
-  ).toEqual(['Icon', 'Screenshots']);
+  ).toEqual(['Upload verification', 'Icon', 'Screenshots']);
+  const iconPreview = page.getByAltText('Icon preview');
+  const iconUpload = page.getByText('Upload Icon', { exact: true });
+  await expect(iconPreview).toHaveJSProperty('naturalWidth', 1);
+  await expect(page.getByAltText('Screenshot 1 preview')).toHaveJSProperty(
+    'naturalWidth',
+    1,
+  );
+  const iconBox = await iconPreview.boundingBox();
+  const uploadBox = await iconUpload.locator('..').boundingBox();
+  expect(iconBox?.width).toBeCloseTo(iconBox?.height ?? 0, 2);
+  expect(uploadBox?.x).toBeGreaterThan(
+    (iconBox?.x ?? 0) + (iconBox?.width ?? 0),
+  );
+  expect(uploadBox?.height).toBeCloseTo(iconBox?.height ?? 0, 2);
+  await page.getByRole('button', { name: 'Remove', exact: true }).click();
+  await page.getByRole('button', { name: 'Remove all' }).click();
 
   const continueButton = page.getByRole('button', { name: 'Continue' });
   await expect(continueButton).toBeEnabled();
@@ -123,9 +161,6 @@ test('unlocks steps as source, details, and review are completed', async ({
   await page.getByPlaceholder('github-user, second-user').fill('Owner');
 
   await expect(page.getByLabel(/Screenshot URL/)).toHaveCount(0);
-  await expect(
-    page.getByText(/Media uploads are temporarily unavailable/),
-  ).toBeVisible();
   await page.getByLabel('Quality of Life', { exact: true }).check();
 
   const reviewStep = page.getByRole('button', { name: /Review/ });

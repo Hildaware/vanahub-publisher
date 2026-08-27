@@ -385,16 +385,35 @@ code {
   min-height: 65px;
   padding: 10px 14px;
 }
-.icon-drop {
-  min-height: 100px;
+.icon-controls {
+  display: grid;
+  grid-template-columns: 160px minmax(240px, 1fr);
+  gap: 12px;
+  align-items: stretch;
+  margin-top: 5px;
 }
-.icon-preview {
+.icon-drop {
+  min-height: 160px;
+  margin-top: 0;
+}
+.icon-preview,
+.icon-placeholder {
   display: block;
-  width: min(100%, 256px);
-  max-height: 256px;
-  object-fit: contain;
+  width: 160px;
+  height: 160px;
+  box-sizing: border-box;
+  aspect-ratio: 1;
   border: 1px solid var(--line);
   background: #07111e;
+}
+.icon-preview {
+  object-fit: contain;
+}
+.icon-placeholder {
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  font-size: 12px;
 }
 .screenshot-previews {
   display: grid;
@@ -776,8 +795,16 @@ footer {
   }
 }
 @media (max-width: 580px) {
-  .screenshot-upload {
-    grid-template-columns: 1fr;
+  .icon-controls {
+    grid-template-columns: 120px minmax(0, 1fr);
+  }
+  .icon-preview,
+  .icon-placeholder {
+    width: 120px;
+    height: 120px;
+  }
+  .icon-drop {
+    min-height: 120px;
   }
   main {
     padding-inline: 14px;

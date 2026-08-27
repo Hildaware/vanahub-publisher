@@ -84,7 +84,6 @@ function audit(event: string, fields: Record<string, string | number>) {
 function stagedHeaders(): Headers {
   return new Headers({
     'Cache-Control': 'no-store, private, max-age=0',
-    'Content-Disposition': 'attachment',
     'Content-Security-Policy': "default-src 'none'; sandbox",
     'X-Content-Type-Options': 'nosniff',
   });

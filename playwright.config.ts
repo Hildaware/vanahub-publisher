@@ -11,9 +11,14 @@ export default defineConfig({
     trace: 'on-first-retry',
   },
   webServer: {
-    command: 'npm run preview -- --host 127.0.0.1',
+    command: 'npm run build && npm run preview -- --host 127.0.0.1',
     url: 'http://127.0.0.1:4173/vanahub-publisher/',
     reuseExistingServer: !process.env.CI,
+    env: {
+      ...process.env,
+      VITE_SCREENSHOT_UPLOAD_URL: 'https://uploads.example.test',
+      VITE_TURNSTILE_SITE_KEY: 'test-site-key',
+    },
   },
   projects: [
     { name: 'chromium', use: { ...devices['Desktop Chrome'] } },

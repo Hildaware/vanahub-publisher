@@ -235,6 +235,7 @@ describe('screenshot upload worker', () => {
       env,
     );
     expect(staged.headers.get('Cache-Control')).toContain('no-store');
+    expect(staged.headers.get('Content-Disposition')).toBeNull();
     expect(staged.headers.get('X-Content-Type-Options')).toBe('nosniff');
 
     const denied = await uploadWorker.fetch(

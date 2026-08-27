@@ -764,28 +764,34 @@
                   <button type="button" class="remove-url" onclick={clearIcon}
                     >Remove</button
                   >
-                </p>
-                <img
-                  class="icon-preview"
-                  src={$draft.metadata.iconUrl}
-                  alt="Icon preview"
-                />{/if}
-              {#if screenshotUploadUrl && turnstileSiteKey}<label
-                  class:disabled={!uploadAuthorized || iconUploading}
-                  class="drop icon-drop"
-                  ><input
-                    aria-label="Upload icon image"
-                    type="file"
-                    accept=".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp"
-                    disabled={!uploadAuthorized || iconUploading}
-                    onchange={(event) => {
-                      void selectIcon([...(event.currentTarget.files ?? [])]);
-                      event.currentTarget.value = '';
-                    }}
-                  /><strong
-                    >{iconUploading ? 'Uploading icon…' : 'Upload Icon'}</strong
-                  ></label
-                >{/if}
+                </p>{/if}
+              <div class="icon-controls">
+                {#if $draft.metadata.iconUrl}<img
+                    class="icon-preview"
+                    src={$draft.metadata.iconUrl}
+                    alt="Icon preview"
+                  />{:else}<div class="icon-placeholder" aria-hidden="true">
+                    No icon
+                  </div>{/if}
+                {#if screenshotUploadUrl && turnstileSiteKey}<label
+                    class:disabled={!uploadAuthorized || iconUploading}
+                    class="drop icon-drop"
+                    ><input
+                      aria-label="Upload icon image"
+                      type="file"
+                      accept=".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp"
+                      disabled={!uploadAuthorized || iconUploading}
+                      onchange={(event) => {
+                        void selectIcon([...(event.currentTarget.files ?? [])]);
+                        event.currentTarget.value = '';
+                      }}
+                    /><strong
+                      >{iconUploading
+                        ? 'Uploading icon…'
+                        : 'Upload Icon'}</strong
+                    ><small>Choose or drop an image</small></label
+                  >{/if}
+              </div>
               <small
                 >Choose a PNG, JPEG, or WebP image no larger than 512×512
                 pixels.</small
