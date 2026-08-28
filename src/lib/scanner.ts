@@ -143,6 +143,7 @@ export function luaFindings(
         path,
         0,
         'dynamic-code',
+        'warning',
       ),
     );
   for (const module of new Set(requires)) {
