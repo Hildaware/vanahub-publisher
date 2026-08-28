@@ -1,0 +1,4664 @@
+[
+  {
+    "ruleId": "lua.computed-require",
+    "severity": "error",
+    "message": "All require targets must be unique string literals",
+    "structural": false,
+    "path": "XIUI/XIUI.lua",
+    "line": 0,
+    "capability": "dynamic-code"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.imgui_compat",
+    "structural": false,
+    "path": "XIUI/XIUI.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: core.settings.init",
+    "structural": false,
+    "path": "XIUI/XIUI.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: core.settings.migration",
+    "structural": false,
+    "path": "XIUI/XIUI.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: core.settings.updater",
+    "structural": false,
+    "path": "XIUI/XIUI.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: core.gamestate",
+    "structural": false,
+    "path": "XIUI/XIUI.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: core.moduleregistry",
+    "structural": false,
+    "path": "XIUI/XIUI.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: core.profile_manager",
+    "structural": false,
+    "path": "XIUI/XIUI.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: core.ui_recovery",
+    "structural": false,
+    "path": "XIUI/XIUI.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.init",
+    "structural": false,
+    "path": "XIUI/XIUI.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.macropalette",
+    "structural": false,
+    "path": "XIUI/XIUI.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.palette",
+    "structural": false,
+    "path": "XIUI/XIUI.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.skillchain",
+    "structural": false,
+    "path": "XIUI/XIUI.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.slotrenderer",
+    "structural": false,
+    "path": "XIUI/XIUI.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.help",
+    "structural": false,
+    "path": "XIUI/XIUI.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.debuffhandler",
+    "structural": false,
+    "path": "XIUI/XIUI.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.petbuffhandler",
+    "structural": false,
+    "path": "XIUI/XIUI.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.actiontracker",
+    "structural": false,
+    "path": "XIUI/XIUI.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.enemycasts",
+    "structural": false,
+    "path": "XIUI/XIUI.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.mobinfo.init",
+    "structural": false,
+    "path": "XIUI/XIUI.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.statushandler",
+    "structural": false,
+    "path": "XIUI/XIUI.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.progressbar",
+    "structural": false,
+    "path": "XIUI/XIUI.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.drawing",
+    "structural": false,
+    "path": "XIUI/XIUI.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.diagnostics",
+    "structural": false,
+    "path": "XIUI/XIUI.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.texturemanager",
+    "structural": false,
+    "path": "XIUI/XIUI.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.imtext",
+    "structural": false,
+    "path": "XIUI/XIUI.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.components",
+    "structural": false,
+    "path": "XIUI/XIUI.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.satchel.tooltips",
+    "structural": false,
+    "path": "XIUI/XIUI.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.defaultpositions",
+    "structural": false,
+    "path": "XIUI/XIUI.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.hotbar",
+    "structural": false,
+    "path": "XIUI/XIUI.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.actions",
+    "structural": false,
+    "path": "XIUI/XIUI.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.data",
+    "structural": false,
+    "path": "XIUI/XIUI.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.palettemanager",
+    "structural": false,
+    "path": "XIUI/XIUI.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.ffxi.macros",
+    "structural": false,
+    "path": "XIUI/XIUI.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.controller",
+    "structural": false,
+    "path": "XIUI/XIUI.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.environment-manipulation",
+    "severity": "error",
+    "message": "Global or package environment manipulation is prohibited",
+    "structural": false,
+    "path": "XIUI/XIUI.lua",
+    "line": 0,
+    "capability": "dynamic-code"
+  },
+  {
+    "ruleId": "zip.file-type",
+    "severity": "error",
+    "message": "File type .bat is prohibited",
+    "structural": true,
+    "path": "XIUI/assets/status/HD/remove0.bat",
+    "line": 0,
+    "capability": ""
+  },
+  {
+    "ruleId": "zip.file-type",
+    "severity": "error",
+    "message": "File type .bmp is prohibited",
+    "structural": true,
+    "path": "XIUI/assets/status/Tetsouou/113.bmp",
+    "line": 0,
+    "capability": ""
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/config/castbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.components",
+    "structural": false,
+    "path": "XIUI/config/castbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/config/castcost.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.components",
+    "structural": false,
+    "path": "XIUI/config/castcost.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.statushandler",
+    "structural": false,
+    "path": "XIUI/config/castcost.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/config/components.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/config/enemylist.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.components",
+    "structural": false,
+    "path": "XIUI/config/enemylist.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/config/expbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.components",
+    "structural": false,
+    "path": "XIUI/config/expbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/config/giltracker.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.components",
+    "structural": false,
+    "path": "XIUI/config/giltracker.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.giltracker",
+    "structural": false,
+    "path": "XIUI/config/giltracker.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/config/global.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.components",
+    "structural": false,
+    "path": "XIUI/config/global.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.statushandler",
+    "structural": false,
+    "path": "XIUI/config/global.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.computed-require",
+    "severity": "error",
+    "message": "All require targets must be unique string literals",
+    "structural": false,
+    "path": "XIUI/config/hotbar.lua",
+    "line": 0,
+    "capability": "dynamic-code"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/config/hotbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.components",
+    "structural": false,
+    "path": "XIUI/config/hotbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.statushandler",
+    "structural": false,
+    "path": "XIUI/config/hotbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.data",
+    "structural": false,
+    "path": "XIUI/config/hotbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.drawing",
+    "structural": false,
+    "path": "XIUI/config/hotbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.actions",
+    "structural": false,
+    "path": "XIUI/config/hotbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.jobs",
+    "structural": false,
+    "path": "XIUI/config/hotbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.macropalette",
+    "structural": false,
+    "path": "XIUI/config/hotbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.playerdata",
+    "structural": false,
+    "path": "XIUI/config/hotbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.controller",
+    "structural": false,
+    "path": "XIUI/config/hotbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.ffxi.macros",
+    "structural": false,
+    "path": "XIUI/config/hotbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.palette",
+    "structural": false,
+    "path": "XIUI/config/hotbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.migration",
+    "structural": false,
+    "path": "XIUI/config/hotbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.palettemanager",
+    "structural": false,
+    "path": "XIUI/config/hotbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.devices",
+    "structural": false,
+    "path": "XIUI/config/hotbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.buttondetect",
+    "structural": false,
+    "path": "XIUI/config/hotbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/config/inventory.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.components",
+    "structural": false,
+    "path": "XIUI/config/inventory.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/config/migration.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.components",
+    "structural": false,
+    "path": "XIUI/config/migration.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.tbar_migration",
+    "structural": false,
+    "path": "XIUI/config/migration.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.palette",
+    "structural": false,
+    "path": "XIUI/config/migration.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/config/notifications.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.components",
+    "structural": false,
+    "path": "XIUI/config/notifications.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.notifications.data",
+    "structural": false,
+    "path": "XIUI/config/notifications.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.computed-require",
+    "severity": "error",
+    "message": "All require targets must be unique string literals",
+    "structural": false,
+    "path": "XIUI/config/palettemanager.lua",
+    "line": 0,
+    "capability": "dynamic-code"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/config/palettemanager.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.jobs",
+    "structural": false,
+    "path": "XIUI/config/palettemanager.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.palette",
+    "structural": false,
+    "path": "XIUI/config/palettemanager.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.data",
+    "structural": false,
+    "path": "XIUI/config/palettemanager.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.components",
+    "structural": false,
+    "path": "XIUI/config/palettemanager.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.init",
+    "structural": false,
+    "path": "XIUI/config/palettemanager.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/config/partylist.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.components",
+    "structural": false,
+    "path": "XIUI/config/partylist.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.statushandler",
+    "structural": false,
+    "path": "XIUI/config/partylist.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/config/petbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.components",
+    "structural": false,
+    "path": "XIUI/config/petbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.petbar.data",
+    "structural": false,
+    "path": "XIUI/config/petbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/config/playerbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.components",
+    "structural": false,
+    "path": "XIUI/config/playerbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.components",
+    "structural": false,
+    "path": "XIUI/config/readycheck.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.readycheck.slider",
+    "structural": false,
+    "path": "XIUI/config/readycheck.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.readycheck.init",
+    "structural": false,
+    "path": "XIUI/config/readycheck.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.components",
+    "structural": false,
+    "path": "XIUI/config/satchel.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.satchel.tooltips",
+    "structural": false,
+    "path": "XIUI/config/satchel.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: core.settings.colors",
+    "structural": false,
+    "path": "XIUI/config/satchel.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/config/targetbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.components",
+    "structural": false,
+    "path": "XIUI/config/targetbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/config/treasurepool.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.components",
+    "structural": false,
+    "path": "XIUI/config/treasurepool.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.treasurepool.init",
+    "structural": false,
+    "path": "XIUI/config/treasurepool.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/config.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.persisted_window",
+    "structural": false,
+    "path": "XIUI/config.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.statushandler",
+    "structural": false,
+    "path": "XIUI/config.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.global",
+    "structural": false,
+    "path": "XIUI/config.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.playerbar",
+    "structural": false,
+    "path": "XIUI/config.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.targetbar",
+    "structural": false,
+    "path": "XIUI/config.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.enemylist",
+    "structural": false,
+    "path": "XIUI/config.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.partylist",
+    "structural": false,
+    "path": "XIUI/config.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.expbar",
+    "structural": false,
+    "path": "XIUI/config.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.giltracker",
+    "structural": false,
+    "path": "XIUI/config.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.inventory",
+    "structural": false,
+    "path": "XIUI/config.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.satchel",
+    "structural": false,
+    "path": "XIUI/config.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.castbar",
+    "structural": false,
+    "path": "XIUI/config.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.castcost",
+    "structural": false,
+    "path": "XIUI/config.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.petbar",
+    "structural": false,
+    "path": "XIUI/config.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.notifications",
+    "structural": false,
+    "path": "XIUI/config.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.treasurepool",
+    "structural": false,
+    "path": "XIUI/config.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.hotbar",
+    "structural": false,
+    "path": "XIUI/config.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.readycheck",
+    "structural": false,
+    "path": "XIUI/config.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.treasurepool.init",
+    "structural": false,
+    "path": "XIUI/config.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.satchel.tooltips",
+    "structural": false,
+    "path": "XIUI/config.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.macropalette",
+    "structural": false,
+    "path": "XIUI/config.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.palette",
+    "structural": false,
+    "path": "XIUI/config.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: core.profile_manager",
+    "structural": false,
+    "path": "XIUI/config.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: core.gamestate",
+    "structural": false,
+    "path": "XIUI/core/moduleregistry.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.blocked-symbol",
+    "severity": "error",
+    "message": "Prohibited symbol: loadfile",
+    "structural": false,
+    "path": "XIUI/core/profile_manager.lua",
+    "line": 169,
+    "capability": "elevated"
+  },
+  {
+    "ruleId": "lua.blocked-symbol",
+    "severity": "error",
+    "message": "Prohibited symbol: loadfile",
+    "structural": false,
+    "path": "XIUI/core/profile_manager.lua",
+    "line": 220,
+    "capability": "elevated"
+  },
+  {
+    "ruleId": "lua.blocked-symbol",
+    "severity": "error",
+    "message": "Prohibited symbol: loadfile",
+    "structural": false,
+    "path": "XIUI/core/profile_manager.lua",
+    "line": 235,
+    "capability": "elevated"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: core.settings.factories",
+    "structural": false,
+    "path": "XIUI/core/settings/colors.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.computed-require",
+    "severity": "error",
+    "message": "All require targets must be unique string literals",
+    "structural": false,
+    "path": "XIUI/core/settings/factories.lua",
+    "line": 0,
+    "capability": "dynamic-code"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: core.settings.factories",
+    "structural": false,
+    "path": "XIUI/core/settings/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: core.settings.colors",
+    "structural": false,
+    "path": "XIUI/core/settings/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: core.settings.user",
+    "structural": false,
+    "path": "XIUI/core/settings/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: core.settings.modules",
+    "structural": false,
+    "path": "XIUI/core/settings/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: core.profile_manager",
+    "structural": false,
+    "path": "XIUI/core/settings/migration.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.fontconst",
+    "structural": false,
+    "path": "XIUI/core/settings/modules.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.fontconst",
+    "structural": false,
+    "path": "XIUI/core/settings/updater.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: core.settings.factories",
+    "structural": false,
+    "path": "XIUI/core/settings/user.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: core.settings.colors",
+    "structural": false,
+    "path": "XIUI/core/settings/user.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.persisted_window",
+    "structural": false,
+    "path": "XIUI/core/ui_recovery.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.satchel.init",
+    "structural": false,
+    "path": "XIUI/core/ui_recovery.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.help",
+    "structural": false,
+    "path": "XIUI/core/ui_recovery.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/handlers/actiontracker.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/handlers/debuffhandler.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.bufftable",
+    "structural": false,
+    "path": "XIUI/handlers/debuffhandler.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.encoding",
+    "structural": false,
+    "path": "XIUI/handlers/enemycasts.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.computed-require",
+    "severity": "error",
+    "message": "All require targets must be unique string literals",
+    "structural": false,
+    "path": "XIUI/handlers/helpers.lua",
+    "line": 0,
+    "capability": "dynamic-code"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.color",
+    "structural": false,
+    "path": "XIUI/handlers/helpers.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.memory",
+    "structural": false,
+    "path": "XIUI/handlers/helpers.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.entity",
+    "structural": false,
+    "path": "XIUI/handlers/helpers.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.party",
+    "structural": false,
+    "path": "XIUI/handlers/helpers.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.target",
+    "structural": false,
+    "path": "XIUI/handlers/helpers.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.fonts",
+    "structural": false,
+    "path": "XIUI/handlers/helpers.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.drawing",
+    "structural": false,
+    "path": "XIUI/handlers/helpers.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.packets",
+    "structural": false,
+    "path": "XIUI/handlers/helpers.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.texturemanager",
+    "structural": false,
+    "path": "XIUI/handlers/helpers.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.hp",
+    "structural": false,
+    "path": "XIUI/handlers/helpers.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.fastcast",
+    "structural": false,
+    "path": "XIUI/handlers/helpers.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.format",
+    "structural": false,
+    "path": "XIUI/handlers/helpers.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.statusicons",
+    "structural": false,
+    "path": "XIUI/handlers/helpers.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.statushandler",
+    "structural": false,
+    "path": "XIUI/handlers/helpers.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.bufftable",
+    "structural": false,
+    "path": "XIUI/handlers/helpers.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.environment-manipulation",
+    "severity": "error",
+    "message": "Global or package environment manipulation is prohibited",
+    "structural": false,
+    "path": "XIUI/handlers/imgui_compat.lua",
+    "line": 0,
+    "capability": "dynamic-code"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: struct",
+    "structural": false,
+    "path": "XIUI/handlers/notificationhandler.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/handlers/petbuffhandler.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.bufftable",
+    "structural": false,
+    "path": "XIUI/handlers/petbuffhandler.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.encoding",
+    "structural": false,
+    "path": "XIUI/handlers/statushandler.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.texturemanager",
+    "structural": false,
+    "path": "XIUI/handlers/statushandler.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.blocked-symbol",
+    "severity": "error",
+    "message": "Prohibited symbol: loadfile",
+    "structural": false,
+    "path": "XIUI/handlers/tbar_migration.lua",
+    "line": 313,
+    "capability": "elevated"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.jobs",
+    "structural": false,
+    "path": "XIUI/handlers/tbar_migration.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.petregistry",
+    "structural": false,
+    "path": "XIUI/handlers/tbar_migration.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: core.settings.factories",
+    "structural": false,
+    "path": "XIUI/handlers/tbar_migration.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.actiondb",
+    "structural": false,
+    "path": "XIUI/handlers/tbar_migration.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.button",
+    "structural": false,
+    "path": "XIUI/libs/button.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.diagnostics",
+    "structural": false,
+    "path": "XIUI/libs/diagnostics.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.dragdrop",
+    "structural": false,
+    "path": "XIUI/libs/dragdrop.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.computed-require",
+    "severity": "error",
+    "message": "All require targets must be unique string literals",
+    "structural": false,
+    "path": "XIUI/libs/entity.lua",
+    "line": 0,
+    "capability": "dynamic-code"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: win32types",
+    "structural": false,
+    "path": "XIUI/libs/ffxi/macros.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.fontconst",
+    "structural": false,
+    "path": "XIUI/libs/fonts.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.components",
+    "structural": false,
+    "path": "XIUI/libs/help.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.persisted_window",
+    "structural": false,
+    "path": "XIUI/libs/help.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.imtext",
+    "structural": false,
+    "path": "XIUI/libs/imtext.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: struct",
+    "structural": false,
+    "path": "XIUI/libs/itemrecast.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: d3d8",
+    "structural": false,
+    "path": "XIUI/libs/memory.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.computed-require",
+    "severity": "error",
+    "message": "All require targets must be unique string literals",
+    "structural": false,
+    "path": "XIUI/libs/pngencoder.lua",
+    "line": 0,
+    "capability": "dynamic-code"
+  },
+  {
+    "ruleId": "lua.invalid-module",
+    "severity": "error",
+    "message": "Invalid or dynamic-looking module name: libs/bitmap",
+    "structural": false,
+    "path": "XIUI/libs/progressbar.lua",
+    "line": 0,
+    "capability": "dynamic-code"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.color",
+    "structural": false,
+    "path": "XIUI/libs/progressbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.memory",
+    "structural": false,
+    "path": "XIUI/libs/progressbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: d3d8",
+    "structural": false,
+    "path": "XIUI/libs/progressbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.imtext",
+    "structural": false,
+    "path": "XIUI/libs/statusicons.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.texturemanager",
+    "structural": false,
+    "path": "XIUI/libs/texturemanager.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: d3d8",
+    "structural": false,
+    "path": "XIUI/libs/texturemanager.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.memory",
+    "structural": false,
+    "path": "XIUI/libs/texturemanager.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.texturemanager",
+    "structural": false,
+    "path": "XIUI/libs/windowbackground.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/modules/castbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.imtext",
+    "structural": false,
+    "path": "XIUI/modules/castbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.progressbar",
+    "structural": false,
+    "path": "XIUI/modules/castbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.encoding",
+    "structural": false,
+    "path": "XIUI/modules/castbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.defaultpositions",
+    "structural": false,
+    "path": "XIUI/modules/castbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: core.gamestate",
+    "structural": false,
+    "path": "XIUI/modules/castcost/data.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.encoding",
+    "structural": false,
+    "path": "XIUI/modules/castcost/data.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.abilityrecast",
+    "structural": false,
+    "path": "XIUI/modules/castcost/data.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/modules/castcost/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.imtext",
+    "structural": false,
+    "path": "XIUI/modules/castcost/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.windowbackground",
+    "structural": false,
+    "path": "XIUI/modules/castcost/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.progressbar",
+    "structural": false,
+    "path": "XIUI/modules/castcost/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.castcost.shared",
+    "structural": false,
+    "path": "XIUI/modules/castcost/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.defaultpositions",
+    "structural": false,
+    "path": "XIUI/modules/castcost/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/modules/castcost/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.castcost.data",
+    "structural": false,
+    "path": "XIUI/modules/castcost/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.castcost.display",
+    "structural": false,
+    "path": "XIUI/modules/castcost/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/modules/enemylist.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.imtext",
+    "structural": false,
+    "path": "XIUI/modules/enemylist.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.debuffhandler",
+    "structural": false,
+    "path": "XIUI/modules/enemylist.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.actiontracker",
+    "structural": false,
+    "path": "XIUI/modules/enemylist.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.enemycasts",
+    "structural": false,
+    "path": "XIUI/modules/enemylist.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.progressbar",
+    "structural": false,
+    "path": "XIUI/modules/enemylist.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.defaultpositions",
+    "structural": false,
+    "path": "XIUI/modules/enemylist.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/modules/expbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.imtext",
+    "structural": false,
+    "path": "XIUI/modules/expbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.progressbar",
+    "structural": false,
+    "path": "XIUI/modules/expbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.drawing",
+    "structural": false,
+    "path": "XIUI/modules/expbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.defaultpositions",
+    "structural": false,
+    "path": "XIUI/modules/expbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/modules/giltracker.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.imtext",
+    "structural": false,
+    "path": "XIUI/modules/giltracker.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.defaultpositions",
+    "structural": false,
+    "path": "XIUI/modules/giltracker.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.texturemanager",
+    "structural": false,
+    "path": "XIUI/modules/giltracker.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: d3d8",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/actions.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.data",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/actions.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.database.horizonspells",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/actions.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.textures",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/actions.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.actiondb",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/actions.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.playerdata",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/actions.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.texturemanager",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/actions.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.ffxi.macros",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/actions.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.target",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/actions.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.palette",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/actions.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.hotbar",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/actions.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.environment-manipulation",
+    "severity": "error",
+    "message": "Global or package environment manipulation is prohibited",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/actions.lua",
+    "line": 0,
+    "capability": "dynamic-code"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.devices",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/controller.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.buttondetect",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/controller.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.actions",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/controller.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.ffxi.macros",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/controller.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.palette",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/controller.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.petpalette",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/controller.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.data",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/controller.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/crossbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.windowbackground",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/crossbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.drawing",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/crossbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.imtext",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/crossbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.dragdrop",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/crossbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.data",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/crossbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.actions",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/crossbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.textures",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/crossbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.controller",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/crossbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.recast",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/crossbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.slotrenderer",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/crossbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.animation",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/crossbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.skillchain",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/crossbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.target",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/crossbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.palette",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/crossbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: core.gamestate",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/data.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.petpalette",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/data.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.palette",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/data.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.windowbackground",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.drawing",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.data",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.actions",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.textures",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.macropalette",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.dragdrop",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.recast",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.slotrenderer",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.hotbar",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.petpalette",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.palette",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.skillchain",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.target",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.imtext",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.dragdrop",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.imtext",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.data",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.display",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.actions",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.macropalette",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.crossbar",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.controller",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.textures",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.hotbar",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.palettemanager",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.slotrenderer",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.petpalette",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.palette",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.ffxi.macros",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.computed-require",
+    "severity": "error",
+    "message": "All require targets must be unique string literals",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/macropalette.lua",
+    "line": 0,
+    "capability": "dynamic-code"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/macropalette.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.data",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/macropalette.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.actions",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/macropalette.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.textures",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/macropalette.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.texturemanager",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/macropalette.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.jobs",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/macropalette.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.components",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/macropalette.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.dragdrop",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/macropalette.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.petpalette",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/macropalette.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.petregistry",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/macropalette.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.playerdata",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/macropalette.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.actiondb",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/macropalette.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.database.horizonspells",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/macropalette.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/palette.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/petpalette.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.petregistry",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/petpalette.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.actiondb",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/playerdata.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.petregistry",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/playerdata.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.petpalette",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/playerdata.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.abilityrecast",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/recast.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.itemrecast",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/recast.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.actiondb",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/recast.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.petregistry",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/recast.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.computed-require",
+    "severity": "error",
+    "message": "All require targets must be unique string literals",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/slotrenderer.lua",
+    "line": 0,
+    "capability": "dynamic-code"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.recast",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/slotrenderer.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.actions",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/slotrenderer.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.playerdata",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/slotrenderer.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.dragdrop",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/slotrenderer.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.textures",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/slotrenderer.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.skillchain",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/slotrenderer.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.statushandler",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/slotrenderer.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.imtext",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/slotrenderer.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/textures.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: d3d8",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/textures.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.pngencoder",
+    "structural": false,
+    "path": "XIUI/modules/hotbar/textures.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.playerbar",
+    "structural": false,
+    "path": "XIUI/modules/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.targetbar",
+    "structural": false,
+    "path": "XIUI/modules/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.enemylist",
+    "structural": false,
+    "path": "XIUI/modules/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.expbar",
+    "structural": false,
+    "path": "XIUI/modules/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.giltracker",
+    "structural": false,
+    "path": "XIUI/modules/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.inventory.init",
+    "structural": false,
+    "path": "XIUI/modules/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.partylist.init",
+    "structural": false,
+    "path": "XIUI/modules/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.castbar",
+    "structural": false,
+    "path": "XIUI/modules/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.petbar.init",
+    "structural": false,
+    "path": "XIUI/modules/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.castcost.init",
+    "structural": false,
+    "path": "XIUI/modules/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.notifications.init",
+    "structural": false,
+    "path": "XIUI/modules/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.treasurepool.init",
+    "structural": false,
+    "path": "XIUI/modules/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.hotbar.init",
+    "structural": false,
+    "path": "XIUI/modules/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.readycheck.init",
+    "structural": false,
+    "path": "XIUI/modules/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.satchel.init",
+    "structural": false,
+    "path": "XIUI/modules/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/modules/inventory/base.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.imtext",
+    "structural": false,
+    "path": "XIUI/modules/inventory/base.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.drawing",
+    "structural": false,
+    "path": "XIUI/modules/inventory/base.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.defaultpositions",
+    "structural": false,
+    "path": "XIUI/modules/inventory/base.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.inventory.base",
+    "structural": false,
+    "path": "XIUI/modules/inventory/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.inventory.inventory",
+    "structural": false,
+    "path": "XIUI/modules/inventory/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.inventory.satchel",
+    "structural": false,
+    "path": "XIUI/modules/inventory/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.inventory.locker",
+    "structural": false,
+    "path": "XIUI/modules/inventory/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.inventory.safe",
+    "structural": false,
+    "path": "XIUI/modules/inventory/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.inventory.storage",
+    "structural": false,
+    "path": "XIUI/modules/inventory/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.inventory.wardrobe",
+    "structural": false,
+    "path": "XIUI/modules/inventory/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.inventory.base",
+    "structural": false,
+    "path": "XIUI/modules/inventory/inventory.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.inventory.base",
+    "structural": false,
+    "path": "XIUI/modules/inventory/locker.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.inventory.base",
+    "structural": false,
+    "path": "XIUI/modules/inventory/safe.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.inventory.base",
+    "structural": false,
+    "path": "XIUI/modules/inventory/satchel.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.inventory.base",
+    "structural": false,
+    "path": "XIUI/modules/inventory/storage.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.inventory.base",
+    "structural": false,
+    "path": "XIUI/modules/inventory/wardrobe.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.blocked-symbol",
+    "severity": "error",
+    "message": "Prohibited symbol: loadfile",
+    "structural": false,
+    "path": "XIUI/modules/mobinfo/data.lua",
+    "line": 78,
+    "capability": "elevated"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/modules/mobinfo/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.imtext",
+    "structural": false,
+    "path": "XIUI/modules/mobinfo/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.mobinfo.data",
+    "structural": false,
+    "path": "XIUI/modules/mobinfo/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.targetbar",
+    "structural": false,
+    "path": "XIUI/modules/mobinfo/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.mobinfo.data",
+    "structural": false,
+    "path": "XIUI/modules/mobinfo/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.mobinfo.display",
+    "structural": false,
+    "path": "XIUI/modules/mobinfo/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/modules/notifications/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.notifications.data",
+    "structural": false,
+    "path": "XIUI/modules/notifications/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.progressbar",
+    "structural": false,
+    "path": "XIUI/modules/notifications/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.texturemanager",
+    "structural": false,
+    "path": "XIUI/modules/notifications/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.windowbackground",
+    "structural": false,
+    "path": "XIUI/modules/notifications/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.defaultpositions",
+    "structural": false,
+    "path": "XIUI/modules/notifications/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.imtext",
+    "structural": false,
+    "path": "XIUI/modules/notifications/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/modules/notifications/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.imtext",
+    "structural": false,
+    "path": "XIUI/modules/notifications/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.notifications.data",
+    "structural": false,
+    "path": "XIUI/modules/notifications/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.notifications.display",
+    "structural": false,
+    "path": "XIUI/modules/notifications/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.notificationhandler",
+    "structural": false,
+    "path": "XIUI/modules/notifications/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.statushandler",
+    "structural": false,
+    "path": "XIUI/modules/partylist/data.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/modules/partylist/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.statushandler",
+    "structural": false,
+    "path": "XIUI/modules/partylist/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.bufftable",
+    "structural": false,
+    "path": "XIUI/modules/partylist/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.statusicons",
+    "structural": false,
+    "path": "XIUI/modules/partylist/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.progressbar",
+    "structural": false,
+    "path": "XIUI/modules/partylist/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.windowbackground",
+    "structural": false,
+    "path": "XIUI/modules/partylist/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.encoding",
+    "structural": false,
+    "path": "XIUI/modules/partylist/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.castcost.shared",
+    "structural": false,
+    "path": "XIUI/modules/partylist/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.defaultpositions",
+    "structural": false,
+    "path": "XIUI/modules/partylist/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.imtext",
+    "structural": false,
+    "path": "XIUI/modules/partylist/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: core.gamestate",
+    "structural": false,
+    "path": "XIUI/modules/partylist/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.partylist.data",
+    "structural": false,
+    "path": "XIUI/modules/partylist/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/modules/partylist/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.encoding",
+    "structural": false,
+    "path": "XIUI/modules/partylist/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.texturemanager",
+    "structural": false,
+    "path": "XIUI/modules/partylist/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.partylist.data",
+    "structural": false,
+    "path": "XIUI/modules/partylist/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.partylist.display",
+    "structural": false,
+    "path": "XIUI/modules/partylist/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/modules/petbar/data.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.windowbackground",
+    "structural": false,
+    "path": "XIUI/modules/petbar/data.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.packets",
+    "structural": false,
+    "path": "XIUI/modules/petbar/data.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.abilityrecast",
+    "structural": false,
+    "path": "XIUI/modules/petbar/data.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.petbuffhandler",
+    "structural": false,
+    "path": "XIUI/modules/petbar/data.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/modules/petbar/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.progressbar",
+    "structural": false,
+    "path": "XIUI/modules/petbar/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.drawing",
+    "structural": false,
+    "path": "XIUI/modules/petbar/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.imtext",
+    "structural": false,
+    "path": "XIUI/modules/petbar/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.statusicons",
+    "structural": false,
+    "path": "XIUI/modules/petbar/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.statushandler",
+    "structural": false,
+    "path": "XIUI/modules/petbar/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.bufftable",
+    "structural": false,
+    "path": "XIUI/modules/petbar/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.petbar.data",
+    "structural": false,
+    "path": "XIUI/modules/petbar/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.color",
+    "structural": false,
+    "path": "XIUI/modules/petbar/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.defaultpositions",
+    "structural": false,
+    "path": "XIUI/modules/petbar/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/modules/petbar/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.imtext",
+    "structural": false,
+    "path": "XIUI/modules/petbar/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.abilityrecast",
+    "structural": false,
+    "path": "XIUI/modules/petbar/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.texturemanager",
+    "structural": false,
+    "path": "XIUI/modules/petbar/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.petbar.data",
+    "structural": false,
+    "path": "XIUI/modules/petbar/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.petbar.display",
+    "structural": false,
+    "path": "XIUI/modules/petbar/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.petbar.pettarget",
+    "structural": false,
+    "path": "XIUI/modules/petbar/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/modules/petbar/pettarget.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.imtext",
+    "structural": false,
+    "path": "XIUI/modules/petbar/pettarget.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.windowbackground",
+    "structural": false,
+    "path": "XIUI/modules/petbar/pettarget.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.progressbar",
+    "structural": false,
+    "path": "XIUI/modules/petbar/pettarget.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.petbar.data",
+    "structural": false,
+    "path": "XIUI/modules/petbar/pettarget.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/modules/playerbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.imtext",
+    "structural": false,
+    "path": "XIUI/modules/playerbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.progressbar",
+    "structural": false,
+    "path": "XIUI/modules/playerbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.bufftable",
+    "structural": false,
+    "path": "XIUI/modules/playerbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.castcost.shared",
+    "structural": false,
+    "path": "XIUI/modules/playerbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.defaultpositions",
+    "structural": false,
+    "path": "XIUI/modules/playerbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: bit",
+    "structural": false,
+    "path": "XIUI/modules/readycheck/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.readycheck.ui",
+    "structural": false,
+    "path": "XIUI/modules/readycheck/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.readycheck.sound",
+    "structural": false,
+    "path": "XIUI/modules/readycheck/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: bit",
+    "structural": false,
+    "path": "XIUI/modules/readycheck/sound.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: bit",
+    "structural": false,
+    "path": "XIUI/modules/readycheck/ui.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.persisted_window",
+    "structural": false,
+    "path": "XIUI/modules/readycheck/ui.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.statushandler",
+    "structural": false,
+    "path": "XIUI/modules/readycheck/ui.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.satchel.containerlogic",
+    "structural": false,
+    "path": "XIUI/modules/satchel/altcache.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.satchel.slipslogic",
+    "structural": false,
+    "path": "XIUI/modules/satchel/altcache.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.computed-require",
+    "severity": "error",
+    "message": "All require targets must be unique string literals",
+    "structural": false,
+    "path": "XIUI/modules/satchel/augmentlogic.lua",
+    "line": 0,
+    "capability": "dynamic-code"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.components",
+    "structural": false,
+    "path": "XIUI/modules/satchel/contextmenu.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: d3d8",
+    "structural": false,
+    "path": "XIUI/modules/satchel/icons.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: struct",
+    "structural": false,
+    "path": "XIUI/modules/satchel/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.persisted_window",
+    "structural": false,
+    "path": "XIUI/modules/satchel/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.satchel.ui",
+    "structural": false,
+    "path": "XIUI/modules/satchel/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.satchel.itemlogic",
+    "structural": false,
+    "path": "XIUI/modules/satchel/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.satchel.containerlogic",
+    "structural": false,
+    "path": "XIUI/modules/satchel/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.satchel.icons",
+    "structural": false,
+    "path": "XIUI/modules/satchel/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.texturemanager",
+    "structural": false,
+    "path": "XIUI/modules/satchel/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.satchel.settings",
+    "structural": false,
+    "path": "XIUI/modules/satchel/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.satchel.packets",
+    "structural": false,
+    "path": "XIUI/modules/satchel/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.satchel.contextmenu",
+    "structural": false,
+    "path": "XIUI/modules/satchel/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.satchel.slipslogic",
+    "structural": false,
+    "path": "XIUI/modules/satchel/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.satchel.altcache",
+    "structural": false,
+    "path": "XIUI/modules/satchel/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.satchel.layoutstate",
+    "structural": false,
+    "path": "XIUI/modules/satchel/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.satchel.tooltips",
+    "structural": false,
+    "path": "XIUI/modules/satchel/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.satchel.satchelfontcore",
+    "structural": false,
+    "path": "XIUI/modules/satchel/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.satchel.searchlogic",
+    "structural": false,
+    "path": "XIUI/modules/satchel/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.computed-require",
+    "severity": "error",
+    "message": "All require targets must be unique string literals",
+    "structural": false,
+    "path": "XIUI/modules/satchel/itemlogic.lua",
+    "line": 0,
+    "capability": "dynamic-code"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: bitreader",
+    "structural": false,
+    "path": "XIUI/modules/satchel/itemlogic.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.texturemanager",
+    "structural": false,
+    "path": "XIUI/modules/satchel/itemlogic.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.satchel.tooltips",
+    "structural": false,
+    "path": "XIUI/modules/satchel/itemlogic.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.satchel.satchelfontcore",
+    "structural": false,
+    "path": "XIUI/modules/satchel/itemlogic.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.satchel.colors",
+    "structural": false,
+    "path": "XIUI/modules/satchel/itemlogic.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.satchel.searchlogic",
+    "structural": false,
+    "path": "XIUI/modules/satchel/itemlogic.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.satchel.augmentlogic",
+    "structural": false,
+    "path": "XIUI/modules/satchel/itemlogic.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.satchel.layoutstate",
+    "structural": false,
+    "path": "XIUI/modules/satchel/itemlogic.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.jobs",
+    "structural": false,
+    "path": "XIUI/modules/satchel/itemlogic.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.satchel.containerlogic",
+    "structural": false,
+    "path": "XIUI/modules/satchel/layoutstate.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.imtext",
+    "structural": false,
+    "path": "XIUI/modules/satchel/satchelfontcore.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.environment-manipulation",
+    "severity": "error",
+    "message": "Global or package environment manipulation is prohibited",
+    "structural": false,
+    "path": "XIUI/modules/satchel/searchlogic.lua",
+    "line": 0,
+    "capability": "dynamic-code"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.satchel.containerlogic",
+    "structural": false,
+    "path": "XIUI/modules/satchel/slipslogic.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.satchel.satchelfontcore",
+    "structural": false,
+    "path": "XIUI/modules/satchel/tooltips.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.texturemanager",
+    "structural": false,
+    "path": "XIUI/modules/satchel/tooltips.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.texturemanager",
+    "structural": false,
+    "path": "XIUI/modules/satchel/ui.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: config.components",
+    "structural": false,
+    "path": "XIUI/modules/satchel/ui.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.satchel.searchlogic",
+    "structural": false,
+    "path": "XIUI/modules/satchel/ui.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.satchel.containerlogic",
+    "structural": false,
+    "path": "XIUI/modules/satchel/ui.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.satchel.colors",
+    "structural": false,
+    "path": "XIUI/modules/satchel/ui.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.satchel.satchelfontcore",
+    "structural": false,
+    "path": "XIUI/modules/satchel/ui.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/modules/targetbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.statushandler",
+    "structural": false,
+    "path": "XIUI/modules/targetbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.debuffhandler",
+    "structural": false,
+    "path": "XIUI/modules/targetbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.actiontracker",
+    "structural": false,
+    "path": "XIUI/modules/targetbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.enemycasts",
+    "structural": false,
+    "path": "XIUI/modules/targetbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.progressbar",
+    "structural": false,
+    "path": "XIUI/modules/targetbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.statusicons",
+    "structural": false,
+    "path": "XIUI/modules/targetbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.bufftable",
+    "structural": false,
+    "path": "XIUI/modules/targetbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.imtext",
+    "structural": false,
+    "path": "XIUI/modules/targetbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.defaultpositions",
+    "structural": false,
+    "path": "XIUI/modules/targetbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.texturemanager",
+    "structural": false,
+    "path": "XIUI/modules/targetbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.mobinfo.data",
+    "structural": false,
+    "path": "XIUI/modules/targetbar.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.treasurepool.data",
+    "structural": false,
+    "path": "XIUI/modules/treasurepool/actions.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/modules/treasurepool/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.windowbackground",
+    "structural": false,
+    "path": "XIUI/modules/treasurepool/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.progressbar",
+    "structural": false,
+    "path": "XIUI/modules/treasurepool/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.button",
+    "structural": false,
+    "path": "XIUI/modules/treasurepool/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.texturemanager",
+    "structural": false,
+    "path": "XIUI/modules/treasurepool/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.imtext",
+    "structural": false,
+    "path": "XIUI/modules/treasurepool/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.treasurepool.data",
+    "structural": false,
+    "path": "XIUI/modules/treasurepool/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.treasurepool.actions",
+    "structural": false,
+    "path": "XIUI/modules/treasurepool/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.defaultpositions",
+    "structural": false,
+    "path": "XIUI/modules/treasurepool/display.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: handlers.helpers",
+    "structural": false,
+    "path": "XIUI/modules/treasurepool/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: libs.imtext",
+    "structural": false,
+    "path": "XIUI/modules/treasurepool/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.treasurepool.data",
+    "structural": false,
+    "path": "XIUI/modules/treasurepool/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.treasurepool.display",
+    "structural": false,
+    "path": "XIUI/modules/treasurepool/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "lua.disallowed-module",
+    "severity": "error",
+    "message": "Module is neither policy-approved nor bundled locally: modules.treasurepool.actions",
+    "structural": false,
+    "path": "XIUI/modules/treasurepool/init.lua",
+    "line": 0,
+    "capability": "unapproved-module"
+  },
+  {
+    "ruleId": "package.entrypoint",
+    "severity": "error",
+    "message": "Root-level entrypoint xiui.lua was not found",
+    "structural": true,
+    "path": "",
+    "line": 0,
+    "capability": ""
+  }
+]
