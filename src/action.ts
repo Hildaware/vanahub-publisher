@@ -44,7 +44,8 @@ function output(name: string, value: string): void {
 }
 
 function semverFromTag(tag: string): string {
-  const version = tag.startsWith('v') ? tag.slice(1) : tag;
+  const versionPart = tag.includes('/') ? tag.split('/').pop()! : tag;
+  const version = versionPart.startsWith('v') ? versionPart.slice(1) : versionPart;
   if (
     !/^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?$/.test(
       version,
@@ -153,9 +154,16 @@ async function main() {
     input('release-tag'),
     input('github-token'),
   );
+  let configPathInput = input('config-path', '.vanahub/package.json');
+  if (release.tag_name.includes('/') && configPathInput === '.vanahub/package.json') {
+    const prefix = release.tag_name.split('/')[0];
+    if (prefix) {
+      configPathInput = `.vanahub/${prefix}.json`;
+    }
+  }
   const configPath = resolve(
     workspace,
-    input('config-path', '.vanahub/package.json'),
+    configPathInput,
   );
   if (
     !isWithin(workspace, configPath) ||
@@ -243,6 +251,10 @@ async function main() {
   );
   writeFileSync(
     join(outputDirectory, 'vanahub-manifest.json'),
+    stableJson(manifest),
+  );
+  writeFileSync(
+    join(outputDirectory, `${config.id}-manifest.json`),
     stableJson(manifest),
   );
   writeFileSync(
