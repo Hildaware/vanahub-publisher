@@ -112,8 +112,8 @@ export function luaFindings(
   ]);
   for (const symbol of blockedSymbols) {
     const pattern = new RegExp(
-      `(?<![A-Za-z0-9_])${escapeRegex(symbol)}(?![A-Za-z0-9_])`,
-      'gi',
+      `(?<![A-Za-z0-9_.:"'\\-])${escapeRegex(symbol)}(?![A-Za-z0-9_])`,
+      'g',
     );
     for (const match of text.matchAll(pattern)) {
       const line = text.slice(0, match.index).split('\n').length;
