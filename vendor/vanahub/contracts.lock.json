@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
   "repository": "https://github.com/Hildaware/vanahub.git",
-  "commit": "36eec4394432e1f6f565bc1d5fe5bf14b17edaf8",
+  "commit": "e00cda4c4c946cc638ad1d32f084bc3c24cf8cb5",
   "contracts": {
     "schemas/package.schema.json": "aea48a2b0042d9e5882c2cbaa367ca7279b9ab642a7c1958cf0a5a86c382fb5b",
-    "policy/scanner-policy.json": "064f1a79bd022c41dd18f77b52ab302555db4ae7f921d2bec7658c4e24eee0fd"
+    "policy/scanner-policy.json": "cf7d3f1ad4bef8863f01ae1675a1c41cc924359fd5beb06e9f3a63202c9b76e5"
   },
   "versions": {
     "packageSchema": 1,
