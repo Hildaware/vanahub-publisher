@@ -104,9 +104,6 @@ export function luaFindings(
 
   const blockedSymbols = new Set([
     ...policy.blockedSymbols,
-    'os',
-    'io',
-    'package',
     'loadfile',
     'getfenv',
     'setfenv',
