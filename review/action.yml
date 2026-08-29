@@ -1,0 +1,42 @@
+name: VanaHub Semantic Review
+description: Run the free VanaHub Lua Semgrep rules and enforce reviewed-file baselines.
+inputs:
+  source-path:
+    description: Repository-relative addon source directory.
+    required: true
+  package-id:
+    description: VanaHub package ID.
+    required: true
+  baseline-path:
+    description: Optional repository-relative reviewed-file baseline.
+    required: false
+outputs:
+  report-path:
+    description: Semantic review JSON report.
+    value: ${{ steps.review.outputs.report-path }}
+  candidate-path:
+    description: Candidate baseline containing files that need review.
+    value: ${{ steps.review.outputs.candidate-path }}
+runs:
+  using: composite
+  steps:
+    - id: review
+      shell: bash
+      env:
+        VANAHUB_SOURCE_PATH: ${{ inputs.source-path }}
+        VANAHUB_PACKAGE_ID: ${{ inputs.package-id }}
+        VANAHUB_BASELINE_PATH: ${{ inputs.baseline-path }}
+        SEMGREP_ENABLE_VERSION_CHECK: '0'
+        SEMGREP_SEND_METRICS: 'off'
+        SEMGREP_LOG_FILE: ${{ runner.temp }}/vanahub-semgrep.log
+        SEMGREP_SETTINGS_FILE: ${{ runner.temp }}/vanahub-semgrep-settings.yml
+      run: |
+        python3 -m venv "${RUNNER_TEMP}/vanahub-semgrep"
+        "${RUNNER_TEMP}/vanahub-semgrep/bin/python" -m pip install --disable-pip-version-check --quiet semgrep==1.175.0
+        "${RUNNER_TEMP}/vanahub-semgrep/bin/python" "${GITHUB_ACTION_PATH}/review_gate.py" \
+          --semgrep "${RUNNER_TEMP}/vanahub-semgrep/bin/semgrep" \
+          --rules "${GITHUB_ACTION_PATH}/rules/vanahub-lua.yml" \
+          --source "${VANAHUB_SOURCE_PATH}" \
+          --package-id "${VANAHUB_PACKAGE_ID}" \
+          --baseline "${VANAHUB_BASELINE_PATH}" \
+          --output-directory "${RUNNER_TEMP}/vanahub-semantic-review"

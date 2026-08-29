@@ -26,9 +26,9 @@ const fixtures = [
     accepted: true,
   },
   {
-    name: 'blocked-symbol',
+    name: 'semantic-warning',
     files: [['sample/sample.lua', "local socket = require('socket')\n"]],
-    accepted: false,
+    accepted: true,
     rule: 'lua.blocked-symbol',
   },
   {

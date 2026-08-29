@@ -30,6 +30,22 @@ without another release or additional credentials.
 
 Local-source mode can still export a normalized ZIP or a manual publishing kit, but it does not install repository automation.
 
+## Semantic review
+
+Every built-in package receives semantic review again during catalog
+submission, update discovery, admission, and final publication. Catalog-owned
+exact-file baselines are authoritative for admission. Informational findings
+are reported, elevated findings and parser gaps require review, and critical
+findings cannot be approved by a baseline.
+
+The curated distro additionally runs the `review/` composite action before
+publishing, so known elevated changes are stopped before release assets are
+written. Its `.vanahub/reviews/<package-id>.json` files are preflight approvals;
+the catalog independently keeps and verifies its own trusted copy.
+
+Run semantic review before the write-enabled publishing job and give that job
+only `contents: read`. Do not execute addon code during review.
+
 ## Local development
 
 ```sh

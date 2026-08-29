@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 const fs = require('fs');
 const code = fs.readFileSync('dist-action/index.js', 'utf8');
 const match = code.match(/function buildCatalogManifest\(e,t,s,a\)\{.*?\}/);

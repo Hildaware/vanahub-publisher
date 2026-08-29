@@ -45,7 +45,9 @@ function output(name: string, value: string): void {
 
 function semverFromTag(tag: string): string {
   const versionPart = tag.includes('/') ? tag.split('/').pop()! : tag;
-  const version = versionPart.startsWith('v') ? versionPart.slice(1) : versionPart;
+  const version = versionPart.startsWith('v')
+    ? versionPart.slice(1)
+    : versionPart;
   if (
     !/^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?$/.test(
       version,
@@ -104,14 +106,10 @@ function sourceEntries(root: string, excludedRoot: string): SourceEntry[] {
       if (isWithin(excludedRoot, path)) continue;
       const stat = lstatSync(path);
       const normalized = relative(root, path).split(sep).join('/');
+      const parts = normalized.split('/');
       if (
-        normalized === '.git' ||
-        normalized.startsWith('.git/') ||
-        normalized === '.github' ||
-        normalized.startsWith('.github/') ||
-        normalized === '.vanahub' ||
-        normalized.startsWith('.vanahub/') ||
-        normalized === '.vanahub.json'
+        parts.some((part) => ['.git', '.github', '.vanahub'].includes(part)) ||
+        parts.at(-1) === '.vanahub.json'
       )
         continue;
       if (stat.isSymbolicLink())
@@ -155,16 +153,16 @@ async function main() {
     input('github-token'),
   );
   let configPathInput = input('config-path', '.vanahub/package.json');
-  if (release.tag_name.includes('/') && configPathInput === '.vanahub/package.json') {
+  if (
+    release.tag_name.includes('/') &&
+    configPathInput === '.vanahub/package.json'
+  ) {
     const prefix = release.tag_name.split('/')[0];
     if (prefix) {
       configPathInput = `.vanahub/${prefix}.json`;
     }
   }
-  const configPath = resolve(
-    workspace,
-    configPathInput,
-  );
+  const configPath = resolve(workspace, configPathInput);
   if (
     !isWithin(workspace, configPath) ||
     !isWithin(workspace, realpathSync(configPath))
@@ -219,6 +217,14 @@ async function main() {
   const entries = sourceEntries(sourceRoot, outputDirectory);
   const report = scanEntries(entries, '', metadata);
   metadata.declaredCapabilities = report.suggestedCapabilities;
+  mkdirSync(outputDirectory, { recursive: true });
+  writeFileSync(
+    join(outputDirectory, 'validation-report.json'),
+    stableJson(report),
+  );
+  output('output-directory', outputDirectory);
+  output('package-id', config.id);
+  output('version', version);
   if (!report.eligibleForScreenedCatalog)
     throw new Error(
       `Catalog validation failed:\n${report.findings.map((item) => `${item.ruleId}: ${item.message}`).join('\n')}`,
@@ -244,7 +250,6 @@ async function main() {
         .map((error) => `${error.instancePath || 'manifest'} ${error.message}`)
         .join('\n'),
     );
-  mkdirSync(outputDirectory, { recursive: true });
   writeFileSync(
     join(outputDirectory, artifactName),
     Buffer.from(await artifact.arrayBuffer()),
@@ -258,17 +263,10 @@ async function main() {
     stableJson(manifest),
   );
   writeFileSync(
-    join(outputDirectory, 'validation-report.json'),
-    stableJson(report),
-  );
-  writeFileSync(
     join(outputDirectory, 'SHA256SUMS.txt'),
     `${digest}  ${artifactName}\n`,
   );
   output('artifact-name', artifactName);
-  output('output-directory', outputDirectory);
-  output('package-id', config.id);
-  output('version', version);
   console.log(`Prepared ${artifactName} (${artifact.size} bytes, ${digest}).`);
 }
 

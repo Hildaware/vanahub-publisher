@@ -54,6 +54,7 @@ describe('scanner', () => {
         entry('sample/Data.json', '{}'),
         entry('sample/data.json', '{}'),
         entry('sample/helper.dll', 'PE'),
+        entry('sample/extensionless', 'MZ executable'),
         entry('sample/link.lua', '', { externalAttributes: 0xa000 << 16 }),
         entry('sample/bomb.txt', 'x'.repeat(1000), { compressedSize: 1 }),
       ],
@@ -64,12 +65,13 @@ describe('scanner', () => {
     expect(rules).toContain('zip.unsafe-path');
     expect(rules).toContain('zip.path-collision');
     expect(rules).toContain('zip.file-type');
+    expect(rules).toContain('zip.executable-content');
     expect(rules).toContain('zip.symlink');
     expect(rules).toContain('zip.compression-ratio');
     expect(report.structurallyValid).toBe(false);
   });
 
-  it('downgrades elevated Lua only in custom mode', () => {
+  it('reports elevated Lua as warnings in every publishing mode', () => {
     const source = [
       entry('sample/sample.lua', "local socket = require('socket')"),
     ];
@@ -79,7 +81,7 @@ describe('scanner', () => {
       builtIn.findings.find(
         (finding) => finding.ruleId === 'lua.blocked-symbol',
       )?.severity,
-    ).toBe('error');
+    ).toBe('warning');
     expect(
       custom.findings
         .filter((finding) => !finding.structural)
@@ -88,25 +90,52 @@ describe('scanner', () => {
     expect(custom.structurallyValid).toBe(true);
   });
 
-  it('blocks aliases of dangerous standard libraries', () => {
+  it('requires review for process execution', () => {
     const report = scanEntries(
-      [entry('sample/sample.lua', "local runner = os\nrunner.execute('calc')")],
+      [entry('sample/sample.lua', "os.execute('calc')")],
       'sample',
       metadata(),
     );
     expect(report.findings.map((finding) => finding.ruleId)).toContain(
-      'lua.blocked-symbol',
+      'lua.elevated-capability',
     );
     expect(
-      report.findings.find((finding) => finding.ruleId === 'lua.blocked-symbol')
-        ?.capability,
+      report.findings.find(
+        (finding) => finding.ruleId === 'lua.elevated-capability',
+      )?.capability,
     ).toBe('process-execution');
-    expect(report.eligibleForScreenedCatalog).toBe(false);
+    expect(report.eligibleForScreenedCatalog).toBe(true);
     expect(
       report.findings
         .filter((finding) => !finding.structural)
         .every((finding) => finding.capability),
     ).toBe(true);
+  });
+
+  it('still blocks an unreviewable critical download API', () => {
+    const report = scanEntries(
+      [entry('sample/sample.lua', 'URLDownloadToFile()')],
+      'sample',
+      metadata(),
+    );
+    expect(report.eligibleForScreenedCatalog).toBe(false);
+    expect(report.findings).toContainEqual(
+      expect.objectContaining({
+        ruleId: 'lua.blocked-symbol',
+        severity: 'error',
+        capability: 'network',
+      }),
+    );
+  });
+
+  it('does not treat ordinary clock use as process execution', () => {
+    const report = scanEntries(
+      [entry('sample/sample.lua', 'return os.clock()')],
+      'sample',
+      metadata(),
+    );
+    expect(report.eligibleForScreenedCatalog).toBe(true);
+    expect(report.findings).toEqual([]);
   });
 
   it('warns without blocking for sensitive allowed capabilities', () => {
